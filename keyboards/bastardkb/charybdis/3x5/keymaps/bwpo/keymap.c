@@ -33,7 +33,8 @@ enum charybdis_keymap_layers {
 enum custom_keycodes {
     QK_REG = SAFE_RANGE,
     QK_HELP,
-    QK_US
+    QK_US,
+    QK_USS
 };
 
 // Automatically enable sniping-mode on the pointer layer.
@@ -131,7 +132,7 @@ static uint16_t auto_pointer_layer_timer = 0;
  * base layer to avoid having to layer change mid edit and to enable auto-repeat.
  */
 #define LAYOUT_LAYER_NAVIGATION                                                               \
-    XXXXXXX, XXXXXXX, QK_HELP, QK_REG, QK_US, _______________DEAD_HALF_ROW_______________, \
+    QK_USS, XXXXXXX, QK_HELP, QK_REG, QK_US, _______________DEAD_HALF_ROW_______________, \
     ______________HOME_ROW_GACS_L______________, KC_BSPC, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, \
     _______________DEAD_HALF_ROW_______________,  KC_DEL, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, \
                       XXXXXXX, _______, XXXXXXX,  KC_ENT, KC_ENT
