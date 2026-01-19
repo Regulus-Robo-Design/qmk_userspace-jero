@@ -23,3 +23,28 @@
 #define SPLIT_LED_STATE_ENABLE
 
 #define ENCODER_RESOLUTION 4
+
+// QP stuff
+#define SPI_SCK_PIN GP22 // as per vik connector
+#define SPI_MOSI_PIN GP23 // as per vik connector
+#define SPI_MISO_PIN GP18 // Unused
+#define LCD_RST_PIN GP16 // Unused, TODO connect to Vcc for now, test with SCL later
+#define LCD_DC_PIN GP12 // vik_gp1
+#define LCD_CS_PIN GP11 // vik_gp2
+#define LCD_BLK_PIN GP4 // backlight, not used here, configured in keyboard.json
+#define BACKLIGHT_PWM_DRIVER PWMD2
+#define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_A
+
+#define SPI_DRIVER SPID0
+#define LCD_SPI_DIVISOR 4
+#define LCD_WAIT_TIME 150
+#define LCD_ROTATION QP_ROTATION_0
+#define LCD_OFFSET_X 0
+#define LCD_OFFSET_Y 20
+#define LCD_WIDTH 240 // Set according to your display specs
+#define LCD_HEIGHT 280 // Set according to your display specs
+#define SPI_MODE 3 // Set according to your display specs
+#define ST7789 // Set according to your display specs GC_9A01 or ST7789
+#define QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS TRUE
+// Timeout configuration, default 30000 (30 sek). 0 = No timeout. Beware of image retention.
+#define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0
