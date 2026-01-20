@@ -18,7 +18,7 @@
 
 #include QMK_KEYBOARD_H
 
-typedef enum {
+enum dilemma_keymap_layers {
     LAYER_BASE = 0,
     LAYER_FUNCTION,
     LAYER_NAVIGATION,
@@ -26,8 +26,7 @@ typedef enum {
     LAYER_POINTER,
     LAYER_NUMERAL,
     LAYER_SYMBOLS,
-    LAST_LAYER
-} dilemma_keymap_layers;
+};
 
 // Automatically enable sniping-mode on the pointer layer.
 // #define DILEMMA_AUTO_SNIPING_ON_LAYER LAYER_POINTER
@@ -220,11 +219,10 @@ void bk_display_layer_number(void) {
     int rect_x       = 15;
 
     if (prev_layer != layer) {
-        char *layer_name = layer_str(layer);
-
         qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
         qp_rect(lcd, 0, 0, rect_x, LCD_HEIGHT, HSV_BLUE, true);
-        qp_drawtext(lcd, layer_name_x, layer_name_y, font_layer, layer_name);
+                qp_drawtext(lcd, layer_name_x, layer_name_y, font_layer, "01 FUNCT");
+                qp_drawtext(lcd, layer_name_x, layer_name_y + 30, font_menu, "MODS");
 
     }
     
@@ -235,31 +233,42 @@ void bk_render_mods(uint16_t x, uint16_t y, bool render_all) {
 
 }
 
-const char *layer_str(dilemma_keymap_layers layer) {
-  const char* layers = {"00 BASE", "01 FUNCT", "02 NAV", "03 MED/RGB", "04 POINT", "05 NUM", "06 SYM"};
+// const char *layer_str(enum dilemma_keymap_layers layer) {
+//     switch(layer){
+//         case LAYER_FUNCTION:
+//           return "01 FUNCT";
+//         case LAYER_NAVIGATION:
+//           return "02 NAV";
+//         case LAYER_MEDIA:
+//           return "03 MED/RGB";
+//         case LAYER_POINTER:
+//           return "04 POINT";
+//         case LAYER_NUMERAL:
+//           return "05 NUM";
+//         case LAYER_SYMBOLS:
+//           return "06 SYM";
+//         default: 
+//         case LAYER_BASE:
+//           return "00 BASE";   
+//     }
+// }
 
-  if(layer > LAST_LAYER)
-    layer = 0;
-
-  return layers[layer];
-}
-
-const hsv_t  (dilemma_keymap_layers layer) {
-    switch(layer){
-        case LAYER_FUNCTION:
-          return (hsv_t){HSV_BLUE};
-        case LAYER_NAVIGATION:
-          return (hsv_t){HSV_AZURE};
-        case LAYER_MEDIA:
-          return (hsv_t){HSV_ORANGE};
-        case LAYER_POINTER:
-          return (hsv_t){HSV_GREEN};
-        case LAYER_NUMERAL:
-          return (hsv_t){HSV_TEAL};
-        case LAYER_SYMBOLS:
-          return (hsv_t){HSV_PURPLE};
-        case LAYER_BASE:
-        default: 
-          return (hsv_t){HSV_WHITE};
-    }
-}
+// const hsv_t  (enum dilemma_keymap_layers layer) {
+//     switch(layer){
+//         case LAYER_FUNCTION:
+//           return (hsv_t){HSV_BLUE};
+//         case LAYER_NAVIGATION:
+//           return (hsv_t){HSV_AZURE};
+//         case LAYER_MEDIA:
+//           return (hsv_t){HSV_ORANGE};
+//         case LAYER_POINTER:
+//           return (hsv_t){HSV_GREEN};
+//         case LAYER_NUMERAL:
+//           return (hsv_t){HSV_TEAL};
+//         case LAYER_SYMBOLS:
+//           return (hsv_t){HSV_PURPLE};
+//         case LAYER_BASE:
+//         default: 
+//           return (hsv_t){HSV_WHITE};
+//     }
+// }
