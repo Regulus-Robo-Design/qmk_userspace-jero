@@ -18,7 +18,7 @@
 
 #include QMK_KEYBOARD_H
 
-enum dilemma_keymap_layers {
+typedef enum {
     LAYER_BASE = 0,
     LAYER_FUNCTION,
     LAYER_NAVIGATION,
@@ -26,7 +26,7 @@ enum dilemma_keymap_layers {
     LAYER_POINTER,
     LAYER_NUMERAL,
     LAYER_SYMBOLS,
-};
+} dilemma_keymap_layers;
 
 // Automatically enable sniping-mode on the pointer layer.
 // #define DILEMMA_AUTO_SNIPING_ON_LAYER LAYER_POINTER
@@ -234,7 +234,7 @@ void bk_render_mods(uint16_t x, uint16_t y, bool render_all) {
 
 }
 
-const char *layer_str(enum dilemma_keymap_layers layer) {
+const char *layer_str(dilemma_keymap_layers layer) {
     switch(layer){
         case LAYER_FUNCTION:
           return "01 FUNCT";
@@ -254,7 +254,7 @@ const char *layer_str(enum dilemma_keymap_layers layer) {
     }
 }
 
-const hsv_t  (enum dilemma_keymap_layers layer) {
+const hsv_t  (dilemma_keymap_layers layer) {
     switch(layer){
         case LAYER_FUNCTION:
           return (hsv_t){HSV_BLUE};
