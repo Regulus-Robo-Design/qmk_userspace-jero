@@ -212,9 +212,64 @@ void keyboard_post_init_user(void){
 }
 
 void bk_display_layer_number(void) {
+  const uint8_t layer = get_highest_layer(layer_state);
 
+    int layer_name_x = 30;
+    int layer_name_y = 10;
+    int rect_x       = 15;
+
+    if (prev_layer != layer) {
+        char *layer_name = layer_str(layer);
+
+        qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
+        qp_rect(lcd, 0, 0, rect_x, LCD_HEIGHT, HSV_BLUE, true);
+        qp_drawtext(lcd, layer_name_x, layer_name_y, font_layer, layer_name);
+
+    }
+    
+    prev_layer = layer;
 }
 
 void bk_render_mods(uint16_t x, uint16_t y, bool render_all) {
 
+}
+
+const char *layer_str(enum dilemma_keymap_layers layer) {
+    switch(layer){
+        case LAYER_FUNCTION:
+          return "01 FUNCT";
+        case LAYER_NAVIGATION:
+          return "02 NAV";
+        case LAYER_MEDIA:
+          return "03 MED/RGB";
+        case LAYER_POINTER:
+          return "04 POINT";
+        case LAYER_NUMERAL:
+          return "05 NUM";
+        case LAYER_SYMBOLS:
+          return "06 SYM";
+        default: 
+        case LAYER_BASE:
+          return "00 BASE";   
+    }
+}
+
+const hsv_t  (enum dilemma_keymap_layers layer) {
+    switch(layer){
+        case LAYER_FUNCTION:
+          return (hsv_t){HSV_BLUE};
+        case LAYER_NAVIGATION:
+          return (hsv_t){HSV_AZURE};
+        case LAYER_MEDIA:
+          return (hsv_t){HSV_ORANGE};
+        case LAYER_POINTER:
+          return (hsv_t){HSV_GREEN};
+        case LAYER_NUMERAL:
+          return (hsv_t){HSV_TEAL};
+        case LAYER_SYMBOLS:
+          return (hsv_t){HSV_PURPLE};
+        case LAYER_BASE:
+        default: 
+          return (hsv_t){HSV_WHITE};
+    }
 }
