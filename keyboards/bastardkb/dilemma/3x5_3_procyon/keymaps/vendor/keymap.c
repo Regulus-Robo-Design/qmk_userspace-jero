@@ -211,6 +211,15 @@ void keyboard_post_init_user(void){
     }
 }
 
+void housekeeping_task_user(void) {
+    static uint32_t last_draw = 0;
+    if (timer_elapsed32(last_draw) > 33) { // throttle
+        last_draw = timer_read32();
+        bk_display_layer_number();
+        qp_flush(lcd);
+    }
+}
+
 void bk_display_layer_number(void) {
   const uint8_t layer = get_highest_layer(layer_state);
 
