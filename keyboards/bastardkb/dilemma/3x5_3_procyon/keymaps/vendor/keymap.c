@@ -185,62 +185,62 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 // clang-format on
 #endif // ENCODER_MAP_ENABLE
 
-void keyboard_post_init_user(void){
-    if (is_keyboard_left()) {
-        // Display timeout
-        wait_ms(LCD_WAIT_TIME);
+// void keyboard_post_init_user(void){
+//     if (is_keyboard_left()) {
+//         // Display timeout
+//         wait_ms(LCD_WAIT_TIME);
 
-        lcd = qp_st7789_make_spi_device(LCD_HEIGHT, LCD_WIDTH, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, SPI_MODE);
-        qp_init(lcd, LCD_ROTATION);
+//         lcd = qp_st7789_make_spi_device(LCD_HEIGHT, LCD_WIDTH, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, SPI_MODE);
+//         qp_init(lcd, LCD_ROTATION);
 
-        // Display offset
-        qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
+//         // Display offset
+//         qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
 
-        // load fonts
-        font_layer    = qp_load_font_mem(font_gridlitepbslayer);
-        font_menu     = qp_load_font_mem(font_gridlitepbsmenu);
-        font_menu_off = qp_load_font_mem(font_gridlitepbsmenuoff);
+//         // load fonts
+//         font_layer    = qp_load_font_mem(font_gridlitepbslayer);
+//         font_menu     = qp_load_font_mem(font_gridlitepbsmenu);
+//         font_menu_off = qp_load_font_mem(font_gridlitepbsmenuoff);
 
-        // Power on display, fill with white
-        qp_power(lcd, 1);
-        qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
+//         // Power on display, fill with white
+//         qp_power(lcd, 1);
+//         qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
 
-        prev_layer = 99;
-        bk_display_layer_number();
-        keyboard_post_init_user();
-    }
-}
+//         prev_layer = 99;
+//         bk_display_layer_number();
+//         keyboard_post_init_user();
+//     }
+// }
 
-void housekeeping_task_user(void) {
-    static uint32_t last_draw = 0;
-    if (timer_elapsed32(last_draw) > 33) { // throttle
-        last_draw = timer_read32();
-        bk_display_layer_number();
-        qp_flush(lcd);
-    }
-}
+// void housekeeping_task_user(void) {
+//     static uint32_t last_draw = 0;
+//     if (timer_elapsed32(last_draw) > 33) { // throttle
+//         last_draw = timer_read32();
+//         bk_display_layer_number();
+//         qp_flush(lcd);
+//     }
+// }
 
-void bk_display_layer_number(void) {
-  const uint8_t layer = get_highest_layer(layer_state);
+// void bk_display_layer_number(void) {
+//   const uint8_t layer = get_highest_layer(layer_state);
 
-    int layer_name_x = 30;
-    int layer_name_y = 10;
-    int rect_x       = 15;
+//     int layer_name_x = 30;
+//     int layer_name_y = 10;
+//     int rect_x       = 15;
 
-    if (prev_layer != layer) {
-        qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
-        qp_rect(lcd, 0, 0, rect_x, LCD_HEIGHT, HSV_BLUE, true);
-                qp_drawtext(lcd, layer_name_x, layer_name_y, font_layer, "01 FUNCT");
-                qp_drawtext(lcd, layer_name_x, layer_name_y + 30, font_menu, "MODS");
+//     if (prev_layer != layer) {
+//         qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
+//         qp_rect(lcd, 0, 0, rect_x, LCD_HEIGHT, HSV_BLUE, true);
+//                 qp_drawtext(lcd, layer_name_x, layer_name_y, font_layer, "01 FUNCT");
+//                 qp_drawtext(lcd, layer_name_x, layer_name_y + 30, font_menu, "MODS");
 
-    }
+//     }
     
-    prev_layer = layer;
-}
+//     prev_layer = layer;
+// }
 
-void bk_render_mods(uint16_t x, uint16_t y, bool render_all) {
+// void bk_render_mods(uint16_t x, uint16_t y, bool render_all) {
 
-}
+// }
 
 // const char *layer_str(enum dilemma_keymap_layers layer) {
 //     switch(layer){
