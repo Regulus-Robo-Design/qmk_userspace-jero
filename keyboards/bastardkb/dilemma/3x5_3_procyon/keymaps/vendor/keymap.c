@@ -26,6 +26,7 @@ typedef enum {
     LAYER_POINTER,
     LAYER_NUMERAL,
     LAYER_SYMBOLS,
+    LAST_LAYER
 } dilemma_keymap_layers;
 
 // Automatically enable sniping-mode on the pointer layer.
@@ -235,23 +236,12 @@ void bk_render_mods(uint16_t x, uint16_t y, bool render_all) {
 }
 
 const char *layer_str(dilemma_keymap_layers layer) {
-    switch(layer){
-        case LAYER_FUNCTION:
-          return "01 FUNCT";
-        case LAYER_NAVIGATION:
-          return "02 NAV";
-        case LAYER_MEDIA:
-          return "03 MED/RGB";
-        case LAYER_POINTER:
-          return "04 POINT";
-        case LAYER_NUMERAL:
-          return "05 NUM";
-        case LAYER_SYMBOLS:
-          return "06 SYM";
-        default: 
-        case LAYER_BASE:
-          return "00 BASE";   
-    }
+  const char* layers = {"00 BASE", "01 FUNCT", "02 NAV", "03 MED/RGB", "04 POINT", "05 NUM", "06 SYM"};
+
+  if(layer > LAST_LAYER)
+    layer = 0;
+
+  return layers[layer];
 }
 
 const hsv_t  (dilemma_keymap_layers layer) {
