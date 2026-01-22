@@ -3,10 +3,11 @@
 // painter_font_handle_t font_menu_off;
 static uint8_t prev_layer;
 
-#undef RP_PWM_USE_PWM2
-#define RP_PWM_USE_PWM2 TRUE
 #undef HAL_USE_PWM
 #define HAL_USE_PWM TRUE
+
+#undef RP_PWM_USE_PWM2
+#define RP_PWM_USE_PWM2 TRUE
 
 #undef RP_I2C_USE_I2C0
 #define RP_I2C_USE_I2C0 FALSE
