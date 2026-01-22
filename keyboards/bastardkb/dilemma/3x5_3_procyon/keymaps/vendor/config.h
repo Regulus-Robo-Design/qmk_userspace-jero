@@ -31,8 +31,9 @@
 #define LCD_RST_PIN GP16 // Unused, TODO connect to Vcc for now, test with SCL later
 #define LCD_DC_PIN GP12 // vik_gp1
 #define LCD_CS_PIN GP11 // vik_gp2
-#define LCD_BLK_PIN GP20 // backlight
+#define LCD_BLK_PIN GP4 // not used
 #define BACKLIGHT_LEVELS 16
+#define BACKLIGHT_PIN GP20 // backlight pin for lcd
 #define BACKLIGHT_PWM_DRIVER PWMD2
 #define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_A
 
