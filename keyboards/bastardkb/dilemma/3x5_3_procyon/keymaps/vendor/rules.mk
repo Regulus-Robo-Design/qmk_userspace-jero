@@ -10,3 +10,5 @@ SRC += gfx/bar_blue.qgf.c
 SRC += gfx/bar_green.qgf.c
 SRC += gfx/bar_gray.qgf.c
 SRC += gfx/fonts.qff.c
+
+BACKLIGHT_DRIVER = pwm
