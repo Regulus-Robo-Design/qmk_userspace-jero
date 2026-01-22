@@ -47,6 +47,8 @@ enum dilemma_keymap_layers {
 #endif // !POINTING_DEVICE_ENABLE
 
 // QP stuff
+#include "qp.h"
+#include "qp_comms.h"
 #include "qp_st77xx_opcodes.h"
 #include "gfx/POC.qgf.h"
 #include "gfx/bar_blue.qgf.h"
@@ -54,7 +56,6 @@ enum dilemma_keymap_layers {
 #include "gfx/bar_green.qgf.h"
 #include "gfx/fonts.qff.h"
 #include "keymap.h"
-
 #include "color.h"
 painter_device_t lcd;
 // end QP stuff
@@ -185,47 +186,50 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 // clang-format on
 #endif // ENCODER_MAP_ENABLE
 
-// void keyboard_post_init_user(void){
-//     if (is_keyboard_left()) {
-//         // Display timeout
-//         wait_ms(LCD_WAIT_TIME);
+void keyboard_post_init_user(void){
+    // if (is_keyboard_left()) {
+        // Display timeout
+        wait_ms(LCD_WAIT_TIME);
 
-//         lcd = qp_st7789_make_spi_device(LCD_HEIGHT, LCD_WIDTH, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, SPI_MODE);
-//         qp_init(lcd, LCD_ROTATION);
+        lcd = qp_st7789_make_spi_device(LCD_HEIGHT, LCD_WIDTH, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, SPI_MODE);
+        qp_init(lcd, LCD_ROTATION);
 
-//         // Display offset
-//         qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
+        // Display offset
+        qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
 
-//         // load fonts
-//         font_layer    = qp_load_font_mem(font_gridlitepbslayer);
-//         font_menu     = qp_load_font_mem(font_gridlitepbsmenu);
-//         font_menu_off = qp_load_font_mem(font_gridlitepbsmenuoff);
+        // load fonts
+        // font_layer    = qp_load_font_mem(font_gridlitepbslayer);
+        // font_menu     = qp_load_font_mem(font_gridlitepbsmenu);
+        // font_menu_off = qp_load_font_mem(font_gridlitepbsmenuoff);
 
-//         // Power on display, fill with white
-//         qp_power(lcd, 1);
-//         qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
+        // Power on display, fill with white
+        qp_power(lcd, 1);
+        qp_rect(lcd, 0, 0, 300, 300, HSV_WHITE, 1);
+        qp_flush(lcd);
 
-//         prev_layer = 99;
-//         bk_display_layer_number();
-//         keyboard_post_init_user();
-//     }
-// }
+        prev_layer = 99;
+        // bk_display_layer_number();
+        // keyboard_post_init_user();
+    // }
+}
 
-// void housekeeping_task_user(void) {
-//     static uint32_t last_draw = 0;
-//     if (timer_elapsed32(last_draw) > 33) { // throttle
-//         last_draw = timer_read32();
-//         // bk_display_layer_number();
-//         qp_flush(lcd);
-//     }
-// }
+void housekeeping_task_user(void) {
+    static uint32_t last_draw = 0;
+    if (timer_elapsed32(last_draw) > 33) { // throttle
+        last_draw = timer_read32();
+        
+        qp_rect(lcd, 0, 0, 300, 300, HSV_WHITE, 1);
+        // bk_display_layer_number();
+        qp_flush(lcd);
+    }
+}
 
 // void bk_display_layer_number(void) {
 //   const uint8_t layer = get_highest_layer(layer_state);
 
 //     int layer_name_x = 30;
 //     int layer_name_y = 10;
-//     int rect_x       = 15;
+//     int rect_x       = 15; 
 
 //     if (prev_layer != layer) {
 //         qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
