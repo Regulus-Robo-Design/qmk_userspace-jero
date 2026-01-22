@@ -8,6 +8,12 @@ static uint8_t prev_layer;
 #undef HAL_USE_PWM
 #define HAL_USE_PWM TRUE
 
+#undef RP_I2C_USE_I2C0
+#define RP_I2C_USE_I2C0 FALSE
+
+#undef RP_I2C_USE_I2C1
+#define RP_I2C_USE_I2C1 TRUE
+
 
 // void bk_display_layer_number(void);
 // void bk_render_mods(uint16_t x, uint16_t y,bool render_all); 
