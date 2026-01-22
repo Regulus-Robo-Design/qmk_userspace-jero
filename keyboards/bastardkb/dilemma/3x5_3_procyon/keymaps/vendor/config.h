@@ -34,6 +34,7 @@
 #define LCD_BLK_PIN GP4 // not used
 #define BACKLIGHT_LEVELS 16
 #define BACKLIGHT_PIN GP20 // backlight pin for lcd
+#define BACKLIGHT_PWM_DRIVER PWMD2
 #define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_A
 
 #define SPI_DRIVER SPID0
