@@ -9,12 +9,12 @@ static uint8_t prev_layer;
 #undef RP_I2C_USE_I2C1
 #define RP_I2C_USE_I2C1 TRUE
 
-const char *layer_str(enum dilemma_keymap_layers layer);
+const char *bk_layer_str(enum dilemma_keymap_layers layer);
 void bk_display_layer_number(void);
 
 // void bk_render_mods(uint16_t x, uint16_t y,bool render_all); 
 // const char *layer_str(dilemma_keymap_layers layer);
-const hsv_t layer_color (dilemma_keymap_layers layer);
+const hsv_t bk_layer_color (dilemma_keymap_layers layer);
 
 // static const char *layer_strings[] = {
 //     [LAYER_BASE]       = "00 BASE",

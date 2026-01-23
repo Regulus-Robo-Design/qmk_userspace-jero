@@ -240,7 +240,7 @@ void bk_display_layer_number(void) {
 
 // }
 
-const char *layer_str(enum dilemma_keymap_layers layer) {
+const char *bk_layer_str(enum dilemma_keymap_layers layer) {
     switch(layer){
         case LAYER_FUNCTION:
           return "01 FUNCT";
@@ -260,7 +260,7 @@ const char *layer_str(enum dilemma_keymap_layers layer) {
     }
 }
 
-const hsv_t layer_color (enum dilemma_keymap_layers layer) {
+const hsv_t bk_layer_color (enum dilemma_keymap_layers layer) {
     switch(layer){
         case LAYER_FUNCTION:
           return (hsv_t){HSV_BLUE};
