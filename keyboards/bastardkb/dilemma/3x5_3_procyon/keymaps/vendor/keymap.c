@@ -218,7 +218,7 @@ void housekeeping_task_user(void) {
     if (timer_elapsed32(last_draw) > 33) { // throttle
         last_draw = timer_read32();
         
-        qp_rect(lcd, 0, 0, 300, 300, HSV_WHITE, 1);
+        // qp_rect(lcd, 0, 0, 300, 300, HSV_WHITE, 1);
         bk_display_layer_number();
         qp_flush(lcd);
     }
