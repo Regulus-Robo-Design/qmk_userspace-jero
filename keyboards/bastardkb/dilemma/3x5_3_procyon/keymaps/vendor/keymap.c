@@ -260,22 +260,22 @@ const char *bk_layer_str(enum dilemma_keymap_layers layer) {
     }
 }
 
-const hsv_t bk_layer_color (enum dilemma_keymap_layers layer) {
+const uint8_t bk_layer_color (enum dilemma_keymap_layers layer) {
     switch(layer){
         case LAYER_FUNCTION:
-          return (hsv_t){HSV_BLUE};
+          return HSV_BLUE;
         case LAYER_NAVIGATION:
-          return (hsv_t){HSV_AZURE};
+          return HSV_AZURE;
         case LAYER_MEDIA:
-          return (hsv_t){HSV_ORANGE};
+          return HSV_ORANGE;
         case LAYER_POINTER:
-          return (hsv_t){HSV_GREEN};
+          return HSV_GREEN;
         case LAYER_NUMERAL:
-          return (hsv_t){HSV_TEAL};
+          return HSV_TEAL;
         case LAYER_SYMBOLS:
-          return (hsv_t){HSV_PURPLE};
+          return HSV_PURPLE;
         case LAYER_BASE:
         default: 
-          return (hsv_t){HSV_WHITE};
+          return HSV_WHITE;
     }
 }
