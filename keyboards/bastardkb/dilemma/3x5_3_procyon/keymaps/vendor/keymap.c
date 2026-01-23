@@ -260,8 +260,8 @@ const char *bk_layer_str(enum dilemma_keymap_layers layer) {
     }
 }
 
-const rgb_t bk_layer_color (enum dilemma_keymap_layers layer) {
-  struct hsv_t color;
+const hsv_t bk_layer_color (enum dilemma_keymap_layers layer) {
+  hsv_t color;
     switch(layer){
         case LAYER_FUNCTION:
           color = (hsv_t){HSV_BLUE};
