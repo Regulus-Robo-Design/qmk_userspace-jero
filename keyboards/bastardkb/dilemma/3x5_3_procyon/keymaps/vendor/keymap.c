@@ -202,9 +202,9 @@ void keyboard_post_init_user(void){
         // font_menu     = qp_load_font_mem(font_gridlitepbsmenu);
         // font_menu_off = qp_load_font_mem(font_gridlitepbsmenuoff);
 
-        // Power on display, fill with white
+        // Power on display, fill with black
         qp_power(lcd, 1);
-        qp_rect(lcd, 0, 0, 300, 300, HSV_WHITE, 1);
+        qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
         qp_flush(lcd);
 
         prev_layer = 99;
@@ -229,9 +229,8 @@ void bk_display_layer_number(void) {
 
     if (prev_layer != layer) {
         qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
-        qp_rect(lcd, 0, 0, BKS_LAYER_BAR_W, LCD_HEIGHT, HSV_BLUE, true);
+        qp_rect(lcd, 0, 0, BKS_LAYER_BAR_W, LCD_HEIGHT, layer_color(layer), true);
         qp_drawtext(lcd, BKS_LAYER_X, BKS_LAYER_Y, font_layer, layer_str(layer));
-
     }
     
     prev_layer = layer;
@@ -261,22 +260,22 @@ const char *layer_str(enum dilemma_keymap_layers layer) {
     }
 }
 
-// const hsv_t  (enum dilemma_keymap_layers layer) {
-//     switch(layer){
-//         case LAYER_FUNCTION:
-//           return (hsv_t){HSV_BLUE};
-//         case LAYER_NAVIGATION:
-//           return (hsv_t){HSV_AZURE};
-//         case LAYER_MEDIA:
-//           return (hsv_t){HSV_ORANGE};
-//         case LAYER_POINTER:
-//           return (hsv_t){HSV_GREEN};
-//         case LAYER_NUMERAL:
-//           return (hsv_t){HSV_TEAL};
-//         case LAYER_SYMBOLS:
-//           return (hsv_t){HSV_PURPLE};
-//         case LAYER_BASE:
-//         default: 
-//           return (hsv_t){HSV_WHITE};
-//     }
-// }
+const hsv_t layer_color (enum dilemma_keymap_layers layer) {
+    switch(layer){
+        case LAYER_FUNCTION:
+          return (hsv_t){HSV_BLUE};
+        case LAYER_NAVIGATION:
+          return (hsv_t){HSV_AZURE};
+        case LAYER_MEDIA:
+          return (hsv_t){HSV_ORANGE};
+        case LAYER_POINTER:
+          return (hsv_t){HSV_GREEN};
+        case LAYER_NUMERAL:
+          return (hsv_t){HSV_TEAL};
+        case LAYER_SYMBOLS:
+          return (hsv_t){HSV_PURPLE};
+        case LAYER_BASE:
+        default: 
+          return (hsv_t){HSV_WHITE};
+    }
+}

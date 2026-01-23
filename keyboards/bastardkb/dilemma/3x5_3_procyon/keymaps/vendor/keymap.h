@@ -14,7 +14,7 @@ void bk_display_layer_number(void);
 
 // void bk_render_mods(uint16_t x, uint16_t y,bool render_all); 
 // const char *layer_str(dilemma_keymap_layers layer);
-// const hsv_t  (dilemma_keymap_layers layer);
+const hsv_t layer_color (dilemma_keymap_layers layer);
 
 // static const char *layer_strings[] = {
 //     [LAYER_BASE]       = "00 BASE",
