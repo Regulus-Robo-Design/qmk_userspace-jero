@@ -50,3 +50,8 @@
 #define QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS TRUE
 // Timeout configuration, default 30000 (30 sek). 0 = No timeout. Beware of image retention.
 #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0
+
+// Custom display stuff
+#define BKS_LAYER_X 30
+#define BKS_LAYER_Y 10
+#define BKS_LAYER_BAR_W 10
