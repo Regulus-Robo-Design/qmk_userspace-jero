@@ -228,7 +228,7 @@ void bk_display_layer_number(void) {
   const uint8_t layer = get_highest_layer(layer_state);
 
     if (prev_layer != layer) {
-        qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
+        // qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
         qp_rect(lcd, 0, 0, BKS_LAYER_BAR_W, LCD_HEIGHT, bk_layer_color(layer), true);
         qp_drawtext(lcd, BKS_LAYER_X, BKS_LAYER_Y, font_layer, bk_layer_str(layer));
     }
