@@ -198,7 +198,7 @@ void keyboard_post_init_user(void){
         qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
 
         // load fonts
-        // font_layer    = qp_load_font_mem(font_gridlitepbslayer);
+        font_layer    = qp_load_font_mem(font_gridlitepbslayer);
         // font_menu     = qp_load_font_mem(font_gridlitepbsmenu);
         // font_menu_off = qp_load_font_mem(font_gridlitepbsmenuoff);
 
