@@ -266,19 +266,26 @@ const hsv_t bk_layer_color (enum dilemma_keymap_layers layer) {
     switch(layer){
         case LAYER_FUNCTION:
           color = (hsv_t){HSV_BLUE};
+          break;
         case LAYER_NAVIGATION:
           color = (hsv_t){HSV_AZURE};
+          break;
         case LAYER_MEDIA:
           color = (hsv_t){HSV_ORANGE};
+          break;
         case LAYER_POINTER:
           color = (hsv_t){HSV_GREEN};
+          break;
         case LAYER_NUMERAL:
           color = (hsv_t){HSV_TEAL};
+          break;
         case LAYER_SYMBOLS:
           color = (hsv_t){HSV_PURPLE};
+          break;
         case LAYER_BASE:
         default: 
           color = (hsv_t){HSV_WHITE};
+          break;
     }
 
     return color;
