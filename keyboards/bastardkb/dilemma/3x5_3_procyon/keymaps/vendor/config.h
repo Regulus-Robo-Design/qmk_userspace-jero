@@ -53,6 +53,6 @@
 // #define QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE 4096
 
 // Custom display stuff
-#define BKS_LAYER_X 30
+#define BKS_LAYER_X 33
 #define BKS_LAYER_Y 10
-#define BKS_LAYER_BAR_W 10
+#define BKS_LAYER_BAR_W 13
