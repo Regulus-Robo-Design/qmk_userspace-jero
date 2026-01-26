@@ -216,7 +216,6 @@ void keyboard_post_init_user(void){
 void housekeeping_task_user(void) {
     static uint32_t last_draw = 0;
     if (timer_elapsed32(last_draw) > 17) { // throttle at 60FPS
-        qp_clear(lcd);
         last_draw = timer_read32();
         
         // qp_rect(lcd, 0, 0, 300, 300, HSV_WHITE, 1);
@@ -228,7 +227,8 @@ void housekeeping_task_user(void) {
 void bk_display_layer_number(void) {
   const uint8_t layer = get_highest_layer(layer_state);
 
-    if (prev_layer != layer) {
+    if (prev_layer != layer) { // TODO replace with: is there changes? 
+        qp_clear(lcd);
         // qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
         hsv_t color = bk_layer_color(layer);
         qp_rect(lcd, 0, 0, BKS_LAYER_BAR_W, LCD_HEIGHT, color.h, color.s, color.v, true);
