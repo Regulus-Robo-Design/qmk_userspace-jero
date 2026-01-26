@@ -215,7 +215,8 @@ void keyboard_post_init_user(void){
 
 void housekeeping_task_user(void) {
     static uint32_t last_draw = 0;
-    if (timer_elapsed32(last_draw) > 33) { // throttle
+    if (timer_elapsed32(last_draw) > 17) { // throttle at 60FPS
+        qp_clear(lcd);
         last_draw = timer_read32();
         
         // qp_rect(lcd, 0, 0, 300, 300, HSV_WHITE, 1);
