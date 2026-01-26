@@ -220,7 +220,7 @@ void housekeeping_task_user(void) {
         
         // qp_rect(lcd, 0, 0, 300, 300, HSV_WHITE, 1);
         bk_display_layer_number();
-        qp_flush(lcd);
+        // qp_flush(lcd);
     }
 }
 
@@ -228,7 +228,7 @@ void bk_display_layer_number(void) {
   const uint8_t layer = get_highest_layer(layer_state);
 
     if (prev_layer != layer) { // TODO replace with: is there changes? 
-        qp_clear(lcd);
+        // qp_clear(lcd);
         // qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
         hsv_t color = bk_layer_color(layer);
         qp_rect(lcd, 0, 0, BKS_LAYER_BAR_W, LCD_HEIGHT, color.h, color.s, color.v, true);
@@ -245,20 +245,20 @@ void bk_display_layer_number(void) {
 const char *bk_layer_str(enum dilemma_keymap_layers layer) {
     switch(layer){
         case LAYER_FUNCTION:
-          return "01 FUNCT";
+          return "01 FUNCT      ";
         case LAYER_NAVIGATION:
-          return "02 NAV";
+          return "02 NAV      ";
         case LAYER_MEDIA:
-          return "03 MED/RGB";
+          return "03 MED/RGB      ";
         case LAYER_POINTER:
-          return "04 POINT";
+          return "04 POINT      ";
         case LAYER_NUMERAL:
-          return "05 NUM";
+          return "05 NUM      ";
         case LAYER_SYMBOLS:
-          return "06 SYM";
+          return "06 SYM      ";
         default: 
         case LAYER_BASE:
-          return "00 BASE";   
+          return "00 BASE      ";   
     }
 }
 
