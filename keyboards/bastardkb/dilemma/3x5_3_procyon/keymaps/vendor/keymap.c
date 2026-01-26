@@ -214,11 +214,11 @@ void keyboard_post_init_user(void){
 }
 
 void housekeeping_task_user(void) {
-    static uint32_t last_draw = 0;
+    // static uint32_t last_draw = 0;
     const uint8_t layer = get_highest_layer(layer_state);
     // if (timer_elapsed32(last_draw) > 17) { // throttle at 60FPS
       if (prev_layer != layer) { // TODO replace with: is there changes? 
-        last_draw = timer_read32();
+        // last_draw = timer_read32();
         
         // qp_rect(lcd, 0, 0, 300, 300, HSV_WHITE, 1);
         bk_display_layer_name(layer);
