@@ -216,28 +216,30 @@ void keyboard_post_init_user(void){
 void housekeeping_task_user(void) {
     static uint32_t last_draw = 0;
     const uint8_t layer = get_highest_layer(layer_state);
-    if (timer_elapsed32(last_draw) > 17) { // throttle at 60FPS
+    // if (timer_elapsed32(last_draw) > 17) { // throttle at 60FPS
+      if (prev_layer != layer) { // TODO replace with: is there changes? 
         last_draw = timer_read32();
         
         // qp_rect(lcd, 0, 0, 300, 300, HSV_WHITE, 1);
         bk_display_layer_name(layer);
         bk_display_layer_info(layer);
         // qp_flush(lcd);
-    }
+    // }
+  }
     prev_layer = layer;
 }
 
 void bk_display_layer_name(int layer) {
-    if (prev_layer != layer) { // TODO replace with: is there changes? 
+    
         // qp_clear(lcd);
         // qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
         hsv_t color = bk_layer_color(layer);
         qp_rect(lcd, 0, 0, BKS_LAYER_BAR_W, LCD_HEIGHT, color.h, color.s, color.v, true);
         qp_drawtext(lcd, BKS_LAYER_X, BKS_LAYER_Y, font_layer, bk_layer_str(layer));
-    }
+    // }
 }
 
-void bk_display_layer_info(int layer){
+void bk_display_layer_info(int layer, bool rewrite_all){
 
 }
 

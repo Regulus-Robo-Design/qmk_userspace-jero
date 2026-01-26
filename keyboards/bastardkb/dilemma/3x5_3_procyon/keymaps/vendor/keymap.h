@@ -11,7 +11,7 @@ static uint8_t prev_layer;
 
 const char *bk_layer_str(enum dilemma_keymap_layers layer);
 void bk_display_layer_name(int layer);
-void bk_display_layer_info(int layer);
+void bk_display_layer_info(int layer, bool rewrite_all);
 
 // void bk_render_mods(uint16_t x, uint16_t y,bool render_all); 
 // const char *layer_str(dilemma_keymap_layers layer);
