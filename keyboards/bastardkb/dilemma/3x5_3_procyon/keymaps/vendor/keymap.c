@@ -222,7 +222,7 @@ void housekeeping_task_user(void) {
         
         // qp_rect(lcd, 0, 0, 300, 300, HSV_WHITE, 1);
         bk_display_layer_name(layer);
-        bk_display_layer_info(layer);
+        bk_display_layer_info(layer, FALSE);
         // qp_flush(lcd);
     // }
   }
