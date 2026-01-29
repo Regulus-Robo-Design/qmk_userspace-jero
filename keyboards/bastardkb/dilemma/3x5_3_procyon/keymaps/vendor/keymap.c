@@ -198,8 +198,8 @@ void keyboard_post_init_user(void) {
     qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
 
     // load fonts
-    bk_font_layer = qp_load_font_mem(font_gridlitepbslayer);
-    bk_font_menu  = qp_load_font_mem(font_gridlitepbsmenu);
+    bk_font_layer    = qp_load_font_mem(font_gridlitepbslayer);
+    bk_font_menu     = qp_load_font_mem(font_gridlitepbsmenu);
     bk_font_menu_off = qp_load_font_mem(font_gridlitepbsmenuoff);
 
     // Power on display, fill with black
@@ -208,6 +208,7 @@ void keyboard_post_init_user(void) {
     qp_flush(lcd);
 
     prev_layer = 99;
+    last_mods  = UINT8_MAX;
     // bk_display_layer_number();
     // keyboard_post_init_user();
     // }
@@ -215,11 +216,16 @@ void keyboard_post_init_user(void) {
 
 void housekeeping_task_user(void) {
     const uint8_t layer = get_highest_layer(layer_state);
-    if (prev_layer != layer) { // TODO replace with: is there changes?
+    const uint8_t mods  = get_mods();
+
+    if (prev_layer != layer) {
         bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
-        bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, FALSE); 
-        // TODO rewrite all if different layer, otherwise mods only
+        bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
+    } else {
+        bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, FALSE);
     }
+
+    last_mods  = mods;
     prev_layer = layer;
 }
 
@@ -248,15 +254,40 @@ void bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, 
         default:
             qp_drawtext(lcd, x, current_y, font, "MODS");
             current_y += font->line_height;
-            current_y = bk_layer_base_mods(qp_textwidth(font, "MODS ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
+            if (bk_mods_have_changed() || rewrite_all) {
+                current_y = bk_layer_base_mods(qp_textwidth(font, "MODS ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
+            }
             break;
     }
 }
 
+bool bk_mods_have_changed() {
+    const uint8_t mods   = get_mods();
+    bool          change = FALSE;
+
+    if ((mods & MOD_MASK_GUI) != (last_mods & MOD_MASK_GUI)) {
+        change = TRUE;
+    }
+
+    if ((mods & MOD_MASK_ALT) != (last_mods & MOD_MASK_ALT)) {
+        change = TRUE;
+    }
+
+    if ((mods & MOD_MASK_CTRL) != (last_mods & MOD_MASK_CTRL)) {
+        change = TRUE;
+    }
+
+    if ((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) {
+        change = TRUE;
+    }
+
+    return change;
+}
+
 int bk_layer_base_mods(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
-    static uint8_t last_mods = UINT8_MAX;
-    const uint8_t  mods      = get_mods();
     int mod_column_size = qp_textwidth(font_on, "XXXXX");
+
+    uint8_t mods = get_mods();
 
     if (((mods & MOD_MASK_GUI) != (last_mods & MOD_MASK_GUI)) || render_all) {
         qp_drawtext(lcd, x, y, (mods & MOD_MASK_GUI) ? font_on : font_off, "GUI");
@@ -272,8 +303,8 @@ int bk_layer_base_mods(uint16_t x, uint16_t y, painter_font_handle_t font_on, pa
     if (((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) || render_all) {
         qp_drawtext(lcd, x + mod_column_size, y + font_on->line_height, (mods & MOD_MASK_SHIFT) ? font_on : font_off, "SHFT");
     }
-    last_mods = mods;
-    return y + font_on->line_height*2;
+
+    return y + font_on->line_height * 2;
 }
 
 const char *bk_layer_str(enum dilemma_keymap_layers layer) {
