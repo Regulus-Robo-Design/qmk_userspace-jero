@@ -55,4 +55,6 @@
 // Custom display stuff
 #define BKS_LAYER_X 33
 #define BKS_LAYER_Y 10
+#define BKS_LAYER_H 60
+#define BKS_H1_H 20
 #define BKS_LAYER_BAR_W 13

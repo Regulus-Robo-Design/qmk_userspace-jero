@@ -199,7 +199,7 @@ void keyboard_post_init_user(void){
 
         // load fonts
         font_layer    = qp_load_font_mem(font_gridlitepbslayer);
-        // font_menu     = qp_load_font_mem(font_gridlitepbsmenu);
+        font_menu     = qp_load_font_mem(font_gridlitepbsmenu);
         // font_menu_off = qp_load_font_mem(font_gridlitepbsmenuoff);
 
         // Power on display, fill with black
@@ -240,6 +240,26 @@ void bk_display_layer_name(int layer) {
 }
 
 void bk_display_layer_info(int layer, bool rewrite_all){
+  int current_y = BKS_LAYER_Y + BKS_LAYER_H;
+    switch(layer){
+        case LAYER_FUNCTION:
+          break;
+        case LAYER_NAVIGATION:
+          break;
+        case LAYER_MEDIA:
+          break;
+        case LAYER_POINTER:
+          break;
+        case LAYER_NUMERAL:
+          break;
+        case LAYER_SYMBOLS:
+          break;
+        case LAYER_BASE:
+        default:
+          qp_drawtext(lcd, BKS_LAYER_X, current_y, font_menu, "MODS");
+          current_y += BKS_H1_H;
+          break;
+    }
 
 }
 

@@ -1,5 +1,5 @@
 painter_font_handle_t font_layer;
-// painter_font_handle_t font_menu;
+painter_font_handle_t font_menu;
 // painter_font_handle_t font_menu_off;
 static uint8_t prev_layer;
 
