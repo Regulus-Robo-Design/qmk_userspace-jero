@@ -256,7 +256,7 @@ void bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, 
 int bk_layer_base_mods(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
     static uint8_t last_mods = UINT8_MAX;
     const uint8_t  mods      = get_mods();
-    int mod_column_size = qp_textwidth(font, "XXXXX");
+    int mod_column_size = qp_textwidth(font_on, "XXXXX");
 
     if (((mods & MOD_MASK_GUI) != (last_mods & MOD_MASK_GUI)) || render_all) {
         qp_drawtext(lcd, x, y, (mods & MOD_MASK_GUI) ? font_on : font_off, "GUI");
