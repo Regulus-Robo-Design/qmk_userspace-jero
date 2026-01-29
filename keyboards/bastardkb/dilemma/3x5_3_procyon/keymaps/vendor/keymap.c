@@ -248,7 +248,7 @@ void bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, 
         default:
             qp_drawtext(lcd, x, current_y, font, "MODS");
             current_y += font->line_height;
-            current_y = bk_layer_base_mods(qp_textwidth(font, "MODS ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all)
+            current_y = bk_layer_base_mods(qp_textwidth(font, "MODS ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
             break;
     }
 }
