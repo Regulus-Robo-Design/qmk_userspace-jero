@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "config.h"
 #include QMK_KEYBOARD_H
 
 enum dilemma_keymap_layers {
@@ -59,7 +60,6 @@ enum dilemma_keymap_layers {
 #include "color.h"
 painter_device_t lcd;
 // end QP stuff
-
 
 // clang-format off
 /** \brief QWERTY layout (3 rows, 10 columns). */
@@ -186,132 +186,141 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 // clang-format on
 #endif // ENCODER_MAP_ENABLE
 
-void keyboard_post_init_user(void){
+void keyboard_post_init_user(void) {
     // if (is_keyboard_left()) {
-        // Display timeout
-        wait_ms(LCD_WAIT_TIME);
+    // Display timeout
+    wait_ms(LCD_WAIT_TIME);
 
-        lcd = qp_st7789_make_spi_device(LCD_HEIGHT, LCD_WIDTH, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, SPI_MODE);
-        qp_init(lcd, LCD_ROTATION);
+    lcd = qp_st7789_make_spi_device(LCD_HEIGHT, LCD_WIDTH, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, SPI_MODE);
+    qp_init(lcd, LCD_ROTATION);
 
-        // Display offset
-        qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
+    // Display offset
+    qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
 
-        // load fonts
-        font_layer    = qp_load_font_mem(font_gridlitepbslayer);
-        font_menu     = qp_load_font_mem(font_gridlitepbsmenu);
-        // font_menu_off = qp_load_font_mem(font_gridlitepbsmenuoff);
+    // load fonts
+    bk_font_layer = qp_load_font_mem(font_gridlitepbslayer);
+    bk_font_menu  = qp_load_font_mem(font_gridlitepbsmenu);
+    bk_font_menu_off = qp_load_font_mem(font_gridlitepbsmenuoff);
 
-        // Power on display, fill with black
-        qp_power(lcd, 1);
-        qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
-        qp_flush(lcd);
+    // Power on display, fill with black
+    qp_power(lcd, 1);
+    qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
+    qp_flush(lcd);
 
-        prev_layer = 99;
-        // bk_display_layer_number();
-        // keyboard_post_init_user();
+    prev_layer = 99;
+    // bk_display_layer_number();
+    // keyboard_post_init_user();
     // }
 }
 
 void housekeeping_task_user(void) {
-    // static uint32_t last_draw = 0;
     const uint8_t layer = get_highest_layer(layer_state);
-    // if (timer_elapsed32(last_draw) > 17) { // throttle at 60FPS
-      if (prev_layer != layer) { // TODO replace with: is there changes? 
-        // last_draw = timer_read32();
-        
-        // qp_rect(lcd, 0, 0, 300, 300, HSV_WHITE, 1);
-        bk_display_layer_name(layer);
-        bk_display_layer_info(layer, FALSE);
-        // qp_flush(lcd);
-    // }
-  }
+    if (prev_layer != layer) { // TODO replace with: is there changes?
+        bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
+        bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, FALSE); 
+        // TODO rewrite all if different layer, otherwise mods only
+    }
     prev_layer = layer;
 }
 
-void bk_display_layer_name(int layer) {
-    
-        // qp_clear(lcd);
-        // qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
-        hsv_t color = bk_layer_color(layer);
-        qp_rect(lcd, 0, 0, BKS_LAYER_BAR_W, LCD_HEIGHT, color.h, color.s, color.v, true);
-        qp_drawtext(lcd, BKS_LAYER_X, BKS_LAYER_Y, font_layer, bk_layer_str(layer));
-    // }
+void bk_display_layer_name(int x, int y, int layer, painter_font_handle_t font) {
+    hsv_t color = bk_layer_color(layer);
+    qp_rect(lcd, 0, 0, BKS_LAYER_BAR_W, LCD_HEIGHT, color.h, color.s, color.v, true);
+    qp_drawtext(lcd, x, y, font, bk_layer_str(layer));
 }
 
-void bk_display_layer_info(int layer, bool rewrite_all){
-  int current_y = BKS_LAYER_Y + BKS_LAYER_H;
-    switch(layer){
+void bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, bool rewrite_all) {
+    int current_y = y;
+    switch (layer) {
         case LAYER_FUNCTION:
-          break;
+            break;
         case LAYER_NAVIGATION:
-          break;
+            break;
         case LAYER_MEDIA:
-          break;
+            break;
         case LAYER_POINTER:
-          break;
+            break;
         case LAYER_NUMERAL:
-          break;
+            break;
         case LAYER_SYMBOLS:
-          break;
+            break;
         case LAYER_BASE:
         default:
-          qp_drawtext(lcd, BKS_LAYER_X, current_y, font_menu, "MODS");
-          current_y += BKS_H1_H;
-          break;
+            qp_drawtext(lcd, x, current_y, font, "MODS");
+            current_y += font->line_height;
+            current_y = bk_layer_base_mods(qp_textwidth(font, "MODS ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all)
+            break;
     }
-
 }
 
-// void bk_render_mods(uint16_t x, uint16_t y, bool render_all) {
+int bk_layer_base_mods(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
+    static uint8_t last_mods = UINT8_MAX;
+    const uint8_t  mods      = get_mods();
+    int mod_column_size = qp_textwidth(font, "XXXXX");
 
-// }
+    if (((mods & MOD_MASK_GUI) != (last_mods & MOD_MASK_GUI)) || render_all) {
+        qp_drawtext(lcd, x, y, (mods & MOD_MASK_GUI) ? font_on : font_off, "GUI");
+    }
+    if (((mods & MOD_MASK_ALT) != (last_mods & MOD_MASK_ALT)) || render_all) {
+        qp_drawtext(lcd, x + mod_column_size, y, (mods & MOD_MASK_ALT) ? font_on : font_off, "ALT");
+    }
+
+    if (((mods & MOD_MASK_CTRL) != (last_mods & MOD_MASK_CTRL)) || render_all) {
+        qp_drawtext(lcd, x, y + font->line_height, (mods & MOD_MASK_CTRL) ? font_on : font_off, "CTRL");
+    }
+
+    if (((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) || render_all) {
+        qp_drawtext(lcd, x + mod_column_size, y + font->line_height, (mods & MOD_MASK_SHIFT) ? font_on : font_off, "SHFT");
+    }
+    last_mods = mods;
+    return y + font_on->line_height;
+}
 
 const char *bk_layer_str(enum dilemma_keymap_layers layer) {
-    switch(layer){
+    switch (layer) {
         case LAYER_FUNCTION:
-          return "01 FUNCT      ";
+            return "01 FUNCT      ";
         case LAYER_NAVIGATION:
-          return "02 NAV      ";
+            return "02 NAV      ";
         case LAYER_MEDIA:
-          return "03 MED/RGB      ";
+            return "03 MED/RGB      ";
         case LAYER_POINTER:
-          return "04 POINT      ";
+            return "04 POINT      ";
         case LAYER_NUMERAL:
-          return "05 NUM      ";
+            return "05 NUM      ";
         case LAYER_SYMBOLS:
-          return "06 SYM      ";
-        default: 
+            return "06 SYM      ";
+        default:
         case LAYER_BASE:
-          return "00 BASE      ";   
+            return "00 BASE      ";
     }
 }
 
-const hsv_t bk_layer_color (enum dilemma_keymap_layers layer) {
-  hsv_t color;
-    switch(layer){
+const hsv_t bk_layer_color(enum dilemma_keymap_layers layer) {
+    hsv_t color;
+    switch (layer) {
         case LAYER_FUNCTION:
-          color = (hsv_t){HSV_BLUE};
-          break;
+            color = (hsv_t){HSV_BLUE};
+            break;
         case LAYER_NAVIGATION:
-          color = (hsv_t){HSV_ORANGE};
-          break;
+            color = (hsv_t){HSV_ORANGE};
+            break;
         case LAYER_MEDIA:
-          color = (hsv_t){HSV_AZURE};
-          break;
+            color = (hsv_t){HSV_AZURE};
+            break;
         case LAYER_POINTER:
-          color = (hsv_t){HSV_GREEN};
-          break;
+            color = (hsv_t){HSV_GREEN};
+            break;
         case LAYER_NUMERAL:
-          color = (hsv_t){HSV_TEAL};
-          break;
+            color = (hsv_t){HSV_TEAL};
+            break;
         case LAYER_SYMBOLS:
-          color = (hsv_t){HSV_PURPLE};
-          break;
+            color = (hsv_t){HSV_PURPLE};
+            break;
         case LAYER_BASE:
-        default: 
-          color = (hsv_t){HSV_WHITE};
-          break;
+        default:
+            color = (hsv_t){HSV_WHITE};
+            break;
     }
 
     return color;
