@@ -266,14 +266,14 @@ int bk_layer_base_mods(uint16_t x, uint16_t y, painter_font_handle_t font_on, pa
     }
 
     if (((mods & MOD_MASK_CTRL) != (last_mods & MOD_MASK_CTRL)) || render_all) {
-        qp_drawtext(lcd, x, y + font->line_height, (mods & MOD_MASK_CTRL) ? font_on : font_off, "CTRL");
+        qp_drawtext(lcd, x, y + font_on->line_height, (mods & MOD_MASK_CTRL) ? font_on : font_off, "CTRL");
     }
 
     if (((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) || render_all) {
-        qp_drawtext(lcd, x + mod_column_size, y + font->line_height, (mods & MOD_MASK_SHIFT) ? font_on : font_off, "SHFT");
+        qp_drawtext(lcd, x + mod_column_size, y + font_on->line_height, (mods & MOD_MASK_SHIFT) ? font_on : font_off, "SHFT");
     }
     last_mods = mods;
-    return y + font_on->line_height;
+    return y + font_on->line_height*2;
 }
 
 const char *bk_layer_str(enum dilemma_keymap_layers layer) {
