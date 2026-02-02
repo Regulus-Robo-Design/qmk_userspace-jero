@@ -56,6 +56,7 @@ enum dilemma_keymap_layers {
 #include "gfx/bar_gray.qgf.h"
 #include "gfx/bar_green.qgf.h"
 #include "gfx/fonts.qff.h"
+#include "qp_surface.h"
 #include "keymap.h"
 #include "color.h"
 painter_device_t lcd;
