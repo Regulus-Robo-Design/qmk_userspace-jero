@@ -199,7 +199,7 @@ void keyboard_post_init_user(void) {
     lcd = qp_st7789_make_spi_device(LCD_HEIGHT, LCD_WIDTH, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, SPI_MODE);
     qp_init(lcd, LCD_ROTATION);
     
-    lcd_buffer = qp_rgb565_make_surface(LCD_HEIGHT, LCD_WIDTH, lcd_framebuffer_surface);
+    lcd_buffer = qp_make_rgb565_surface(LCD_HEIGHT, LCD_WIDTH, lcd_framebuffer_surface);
     qp_init(lcd_buffer, LCD_ROTATION);
 
     // Display offset
