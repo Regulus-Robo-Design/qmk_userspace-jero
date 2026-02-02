@@ -59,6 +59,10 @@ enum dilemma_keymap_layers {
 #include "keymap.h"
 #include "color.h"
 painter_device_t lcd;
+painter_device_t lcd_buffer;
+// Buffer required for a 240x280 16bpp surface:
+uint8_t framebuffer[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(LCD_HEIGHT, LCD_WIDTH, 16)];
+static uint8_t lcd_framebuffer_surface[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(LCD_HEIGHT, LCD_WIDTH, 16)];
 // end QP stuff
 
 // clang-format off
@@ -193,6 +197,9 @@ void keyboard_post_init_user(void) {
 
     lcd = qp_st7789_make_spi_device(LCD_HEIGHT, LCD_WIDTH, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, SPI_MODE);
     qp_init(lcd, LCD_ROTATION);
+    
+    lcd_buffer = qp_rgb565_make_surface(LCD_HEIGHT, LCD_WIDTH, lcd_framebuffer_surface);
+    qp_init(lcd_buffer, LCD_ROTATION);
 
     // Display offset
     qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
