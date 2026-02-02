@@ -51,6 +51,7 @@
 // Timeout configuration, default 30000 (30 sek). 0 = No timeout. Beware of image retention.
 #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0
 // #define QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE 4096
+#define QUANTUM_PAINTER_TASK_THROTTLE 16 // 60 FPS ish
 
 // Custom display stuff
 #define BKS_LAYER_X 30
