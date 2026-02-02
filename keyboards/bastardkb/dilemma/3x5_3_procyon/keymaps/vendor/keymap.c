@@ -311,20 +311,20 @@ int bk_layer_base_mods(uint16_t x, uint16_t y, painter_font_handle_t font_on, pa
 const char *bk_layer_str(enum dilemma_keymap_layers layer) {
     switch (layer) {
         case LAYER_FUNCTION:
-            return "01 FUNCT      ";
+            return "01 FUNCT";
         case LAYER_NAVIGATION:
-            return "02 NAV      ";
+            return "02 NAV";
         case LAYER_MEDIA:
-            return "03 MED/RGB      ";
+            return "03 MED/RGB";
         case LAYER_POINTER:
-            return "04 POINT      ";
+            return "04 POINT";
         case LAYER_NUMERAL:
-            return "05 NUM      ";
+            return "05 NUM";
         case LAYER_SYMBOLS:
-            return "06 SYM      ";
+            return "06 SYM";
         default:
         case LAYER_BASE:
-            return "00 BASE      ";
+            return "00 BASE";
     }
 }
 
