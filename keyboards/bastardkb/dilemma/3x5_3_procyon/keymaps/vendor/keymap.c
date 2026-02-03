@@ -62,7 +62,7 @@ enum dilemma_keymap_layers {
 painter_device_t lcd;
 painter_device_t lcd_buffer;
 // Buffer required for a 240x280 16bpp surface:
-uint8_t framebuffer[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(LCD_HEIGHT, LCD_WIDTH, 8)];
+// uint8_t framebuffer[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(LCD_HEIGHT, LCD_WIDTH, 8)];
 static uint8_t lcd_framebuffer_surface[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(LCD_HEIGHT, LCD_WIDTH, 8)];
 // end QP stuff
 
