@@ -228,7 +228,7 @@ void housekeeping_task_user(void) {
 
     if (prev_layer != layer) {
         bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
-        int clear_y = bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
+        bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
         // qp_rect(lcd, BKS_LAYER_X, clear_y, LCD_WIDTH, LCD_HEIGHT, HSV_BLACK, true); // clean rest of screen
     } else {
         bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, FALSE);
@@ -246,7 +246,7 @@ void bk_display_layer_name(int x, int y, int layer, painter_font_handle_t font) 
     qp_drawtext(lcd_buffer, x, y, font, bk_layer_str(layer));
 }
 
-int bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, bool rewrite_all) {
+void bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, bool rewrite_all) {
     int current_y = y;
     switch (layer) {
         case LAYER_FUNCTION:
@@ -269,7 +269,6 @@ int bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, b
             }
             break;
     }
-    return current_y;
 }
 
 bool bk_mods_have_changed() {

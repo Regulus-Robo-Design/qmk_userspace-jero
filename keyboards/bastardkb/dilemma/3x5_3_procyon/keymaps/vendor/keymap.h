@@ -12,7 +12,7 @@ static uint8_t        last_mods;
 
 const char *bk_layer_str(enum dilemma_keymap_layers layer);
 void        bk_display_layer_name(int x, int y, int layer, painter_font_handle_t font);
-int         bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, bool rewrite_all);
+void         bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, bool rewrite_all);
 
 int bk_layer_base_mods(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all);
 // const char *layer_str(dilemma_keymap_layers layer);
