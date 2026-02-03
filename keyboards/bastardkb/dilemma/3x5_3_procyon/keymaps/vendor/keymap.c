@@ -233,11 +233,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
             // qp_rect(lcd, BKS_LAYER_X, clear_y, LCD_WIDTH, LCD_HEIGHT, HSV_BLACK, true); // clean rest of screen
             // qp_surface_draw(lcd_buffer, lcd, 0, 0, FALSE);
-            // qp_flush(lcd);
+            qp_flush(lcd);
         } else {
             bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, FALSE);
             // qp_surface_draw(lcd_buffer, lcd, LCD_OFFSET_X, LCD_OFFSET_Y, FALSE);
-            // qp_flush(lcd);
+            qp_flush(lcd);
         }
     }
     
