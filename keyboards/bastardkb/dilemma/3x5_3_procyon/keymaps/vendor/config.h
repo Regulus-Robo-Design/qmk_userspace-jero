@@ -42,7 +42,7 @@
 #define LCD_WAIT_TIME 150
 #define LCD_ROTATION QP_ROTATION_0
 #define LCD_OFFSET_X 0
-#define LCD_OFFSET_Y 0
+#define LCD_OFFSET_Y 15
 #define LCD_WIDTH 240 // Set according to your display specs
 #define LCD_HEIGHT 280 // Set according to your display specs
 #define SPI_MODE 3 // Set according to your display specs
