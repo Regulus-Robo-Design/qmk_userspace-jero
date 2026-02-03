@@ -56,9 +56,14 @@ enum dilemma_keymap_layers {
 #include "gfx/bar_gray.qgf.h"
 #include "gfx/bar_green.qgf.h"
 #include "gfx/fonts.qff.h"
+#include "qp_surface.h"
 #include "keymap.h"
 #include "color.h"
 painter_device_t lcd;
+painter_device_t lcd_buffer;
+// Buffer required for a 240x280 16bpp surface:
+uint8_t framebuffer[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(LCD_HEIGHT, LCD_WIDTH, 8)];
+static uint8_t lcd_framebuffer_surface[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(LCD_HEIGHT, LCD_WIDTH, 8)];
 // end QP stuff
 
 // clang-format off
@@ -193,6 +198,9 @@ void keyboard_post_init_user(void) {
 
     lcd = qp_st7789_make_spi_device(LCD_HEIGHT, LCD_WIDTH, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, SPI_MODE);
     qp_init(lcd, LCD_ROTATION);
+    
+    lcd_buffer = qp_make_rgb565_surface(LCD_HEIGHT, LCD_WIDTH, lcd_framebuffer_surface);
+    qp_init(lcd_buffer, LCD_ROTATION);
 
     // Display offset
     qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
@@ -311,20 +319,20 @@ int bk_layer_base_mods(uint16_t x, uint16_t y, painter_font_handle_t font_on, pa
 const char *bk_layer_str(enum dilemma_keymap_layers layer) {
     switch (layer) {
         case LAYER_FUNCTION:
-            return "01 FUNCT      ";
+            return "01 FUNCT";
         case LAYER_NAVIGATION:
-            return "02 NAV      ";
+            return "02 NAV";
         case LAYER_MEDIA:
-            return "03 MED/RGB      ";
+            return "03 MED/RGB";
         case LAYER_POINTER:
-            return "04 POINT      ";
+            return "04 POINT";
         case LAYER_NUMERAL:
-            return "05 NUM      ";
+            return "05 NUM";
         case LAYER_SYMBOLS:
-            return "06 SYM      ";
+            return "06 SYM";
         default:
         case LAYER_BASE:
-            return "00 BASE      ";
+            return "00 BASE";
     }
 }
 
