@@ -4,7 +4,7 @@ MAXTOUCH_DEBUG = no
 
 QUANTUM_PAINTER_ENABLE = yes
 QUANTUM_PAINTER_DRIVERS += st7789_spi
-QUANTUM_PAINTER_DRIVERS += surface
+# QUANTUM_PAINTER_DRIVERS += surface
 ST7789 = true
 SRC += gfx/POC.qgf.c
 SRC += gfx/bar_blue.qgf.c
