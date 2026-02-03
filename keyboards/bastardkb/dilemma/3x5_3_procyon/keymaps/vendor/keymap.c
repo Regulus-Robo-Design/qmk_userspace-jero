@@ -268,9 +268,10 @@ int bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, b
         case LAYER_BASE:
         default:
             qp_drawtext(lcd, x, current_y, font, "MODS");
-            if (bk_mods_have_changed() || rewrite_all) {
+            // TODO check for mods update
+            // if (bk_mods_have_changed() || rewrite_all) {
                 current_y += bk_layer_base_mods(qp_textwidth(font, "MODS ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
-            }
+            // }
  
             qp_drawtext(lcd, x, current_y, font, "LOCK");
             // TODO: test if lock has changed
