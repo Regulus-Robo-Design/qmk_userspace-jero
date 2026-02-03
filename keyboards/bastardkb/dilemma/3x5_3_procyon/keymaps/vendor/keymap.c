@@ -63,7 +63,7 @@ painter_device_t lcd;
 painter_device_t lcd_buffer;
 // Buffer required for a 240x280 16bpp surface:
 // uint8_t framebuffer[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(LCD_HEIGHT, LCD_WIDTH, 8)];
-static uint8_t lcd_framebuffer_surface[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(LCD_HEIGHT, LCD_WIDTH, 16)];
+static uint8_t lcd_framebuffer_surface[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(LCD_WIDTH, LCD_HEIGHT, 16)];
 // end QP stuff
 
 // clang-format off
@@ -196,10 +196,10 @@ void keyboard_post_init_user(void) {
     // Display timeout
     wait_ms(LCD_WAIT_TIME);
 
-    lcd = qp_st7789_make_spi_device(LCD_HEIGHT, LCD_WIDTH, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, SPI_MODE);
+    lcd = qp_st7789_make_spi_device(LCD_WIDTH, LCD_HEIGHT, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, SPI_MODE);
     qp_init(lcd, LCD_ROTATION);
     
-    lcd_buffer = qp_make_rgb565_surface(LCD_HEIGHT, LCD_WIDTH, lcd_framebuffer_surface);
+    lcd_buffer = qp_make_rgb565_surface(LCD_WIDTH, LCD_HEIGHT, lcd_framebuffer_surface);
     qp_init(lcd_buffer, LCD_ROTATION);
 
     // Display offset
@@ -230,7 +230,7 @@ void housekeeping_task_user(void) {
         bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
         bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
         // qp_rect(lcd, BKS_LAYER_X, clear_y, LCD_WIDTH, LCD_HEIGHT, HSV_BLACK, true); // clean rest of screen
-        qp_surface_draw(lcd_buffer, lcd, 0, 0, FALSE);
+        // qp_surface_draw(lcd_buffer, lcd, 0, 0, FALSE);
     } else {
         bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, FALSE);
         // qp_surface_draw(lcd_buffer, lcd, LCD_OFFSET_X, LCD_OFFSET_Y, FALSE);
