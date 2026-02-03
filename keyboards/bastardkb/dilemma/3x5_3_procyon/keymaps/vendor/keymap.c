@@ -198,7 +198,7 @@ void keyboard_post_init_user(void) {
 
     lcd = qp_st7789_make_spi_device(LCD_WIDTH, LCD_HEIGHT, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, SPI_MODE);
     qp_init(lcd, LCD_ROTATION);
-    
+
     lcd_buffer = qp_make_rgb565_surface(LCD_WIDTH, LCD_HEIGHT, lcd_framebuffer_surface);
     qp_init(lcd_buffer, LCD_ROTATION);
 
@@ -226,19 +226,20 @@ void housekeeping_task_user(void) {
     const uint8_t layer = get_highest_layer(layer_state);
     const uint8_t mods  = get_mods();
 
-    if (prev_layer != layer) {
-        // qp_clear(lcd);
-        bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
-        bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
-        // qp_rect(lcd, BKS_LAYER_X, clear_y, LCD_WIDTH, LCD_HEIGHT, HSV_BLACK, true); // clean rest of screen
-        // qp_surface_draw(lcd_buffer, lcd, 0, 0, FALSE);
-        // qp_flush(lcd);
-    } else {
-        bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, FALSE);
-        // qp_surface_draw(lcd_buffer, lcd, LCD_OFFSET_X, LCD_OFFSET_Y, FALSE);
-        // qp_flush(lcd);
+    if (is_keyboard_left()) {
+        if (prev_layer != layer) {
+            // qp_clear(lcd);
+            bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
+            bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
+            // qp_rect(lcd, BKS_LAYER_X, clear_y, LCD_WIDTH, LCD_HEIGHT, HSV_BLACK, true); // clean rest of screen
+            // qp_surface_draw(lcd_buffer, lcd, 0, 0, FALSE);
+            // qp_flush(lcd);
+        } else {
+            bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, FALSE);
+            // qp_surface_draw(lcd_buffer, lcd, LCD_OFFSET_X, LCD_OFFSET_Y, FALSE);
+            // qp_flush(lcd);
+        }
     }
-
     last_mods  = mods;
     prev_layer = layer;
 }
@@ -324,20 +325,20 @@ int bk_layer_base_mods(uint16_t x, uint16_t y, painter_font_handle_t font_on, pa
 const char *bk_layer_str(enum dilemma_keymap_layers layer) {
     switch (layer) {
         case LAYER_FUNCTION:
-            return "01 FUNCT";
+            return "01 FUNCT    ";
         case LAYER_NAVIGATION:
-            return "02 NAV";
+            return "02 NAV    ";
         case LAYER_MEDIA:
-            return "03 MED/RGB";
+            return "03 MED/RGB    ";
         case LAYER_POINTER:
-            return "04 POINT";
+            return "04 POINT    ";
         case LAYER_NUMERAL:
-            return "05 NUM";
+            return "05 NUM    ";
         case LAYER_SYMBOLS:
-            return "06 SYM";
+            return "06 SYM    ";
         default:
         case LAYER_BASE:
-            return "00 BASE";
+            return "00 BASE    ";
     }
 }
 
