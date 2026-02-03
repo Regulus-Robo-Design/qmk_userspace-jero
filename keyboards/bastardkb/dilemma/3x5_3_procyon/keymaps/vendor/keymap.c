@@ -60,10 +60,10 @@ enum dilemma_keymap_layers {
 #include "keymap.h"
 #include "color.h"
 painter_device_t lcd;
-painter_device_t lcd_buffer;
+// painter_device_t lcd_buffer;
 // Buffer required for a 240x280 16bpp surface:
 // uint8_t framebuffer[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(LCD_HEIGHT, LCD_WIDTH, 8)];
-static uint8_t lcd_framebuffer_surface[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(LCD_WIDTH, LCD_HEIGHT, 16)];
+// static uint8_t lcd_framebuffer_surface[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(LCD_WIDTH, LCD_HEIGHT, 16)];
 // end QP stuff
 
 // clang-format off
@@ -199,8 +199,8 @@ void keyboard_post_init_user(void) {
     lcd = qp_st7789_make_spi_device(LCD_WIDTH, LCD_HEIGHT, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, SPI_MODE);
     qp_init(lcd, LCD_ROTATION);
 
-    lcd_buffer = qp_make_rgb565_surface(LCD_WIDTH, LCD_HEIGHT, lcd_framebuffer_surface);
-    qp_init(lcd_buffer, LCD_ROTATION);
+    // lcd_buffer = qp_make_rgb565_surface(LCD_WIDTH, LCD_HEIGHT, lcd_framebuffer_surface);
+    // qp_init(lcd_buffer, LCD_ROTATION);
 
     // Display offset
     qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
@@ -222,7 +222,7 @@ void keyboard_post_init_user(void) {
     // }
 }
 
-void housekeeping_task_user(void) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     const uint8_t layer = get_highest_layer(layer_state);
     const uint8_t mods  = get_mods();
 
@@ -240,8 +240,15 @@ void housekeeping_task_user(void) {
             // qp_flush(lcd);
         }
     }
+    
     last_mods  = mods;
     prev_layer = layer;
+}
+
+void housekeeping_task_user(void) {
+    
+
+    
 }
 
 void bk_display_layer_name(int x, int y, int layer, painter_font_handle_t font) {
