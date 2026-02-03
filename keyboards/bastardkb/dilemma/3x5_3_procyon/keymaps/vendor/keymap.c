@@ -230,7 +230,7 @@ void housekeeping_task_user(void) {
         bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
         bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
         // qp_rect(lcd, BKS_LAYER_X, clear_y, LCD_WIDTH, LCD_HEIGHT, HSV_BLACK, true); // clean rest of screen
-        qp_surface_draw(lcd_buffer, lcd, LCD_OFFSET_X, LCD_OFFSET_Y, FALSE);
+        // qp_surface_draw(lcd_buffer, lcd, LCD_OFFSET_X, LCD_OFFSET_Y, FALSE);
     } else {
         bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, FALSE);
         // qp_surface_draw(lcd_buffer, lcd, LCD_OFFSET_X, LCD_OFFSET_Y, FALSE);
