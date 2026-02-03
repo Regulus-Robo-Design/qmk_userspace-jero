@@ -222,7 +222,7 @@ void keyboard_post_init_user(void) {
     // }
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+void housekeeping_task_user(void) {
     const uint8_t layer = get_highest_layer(layer_state);
     const uint8_t mods  = get_mods();
 
@@ -233,25 +233,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
             // qp_rect(lcd, BKS_LAYER_X, clear_y, LCD_WIDTH, LCD_HEIGHT, HSV_BLACK, true); // clean rest of screen
             // qp_surface_draw(lcd_buffer, lcd, 0, 0, FALSE);
-            qp_flush(lcd);
+            // qp_flush(lcd);
         } else {
             bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, FALSE);
             // qp_surface_draw(lcd_buffer, lcd, LCD_OFFSET_X, LCD_OFFSET_Y, FALSE);
-            qp_flush(lcd);
+            // qp_flush(lcd);
         }
     }
-    
     last_mods  = mods;
     prev_layer = layer;
-
-    return true;
-
-}
-
-void housekeeping_task_user(void) {
-    
-
-    
 }
 
 void bk_display_layer_name(int x, int y, int layer, painter_font_handle_t font) {
