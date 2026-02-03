@@ -243,6 +243,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     last_mods  = mods;
     prev_layer = layer;
+
+    return true;
+
 }
 
 void housekeeping_task_user(void) {
