@@ -269,8 +269,12 @@ int bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, b
         default:
             qp_drawtext(lcd, x, current_y, font, "MODS");
             if (bk_mods_have_changed() || rewrite_all) {
-                current_y = bk_layer_base_mods(qp_textwidth(font, "MODS ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
+                current_y += bk_layer_base_mods(qp_textwidth(font, "MODS ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
             }
+ 
+            qp_drawtext(lcd, x, current_y, font, "LOCK");
+            // TODO: test if lock has changed
+                current_y += bk_layer_base_lock(qp_textwidth(font, "LOCK ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
             break;
     }
     return current_y;
@@ -320,6 +324,18 @@ int bk_layer_base_mods(uint16_t x, uint16_t y, painter_font_handle_t font_on, pa
     }
 
     return y + font_on->line_height * 2;
+}
+
+int bk_layer_base_lock(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
+    int mod_column_size = qp_textwidth(font_on, "XXXXX");
+
+            // TODO: test if lock has changed, display only if change
+    // if (host_keyboard_led_state().caps_lock) {
+        qp_drawtext(lcd, x, y, (host_keyboard_led_state().caps_lock) ? font_on : font_off, "CAPS");
+        // TODO scroll lock
+        qp_drawtext(lcd, x + mod_column_size, y, (host_keyboard_led_state().caps_lock) ? font_on : font_off, "SCRL");
+    // }
+    return y + font_on->line_height * 1;
 }
 
 const char *bk_layer_str(enum dilemma_keymap_layers layer) {
