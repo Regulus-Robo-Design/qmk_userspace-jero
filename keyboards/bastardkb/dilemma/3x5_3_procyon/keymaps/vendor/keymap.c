@@ -299,8 +299,8 @@ int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, 
     uint8_t mods            = get_mods();
 
     // Mods info
-    qp_drawtext(lcd, x, current_y, font, "MODS");
-    int mods_x = qp_textwidth(font, "MODS ") + x;
+    qp_drawtext(lcd, x, current_y, font_on, "MODS");
+    int mods_x = qp_textwidth(font_on, "MODS ") + x;
     // current_y += bk_layer_base_mods(qp_textwidth(font, "MODS ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
     mod_column_size = qp_textwidth(font_on, "XXXXX");
 
@@ -323,10 +323,10 @@ int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, 
     // End Mods section
 
     // Lock info
-    qp_drawtext(lcd, x, current_y, font, "LOCK");
+    qp_drawtext(lcd, x, current_y, font_on, "LOCK");
     current_y += bk_layer_base_lock(qp_textwidth(font, "LOCK ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
 
-    mods_x          = qp_textwidth(font, "LOCK ") + x;
+    mods_x          = qp_textwidth(font_on, "LOCK ") + x;
     mod_column_size = qp_textwidth(font_on, "XXXXX");
 
     qp_drawtext(lcd, x, y, (host_keyboard_led_state().caps_lock) ? font_on : font_off, "CAPS");
