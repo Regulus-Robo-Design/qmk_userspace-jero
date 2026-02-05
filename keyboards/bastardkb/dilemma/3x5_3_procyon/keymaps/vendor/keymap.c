@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F), KC_G, KC_H, LSFT_T(KC_J), LCTL_T(KC_K), LALT_T(KC_L), LGUI_T(KC_QUOT),
        PT_Z,    RALT_T(KC_X),    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  RALT_T(KC_DOT), PT_SLSH,
                       ESC_MED, TAB_FUN, SPC_NAV, ENT_SYM, BSP_NUM, KC_MUTE
-  ),
+  )
 
 /*
  * Layers used on the Dilemma.
@@ -225,17 +225,17 @@ void keyboard_post_init_user(void) {
 void housekeeping_task_user(void) {
     static uint32_t anim_timer = 0;
     if (is_keyboard_left()) {
-        if (timer_elapsed32(anim_timer) > 33) {
+        if (timer_elapsed32(anim_timer) > 66) {
             const uint8_t layer = get_highest_layer(layer_state);
             const uint8_t mods  = get_mods();
             anim_timer          = timer_read32();
             if (prev_layer != layer) {
-                // qp_clear(lcd);
                 bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
+                bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
+                qp_rect(lcd, 0, y, 300, 300, HSV_BLACK, 1);
+            } else {
+                bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
             }
-            int y = bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
-
-            qp_rect(lcd, 0, y, 300, 300, HSV_BLACK, 1);
 
             last_mods  = mods; // TODO get rid of this?
             prev_layer = layer;
