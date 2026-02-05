@@ -16,7 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdint.h>
 #include "config.h"
 #include QMK_KEYBOARD_H
 
@@ -225,15 +224,13 @@ void keyboard_post_init_user(void) {
 
 void housekeeping_task_user(void) {
     static uint32_t anim_timer = 0;
-    const uint8_t   layer;
-    const uint8_t   mods;
-
     if (is_keyboard_left()) {
         if (timer_elapsed32(anim_timer) > 33) {
-            layer      = get_highest_layer(layer_state);
-            mods       = get_mods();
-            anim_timer = timer_read32();
+            const uint8_t layer = get_highest_layer(layer_state);
+            const uint8_t mods  = get_mods();
+            anim_timer          = timer_read32();
             if (prev_layer != layer) {
+                // qp_clear(lcd);
                 bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
             }
             bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
