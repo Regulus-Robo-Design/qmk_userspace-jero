@@ -60,7 +60,7 @@ enum dilemma_keymap_layers {
 #include "keymap.h"
 #include "color.h"
 
-painter_device_t lcd;
+painter_device_t        lcd;
 static painter_device_t surface;
 // Buffer required for a 240x280 16bpp surface:
 static uint8_t surface_buffer[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(LCD_WIDTH, LCD_HEIGHT, 16)];
@@ -229,6 +229,7 @@ void housekeeping_task_user(void) {
             const uint8_t layer = get_highest_layer(layer_state);
             const uint8_t mods  = get_mods();
             anim_timer          = timer_read32();
+            qp_clear(surface);
             if (prev_layer != layer) {
                 bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
                 bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
