@@ -264,15 +264,7 @@ int bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, b
             break;
         case LAYER_BASE:
         default:
-            qp_drawtext(lcd, x, current_y, font, "MODS");
-            // TODO check for mods update
-            // if (bk_mods_have_changed() || rewrite_all) {
-            current_y += bk_layer_base_mods(qp_textwidth(font, "MODS ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
-            // }
-
-            qp_drawtext(lcd, x, current_y, font, "LOCK");
-            // TODO: test if lock has changed
-            current_y += bk_layer_base_lock(qp_textwidth(font, "LOCK ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
+            current_y = bk_display_info_base(x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
             break;
     }
     return current_y;
@@ -302,9 +294,9 @@ bool bk_mods_have_changed() {
 }
 
 int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
-    int current_y = y;
-    int mod_column_size = 0;
-    uint8_t mods = get_mods();
+    int     current_y       = y;
+    int     mod_column_size = 0;
+    uint8_t mods            = get_mods();
 
     // Mods info
     qp_drawtext(lcd, x, current_y, font, "MODS");
@@ -334,7 +326,7 @@ int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, 
     qp_drawtext(lcd, x, current_y, font, "LOCK");
     current_y += bk_layer_base_lock(qp_textwidth(font, "LOCK ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
 
-    mods_x = qp_textwidth(font, "LOCK ") + x;
+    mods_x          = qp_textwidth(font, "LOCK ") + x;
     mod_column_size = qp_textwidth(font_on, "XXXXX");
 
     qp_drawtext(lcd, x, y, (host_keyboard_led_state().caps_lock) ? font_on : font_off, "CAPS");
@@ -345,7 +337,6 @@ int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, 
     return current_y;
     // End Lock info
 }
-
 
 int bk_layer_base_lock(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
     int mod_column_size = qp_textwidth(font_on, "XXXXX");
