@@ -19,15 +19,7 @@
 #include "config.h"
 #include QMK_KEYBOARD_H
 
-enum dilemma_keymap_layers {
-    LAYER_BASE = 0,
-    LAYER_FUNCTION,
-    LAYER_NAVIGATION,
-    LAYER_MEDIA,
-    LAYER_POINTER,
-    LAYER_NUMERAL,
-    LAYER_SYMBOLS,
-};
+enum dilemma_keymap_layers { LAYER_BASE = 0, LAYER_FUNCTION, LAYER_NAVIGATION, LAYER_MEDIA, LAYER_POINTER, LAYER_NUMERAL, LAYER_SYMBOLS, MAX_LAYERS };
 
 // Automatically enable sniping-mode on the pointer layer.
 // #define DILEMMA_AUTO_SNIPING_ON_LAYER LAYER_POINTER
@@ -270,12 +262,12 @@ int bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, b
             qp_drawtext(lcd, x, current_y, font, "MODS");
             // TODO check for mods update
             // if (bk_mods_have_changed() || rewrite_all) {
-                current_y += bk_layer_base_mods(qp_textwidth(font, "MODS ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
+            current_y += bk_layer_base_mods(qp_textwidth(font, "MODS ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
             // }
- 
+
             qp_drawtext(lcd, x, current_y, font, "LOCK");
             // TODO: test if lock has changed
-                current_y += bk_layer_base_lock(qp_textwidth(font, "LOCK ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
+            current_y += bk_layer_base_lock(qp_textwidth(font, "LOCK ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
             break;
     }
     return current_y;
@@ -330,33 +322,23 @@ int bk_layer_base_mods(uint16_t x, uint16_t y, painter_font_handle_t font_on, pa
 int bk_layer_base_lock(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
     int mod_column_size = qp_textwidth(font_on, "XXXXX");
 
-            // TODO: test if lock has changed, display only if change
+    // TODO: test if lock has changed, display only if change
     // if (host_keyboard_led_state().caps_lock) {
-        qp_drawtext(lcd, x, y, (host_keyboard_led_state().caps_lock) ? font_on : font_off, "CAPS");
-        // TODO scroll lock
-        qp_drawtext(lcd, x + mod_column_size, y, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "SCRL");
+    qp_drawtext(lcd, x, y, (host_keyboard_led_state().caps_lock) ? font_on : font_off, "CAPS");
+    // TODO scroll lock
+    qp_drawtext(lcd, x + mod_column_size, y, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "SCRL");
     // }
     return y + font_on->line_height * 1;
 }
 
 const char *bk_layer_str(enum dilemma_keymap_layers layer) {
-    switch (layer) {
-        case LAYER_FUNCTION:
-            return "01 FUNCT    ";
-        case LAYER_NAVIGATION:
-            return "02 NAV    ";
-        case LAYER_MEDIA:
-            return "03 MED/RGB    ";
-        case LAYER_POINTER:
-            return "04 POINT    ";
-        case LAYER_NUMERAL:
-            return "05 NUM    ";
-        case LAYER_SYMBOLS:
-            return "06 SYM    ";
-        default:
-        case LAYER_BASE:
-            return "00 BASE    ";
+    static const char *bk_layer_str_table[] = {"00 BASE    ", "01 FUNCT    ", "02 NAV    ", "03 MED/RGB    ", "04 POINT    ", "05 NUM    ", "06 SYM    "};
+
+    if (layer > MAX_LAYERS) {
+        layer = MAX_LAYERS - 1;
     }
+
+    return bk_layer_str_table(layer);
 }
 
 const hsv_t bk_layer_color(enum dilemma_keymap_layers layer) {
