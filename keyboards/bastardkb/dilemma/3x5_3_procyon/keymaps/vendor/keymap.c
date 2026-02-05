@@ -228,17 +228,10 @@ void housekeeping_task_user(void) {
 
     if (is_keyboard_left()) {
         if (prev_layer != layer) {
-            // qp_clear(lcd);
+            qp_clear(lcd);
             bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
-            bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
-            // qp_rect(lcd, BKS_LAYER_X, clear_y, LCD_WIDTH, LCD_HEIGHT, HSV_BLACK, true); // clean rest of screen
-            // qp_surface_draw(lcd_buffer, lcd, 0, 0, FALSE);
-            // qp_flush(lcd);
-        } else {
-            bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, FALSE);
-            // qp_surface_draw(lcd_buffer, lcd, LCD_OFFSET_X, LCD_OFFSET_Y, FALSE);
-            // qp_flush(lcd);
         }
+        bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
     }
     last_mods  = mods;
     prev_layer = layer;
@@ -270,12 +263,12 @@ int bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, b
             qp_drawtext(lcd, x, current_y, font, "MODS");
             // TODO check for mods update
             // if (bk_mods_have_changed() || rewrite_all) {
-                current_y += bk_layer_base_mods(qp_textwidth(font, "MODS ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
+            current_y += bk_layer_base_mods(qp_textwidth(font, "MODS ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
             // }
- 
+
             qp_drawtext(lcd, x, current_y, font, "LOCK");
             // TODO: test if lock has changed
-                current_y += bk_layer_base_lock(qp_textwidth(font, "LOCK ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
+            current_y += bk_layer_base_lock(qp_textwidth(font, "LOCK ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
             break;
     }
     return current_y;
@@ -330,11 +323,11 @@ int bk_layer_base_mods(uint16_t x, uint16_t y, painter_font_handle_t font_on, pa
 int bk_layer_base_lock(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
     int mod_column_size = qp_textwidth(font_on, "XXXXX");
 
-            // TODO: test if lock has changed, display only if change
+    // TODO: test if lock has changed, display only if change
     // if (host_keyboard_led_state().caps_lock) {
-        qp_drawtext(lcd, x, y, (host_keyboard_led_state().caps_lock) ? font_on : font_off, "CAPS");
-        // TODO scroll lock
-        qp_drawtext(lcd, x + mod_column_size, y, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "SCRL");
+    qp_drawtext(lcd, x, y, (host_keyboard_led_state().caps_lock) ? font_on : font_off, "CAPS");
+    // TODO scroll lock
+    qp_drawtext(lcd, x + mod_column_size, y, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "SCRL");
     // }
     return y + font_on->line_height * 1;
 }
