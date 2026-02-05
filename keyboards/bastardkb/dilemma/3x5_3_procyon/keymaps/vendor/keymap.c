@@ -321,18 +321,18 @@ int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, 
     mod_column_size = qp_textwidth(font_on, "XXXXX");
 
     if (((mods & MOD_MASK_GUI) != (last_mods & MOD_MASK_GUI)) || render_all) {
-        qp_drawtext(lcd, mods_x, current_y, (mods & MOD_MASK_GUI) ? font_on : font_off, "GUI");
+        qp_drawtext(lcd, mods_x, current_y, (mods & MOD_MASK_GUI) ? font_on : font_off, "GUI  ");
     }
     if (((mods & MOD_MASK_ALT) != (last_mods & MOD_MASK_ALT)) || render_all) {
-        qp_drawtext(lcd, mods_x + mod_column_size, current_y, (mods & MOD_MASK_ALT) ? font_on : font_off, "ALT");
+        qp_drawtext(lcd, mods_x + mod_column_size, current_y, (mods & MOD_MASK_ALT) ? font_on : font_off, "ALT     ");
     }
 
     if (((mods & MOD_MASK_CTRL) != (last_mods & MOD_MASK_CTRL)) || render_all) {
-        qp_drawtext(lcd, mods_x, current_y + font_on->line_height, (mods & MOD_MASK_CTRL) ? font_on : font_off, "CTRL");
+        qp_drawtext(lcd, mods_x, current_y + font_on->line_height, (mods & MOD_MASK_CTRL) ? font_on : font_off, "CTRL ");
     }
 
     if (((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) || render_all) {
-        qp_drawtext(lcd, mods_x + mod_column_size, current_y + font_on->line_height, (mods & MOD_MASK_SHIFT) ? font_on : font_off, "SHFT");
+        qp_drawtext(lcd, mods_x + mod_column_size, current_y + font_on->line_height, (mods & MOD_MASK_SHIFT) ? font_on : font_off, "SHFT    ");
     }
 
     current_y += font_on->line_height * 2;
@@ -346,7 +346,7 @@ int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, 
     mod_column_size = qp_textwidth(font_on, "XXXXX");
 
     qp_drawtext(lcd, mods_x, current_y, (host_keyboard_led_state().caps_lock) ? font_on : font_off, "CAPS");
-    qp_drawtext(lcd, mods_x + mod_column_size, current_y, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "SCRL");
+    qp_drawtext(lcd, mods_x + mod_column_size, current_y, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "SCRL    ");
 
     current_y += font_on->line_height;
 
