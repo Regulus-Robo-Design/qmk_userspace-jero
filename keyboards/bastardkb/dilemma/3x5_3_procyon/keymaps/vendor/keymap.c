@@ -56,7 +56,7 @@ enum dilemma_keymap_layers {
 #include "gfx/bar_gray.qgf.h"
 #include "gfx/bar_green.qgf.h"
 #include "gfx/fonts.qff.h"
-// #include "qp_surface.h"
+#include "qp_surface.h"
 #include "keymap.h"
 #include "color.h"
 
@@ -231,10 +231,10 @@ void housekeeping_task_user(void) {
             anim_timer          = timer_read32();
             if (prev_layer != layer) {
                 bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
-                int y = bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
-                qp_rect(lcd, BKS_LAYER_X, y, 300, 300, HSV_BLACK, 1);
+                // int y = bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
+                // qp_rect(lcd, BKS_LAYER_X, y, 300, 300, HSV_BLACK, 1);
             } else {
-                bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
+                // bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
             }
 
             last_mods  = mods; // TODO get rid of this?
