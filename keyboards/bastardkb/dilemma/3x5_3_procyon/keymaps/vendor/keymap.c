@@ -233,7 +233,9 @@ void housekeeping_task_user(void) {
                 // qp_clear(lcd);
                 bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
             }
-            bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
+            int y = bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
+
+            qp_rect(lcd, 0, y, 300, 300, HSV_BLACK, 1);
 
             last_mods  = mods; // TODO get rid of this?
             prev_layer = layer;
@@ -295,13 +297,13 @@ bool bk_mods_have_changed() {
 }
 
 int bk_display_info_pointer(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
-    int current_y       = y;
+    int current_y = y;
     // int mod_column_size = 0;
     qp_drawtext(lcd, x, current_y, font_on, "MODS");
     int mods_x = qp_textwidth(font_on, "MODS ") + x;
 
-    qp_drawtext(lcd, mods_x, current_y, (dilemma_get_pointer_sniping_enabled()) ? font_on : font_off, "SNIPE");
-    qp_drawtext(lcd, mods_x, current_y + font_on->line_height, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "SCROLL"); 
+    qp_drawtext(lcd, mods_x, current_y, (dilemma_get_pointer_sniping_enabled()) ? font_on : font_off, "SNIPE           ");
+    qp_drawtext(lcd, mods_x, current_y + font_on->line_height, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "SCROLL         ");
     current_y += font_on->line_height * 2;
 
     return current_y;
