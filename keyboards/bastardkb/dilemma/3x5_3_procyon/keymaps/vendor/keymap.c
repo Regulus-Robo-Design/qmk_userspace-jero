@@ -334,7 +334,7 @@ int bk_layer_base_lock(uint16_t x, uint16_t y, painter_font_handle_t font_on, pa
     // if (host_keyboard_led_state().caps_lock) {
         qp_drawtext(lcd, x, y, (host_keyboard_led_state().caps_lock) ? font_on : font_off, "CAPS");
         // TODO scroll lock
-        qp_drawtext(lcd, x + mod_column_size, y, (host_keyboard_led_state().caps_lock) ? font_on : font_off, "SCRL");
+        qp_drawtext(lcd, x + mod_column_size, y, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "SCRL");
     // }
     return y + font_on->line_height * 1;
 }
