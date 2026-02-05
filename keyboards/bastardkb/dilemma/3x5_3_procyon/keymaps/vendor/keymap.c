@@ -223,15 +223,19 @@ void keyboard_post_init_user(void) {
 }
 
 void housekeeping_task_user(void) {
-    const uint8_t layer = get_highest_layer(layer_state);
-    const uint8_t mods  = get_mods();
+    const uint8_t   layer      = get_highest_layer(layer_state);
+    const uint8_t   mods       = get_mods();
+    static uint32_t anim_timer = 0;
 
     if (is_keyboard_left()) {
-        if (prev_layer != layer) {
-            qp_clear(lcd);
-            bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
+        if (timer_elapsed32(anim_timer) > 250) {
+            anim_timer = timer_read32();
+            if (prev_layer != layer) {
+                // qp_clear(lcd);
+                bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
+            }
+            bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
         }
-        bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
     }
     last_mods  = mods;
     prev_layer = layer;
