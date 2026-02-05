@@ -338,7 +338,7 @@ const char *bk_layer_str(enum dilemma_keymap_layers layer) {
         layer = MAX_LAYERS - 1;
     }
 
-    return bk_layer_str_table(layer);
+    return bk_layer_str_table[layer];
 }
 
 const hsv_t bk_layer_color(enum dilemma_keymap_layers layer) {
