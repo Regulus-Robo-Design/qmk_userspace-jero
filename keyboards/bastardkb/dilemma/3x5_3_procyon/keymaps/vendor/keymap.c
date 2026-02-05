@@ -301,38 +301,58 @@ bool bk_mods_have_changed() {
     return change;
 }
 
-int bk_layer_base_mods(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
-    int mod_column_size = qp_textwidth(font_on, "XXXXX");
-
+int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
+    int current_y = y;
+    int mod_column_size = 0;
     uint8_t mods = get_mods();
 
+    // Mods info
+    qp_drawtext(lcd, x, current_y, font, "MODS");
+    int mods_x = qp_textwidth(font, "MODS ") + x;
+    // current_y += bk_layer_base_mods(qp_textwidth(font, "MODS ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
+    mod_column_size = qp_textwidth(font_on, "XXXXX");
+
     if (((mods & MOD_MASK_GUI) != (last_mods & MOD_MASK_GUI)) || render_all) {
-        qp_drawtext(lcd, x, y, (mods & MOD_MASK_GUI) ? font_on : font_off, "GUI");
+        qp_drawtext(lcd, mods_x, y, (mods & MOD_MASK_GUI) ? font_on : font_off, "GUI");
     }
     if (((mods & MOD_MASK_ALT) != (last_mods & MOD_MASK_ALT)) || render_all) {
-        qp_drawtext(lcd, x + mod_column_size, y, (mods & MOD_MASK_ALT) ? font_on : font_off, "ALT");
+        qp_drawtext(lcd, mods_x + mod_column_size, y, (mods & MOD_MASK_ALT) ? font_on : font_off, "ALT");
     }
 
     if (((mods & MOD_MASK_CTRL) != (last_mods & MOD_MASK_CTRL)) || render_all) {
-        qp_drawtext(lcd, x, y + font_on->line_height, (mods & MOD_MASK_CTRL) ? font_on : font_off, "CTRL");
+        qp_drawtext(lcd, mods_x, y + font_on->line_height, (mods & MOD_MASK_CTRL) ? font_on : font_off, "CTRL");
     }
 
     if (((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) || render_all) {
-        qp_drawtext(lcd, x + mod_column_size, y + font_on->line_height, (mods & MOD_MASK_SHIFT) ? font_on : font_off, "SHFT");
+        qp_drawtext(lcd, mods_x + mod_column_size, y + font_on->line_height, (mods & MOD_MASK_SHIFT) ? font_on : font_off, "SHFT");
     }
 
-    return y + font_on->line_height * 2;
+    current_y = y + font_on->line_height * 2;
+    // End Mods section
+
+    // Lock info
+    qp_drawtext(lcd, x, current_y, font, "LOCK");
+    current_y += bk_layer_base_lock(qp_textwidth(font, "LOCK ") + x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
+
+    mods_x = qp_textwidth(font, "LOCK ") + x;
+    mod_column_size = qp_textwidth(font_on, "XXXXX");
+
+    qp_drawtext(lcd, x, y, (host_keyboard_led_state().caps_lock) ? font_on : font_off, "CAPS");
+    qp_drawtext(lcd, x + mod_column_size, y, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "SCRL");
+
+    current_y = y + font_on->line_height;
+
+    return current_y;
+    // End Lock info
 }
+
 
 int bk_layer_base_lock(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
     int mod_column_size = qp_textwidth(font_on, "XXXXX");
 
-    // TODO: test if lock has changed, display only if change
-    // if (host_keyboard_led_state().caps_lock) {
     qp_drawtext(lcd, x, y, (host_keyboard_led_state().caps_lock) ? font_on : font_off, "CAPS");
-    // TODO scroll lock
     qp_drawtext(lcd, x + mod_column_size, y, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "SCRL");
-    // }
+
     return y + font_on->line_height * 1;
 }
 
