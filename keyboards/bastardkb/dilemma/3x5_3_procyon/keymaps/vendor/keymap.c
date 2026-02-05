@@ -200,7 +200,7 @@ void keyboard_post_init_user(void) {
     qp_init(lcd, LCD_ROTATION);
 
     surface = qp_make_rgb565_surface(LCD_WIDTH, LCD_HEIGHT, surface_buffer);
-    qp_init(lcd_buffer, LCD_ROTATION);
+    qp_init(surface, LCD_ROTATION);
 
     // Display offset
     qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
