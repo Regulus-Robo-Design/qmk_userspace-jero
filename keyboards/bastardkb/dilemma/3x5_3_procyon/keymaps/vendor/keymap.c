@@ -232,7 +232,7 @@ void housekeeping_task_user(void) {
             if (prev_layer != layer) {
                 bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
                 bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
-                qp_rect(lcd, 0, y, 300, 300, HSV_BLACK, 1);
+                qp_rect(lcd, BKS_LAYER_X, y, 300, 300, HSV_BLACK, 1);
             } else {
                 bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
             }
