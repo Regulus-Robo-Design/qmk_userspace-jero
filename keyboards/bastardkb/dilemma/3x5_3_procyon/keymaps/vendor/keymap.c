@@ -296,7 +296,7 @@ bool bk_mods_have_changed() {
 
 int bk_display_info_pointer(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
     int current_y       = y;
-    int mod_column_size = 0;
+    // int mod_column_size = 0;
     qp_drawtext(lcd, x, current_y, font_on, "MODS");
     int mods_x = qp_textwidth(font_on, "MODS ") + x;
 
