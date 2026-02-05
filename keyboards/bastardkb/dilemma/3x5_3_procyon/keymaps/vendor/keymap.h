@@ -15,7 +15,7 @@ void        bk_display_layer_name(int x, int y, int layer, painter_font_handle_t
 int         bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, bool rewrite_all);
 
 int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all);
-// const char *layer_str(dilemma_keymap_layers layer);
+int bk_display_info_pointer(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all);
 const hsv_t bk_layer_color(enum dilemma_keymap_layers layer);
 bool        bk_mods_have_changed(void);
 
