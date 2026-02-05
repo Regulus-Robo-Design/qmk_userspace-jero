@@ -245,8 +245,8 @@ void housekeeping_task_user(void) {
 
 void bk_display_layer_name(int x, int y, int layer, painter_font_handle_t font) {
     hsv_t color = bk_layer_color(layer);
-    qp_rect(lcd, 0, 0, BKS_LAYER_BAR_W, LCD_HEIGHT, color.h, color.s, color.v, true);
-    qp_drawtext(lcd, x, y, font, bk_layer_str(layer));
+    qp_rect(surface, 0, 0, BKS_LAYER_BAR_W, LCD_HEIGHT, color.h, color.s, color.v, true);
+    qp_drawtext(surface, x, y, font, bk_layer_str(layer));
 }
 
 int bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, bool rewrite_all) {
