@@ -228,7 +228,7 @@ void housekeeping_task_user(void) {
     static uint32_t anim_timer = 0;
 
     if (is_keyboard_left()) {
-        if (timer_elapsed32(anim_timer) > 250) {
+        if (timer_elapsed32(anim_timer) > 33) {
             anim_timer = timer_read32();
             if (prev_layer != layer) {
                 // qp_clear(lcd);
