@@ -290,17 +290,19 @@ int bk_display_info_pointer(uint16_t x, uint16_t y, painter_font_handle_t font_o
     // End Mods
 
     // DPI info
-    char result[50]; 
-    sprintf(result, "%u", dilemma_get_pointer_default_dpi()); 
+    char dpi[50]; 
+    sprintf(dpi, "%u", dilemma_get_pointer_default_dpi()); 
     qp_drawtext(surface, x, current_y, font_on, "DPI");
     mods_x = qp_textwidth(font_on, "DPI ") + x;
-    qp_drawtext(surface, mods_x, current_y, font_on, result);
+    qp_drawtext(surface, mods_x, current_y, font_off, dpi);
     current_y += font_on->line_height;
 
-    // qp_drawtext(surface, x, current_y, font_on, "SP. DPI");
-    // mods_x = qp_textwidth(font_on, "SP. DPI ") + x;
-    // qp_drawtext(surface, mods_x, current_y, font_on, dilemma_get_pointer_sniping_dpi());
-    // current_y += font_on->line_height;
+    char s_dpi[50]; 
+    sprintf(s_dpi, "%u", dilemma_get_pointer_sniping_dpi()); 
+    qp_drawtext(surface, x, current_y, font_on, "SP. DPI");
+    mods_x = qp_textwidth(font_on, "SP. DPI ") + x;
+    qp_drawtext(surface, mods_x, current_y, font_off, s_dpi);
+    current_y += font_on->line_height;
 
     // End DPI info
 
