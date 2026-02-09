@@ -1,7 +1,6 @@
 {
     "userspace_version": "1.0",
     "build_targets": [
-        ["bastardkb/dilemma/3x5_3_procyon", "vendor"],
-        ["bastardkb/charybdis/3x5/splinktegrated_rev3", "bwpo"]
+        ["bastardkb/dilemma/3x5_3_procyon", "vendor"]
     ]
 }
