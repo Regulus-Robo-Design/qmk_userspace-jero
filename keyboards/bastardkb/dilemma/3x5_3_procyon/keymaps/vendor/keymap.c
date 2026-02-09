@@ -27,6 +27,7 @@ enum dilemma_keymap_layers {
     LAYER_POINTER,
     LAYER_NUMERAL,
     LAYER_SYMBOLS,
+    MAX_LAYERS,
 };
 
 // Automatically enable sniping-mode on the pointer layer.
@@ -233,11 +234,11 @@ void housekeeping_task_user(void) {
                 qp_clear(surface);
                 bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
                 bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
-                qp_surface_draw(surface, lcd, 0, 0, true);
+                qp_surface_draw(surface, lcd, 0, 0, true); // TODO change true to fallse
                 // qp_rect(lcd, BKS_LAYER_X, y, 300, 300, HSV_BLACK, 1);
             } else {
                 bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
-                qp_surface_draw(surface, lcd, 0, 0, true);
+                qp_surface_draw(surface, lcd, 0, 0, true); // TODO change true to fallse
             }
 
             last_mods  = mods; // TODO get rid of this?
@@ -274,29 +275,6 @@ int bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, b
             break;
     }
     return current_y;
-}
-
-bool bk_mods_have_changed() {
-    const uint8_t mods   = get_mods();
-    bool          change = FALSE;
-
-    if ((mods & MOD_MASK_GUI) != (last_mods & MOD_MASK_GUI)) {
-        change = TRUE;
-    }
-
-    if ((mods & MOD_MASK_ALT) != (last_mods & MOD_MASK_ALT)) {
-        change = TRUE;
-    }
-
-    if ((mods & MOD_MASK_CTRL) != (last_mods & MOD_MASK_CTRL)) {
-        change = TRUE;
-    }
-
-    if ((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) {
-        change = TRUE;
-    }
-
-    return change;
 }
 
 int bk_display_info_pointer(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
@@ -358,23 +336,10 @@ int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, 
 }
 
 const char *bk_layer_str(enum dilemma_keymap_layers layer) {
-    switch (layer) {
-        case LAYER_FUNCTION:
-            return "01 FUNCT";
-        case LAYER_NAVIGATION:
-            return "02 NAV";
-        case LAYER_MEDIA:
-            return "03 MED/RGB";
-        case LAYER_POINTER:
-            return "04 POINT";
-        case LAYER_NUMERAL:
-            return "05 NUM";
-        case LAYER_SYMBOLS:
-            return "06 SYM";
-        default:
-        case LAYER_BASE:
-            return "00 BASE";
+    if (layer > MAX LAYERS) {
+        layer = 0;
     }
+    return layer_strings[layer];
 }
 
 const hsv_t bk_layer_color(enum dilemma_keymap_layers layer) {
