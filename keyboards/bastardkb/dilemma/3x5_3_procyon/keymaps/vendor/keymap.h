@@ -17,17 +17,16 @@ int         bk_display_layer_info(int x, int y, int layer, painter_font_handle_t
 int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all);
 int bk_display_info_pointer(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all);
 const hsv_t bk_layer_color(enum dilemma_keymap_layers layer);
-bool        bk_mods_have_changed(void);
 
-// static const char *layer_strings[] = {
-//     [LAYER_BASE]       = "00 BASE",
-//     [LAYER_FUNCTION]   = "01 FUNCT",
-//     [LAYER_NAVIGATION] = "02 NAV",
-//     [LAYER_MEDIA]      = "03 MED/RGB",
-//     [LAYER_POINTER]    = "04 POINT",
-//     [LAYER_NUMERAL]    = "05 NUM",
-//     [LAYER_SYMBOLS]    = "06 SYM"
-// };
+static const char *layer_strings[] = {
+    "00 BASE",
+    "01 FUNCT",
+    "02 NAV",
+    "03 MED/RGB",
+    "04 POINT",
+    "05 NUM",
+    "06 SYM"
+};
 
 // static const hsv_t colors[] = {
 //     [LAYER_BASE]       = {HSV_WHITE},
