@@ -336,7 +336,7 @@ int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, 
 }
 
 const char *bk_layer_str(enum dilemma_keymap_layers layer) {
-    if (layer > MAX LAYERS) {
+    if (layer > MAX_LAYERS) {
         layer = 0;
     }
     return layer_strings[layer];
