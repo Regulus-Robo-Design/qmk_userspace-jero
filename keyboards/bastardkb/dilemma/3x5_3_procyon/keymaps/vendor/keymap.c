@@ -233,11 +233,11 @@ void housekeeping_task_user(void) {
             if (prev_layer != layer) {
                 qp_clear(surface);
                 bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
-                bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
+                bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 5, layer, bk_font_menu, TRUE);
                 qp_surface_draw(surface, lcd, 0, 0, true); // TODO change true to fallse
                 // qp_rect(lcd, BKS_LAYER_X, y, 300, 300, HSV_BLACK, 1);
             } else {
-                bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height, layer, bk_font_menu, TRUE);
+                bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 5, layer, bk_font_menu, TRUE);
                 qp_surface_draw(surface, lcd, 0, 0, true); // TODO change true to fallse
             }
 
@@ -285,8 +285,8 @@ int bk_display_info_pointer(uint16_t x, uint16_t y, painter_font_handle_t font_o
     int mods_x = qp_textwidth(font_on, "MODS ") + x;
 
     qp_drawtext(surface, mods_x, current_y, (dilemma_get_pointer_sniping_enabled()) ? font_on : font_off, "SNIPE");
-    qp_drawtext(surface, mods_x, current_y + font_on->line_height, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "SCROLL");
-    current_y += font_on->line_height * 2;
+    qp_drawtext(surface, mods_x, current_y + font_on->line_height + 5, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "SCROLL");
+    current_y += font_on->line_height * 2 + 10;
     // End Mods
 
     // DPI info
@@ -295,14 +295,14 @@ int bk_display_info_pointer(uint16_t x, uint16_t y, painter_font_handle_t font_o
     qp_drawtext(surface, x, current_y, font_on, "DPI");
     mods_x = qp_textwidth(font_on, "DPI ") + x;
     qp_drawtext(surface, mods_x, current_y, font_off, dpi);
-    current_y += font_on->line_height;
+    current_y += font_on->line_height + 5;
 
     char s_dpi[50]; 
     sprintf(s_dpi, "%u", dilemma_get_pointer_sniping_dpi()); 
     qp_drawtext(surface, x, current_y, font_on, "SP. DPI");
     mods_x = qp_textwidth(font_on, "SP. DPI ") + x;
     qp_drawtext(surface, mods_x, current_y, font_off, s_dpi);
-    current_y += font_on->line_height;
+    current_y += font_on->line_height + 5;
 
     // End DPI info
 
@@ -328,14 +328,14 @@ int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, 
     }
 
     if (((mods & MOD_MASK_CTRL) != (last_mods & MOD_MASK_CTRL)) || render_all) {
-        qp_drawtext(surface, mods_x, current_y + font_on->line_height, (mods & MOD_MASK_CTRL) ? font_on : font_off, "CTRL");
+        qp_drawtext(surface, mods_x, current_y + font_on->line_height + 5, (mods & MOD_MASK_CTRL) ? font_on : font_off, "CTRL");
     }
 
     if (((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) || render_all) {
-        qp_drawtext(surface, mods_x + mod_column_size, current_y + font_on->line_height, (mods & MOD_MASK_SHIFT) ? font_on : font_off, "SHFT");
+        qp_drawtext(surface, mods_x + mod_column_size, current_y + font_on->line_height + 5, (mods & MOD_MASK_SHIFT) ? font_on : font_off, "SHFT");
     }
 
-    current_y += font_on->line_height * 2;
+    current_y += font_on->line_height * 2 + 5;
     // End Mods section
 
     // Lock info
