@@ -257,8 +257,10 @@ int bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, b
     int current_y = y;
     switch (layer) {
         case LAYER_FUNCTION:
+            current_y = bk_display_info_base(x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
             break;
         case LAYER_NAVIGATION:
+            current_y = bk_display_info_base(x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
             break;
         case LAYER_MEDIA:
             break;
@@ -266,14 +268,48 @@ int bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, b
             current_y = bk_display_info_pointer(x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
             break;
         case LAYER_NUMERAL:
+            current_y = bk_display_info_base(x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
             break;
         case LAYER_SYMBOLS:
+            current_y = bk_display_info_base(x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
             break;
         case LAYER_BASE:
         default:
             current_y = bk_display_info_base(x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
             break;
     }
+    return current_y;
+}
+
+int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
+    int current_y = y;
+
+    // Mods
+    qp_drawtext(surface, x, current_y, font_on, "RGB");
+    int mods_x = qp_textwidth(font_on, "RGB ") + x;
+
+    qp_drawtext(surface, mods_x, current_y, (dilemma_get_pointer_sniping_enabled()) ? font_on : font_off, "SNIPE");
+    qp_drawtext(surface, mods_x, current_y + font_on->line_height + 5, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "SCROLL");
+    current_y += font_on->line_height * 2 + 10;
+    // End Mods
+
+    // DPI info
+    char dpi[50];
+    sprintf(dpi, "%u", dilemma_get_pointer_default_dpi());
+    qp_drawtext(surface, x, current_y, font_on, "DPI");
+    mods_x = qp_textwidth(font_on, "DPI ") + x;
+    qp_drawtext(surface, mods_x, current_y, font_off, dpi);
+    current_y += font_on->line_height + 5;
+
+    char s_dpi[50];
+    sprintf(s_dpi, "%u", dilemma_get_pointer_sniping_dpi());
+    qp_drawtext(surface, x, current_y, font_on, "SP. DPI");
+    mods_x = qp_textwidth(font_on, "SP. DPI ") + x;
+    qp_drawtext(surface, mods_x, current_y, font_off, s_dpi);
+    current_y += font_on->line_height + 5;
+
+    // End DPI info
+
     return current_y;
 }
 
@@ -290,15 +326,15 @@ int bk_display_info_pointer(uint16_t x, uint16_t y, painter_font_handle_t font_o
     // End Mods
 
     // DPI info
-    char dpi[50]; 
-    sprintf(dpi, "%u", dilemma_get_pointer_default_dpi()); 
+    char dpi[50];
+    sprintf(dpi, "%u", dilemma_get_pointer_default_dpi());
     qp_drawtext(surface, x, current_y, font_on, "DPI");
     mods_x = qp_textwidth(font_on, "DPI ") + x;
     qp_drawtext(surface, mods_x, current_y, font_off, dpi);
     current_y += font_on->line_height + 5;
 
-    char s_dpi[50]; 
-    sprintf(s_dpi, "%u", dilemma_get_pointer_sniping_dpi()); 
+    char s_dpi[50];
+    sprintf(s_dpi, "%u", dilemma_get_pointer_sniping_dpi());
     qp_drawtext(surface, x, current_y, font_on, "SP. DPI");
     mods_x = qp_textwidth(font_on, "SP. DPI ") + x;
     qp_drawtext(surface, mods_x, current_y, font_off, s_dpi);
