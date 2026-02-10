@@ -18,8 +18,6 @@ int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, 
 int bk_display_info_pointer(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all);
 int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all);
 
-static HSV _get_hsv_for_layer_index(uint8_t layer);
-
 static const char *layer_strings[] = {
     "00 BASE",
     "01 FUNCT",
