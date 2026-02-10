@@ -290,7 +290,7 @@ int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on,
     sprintf(crgb, "%u", rgb);
     qp_drawtext(surface, x, current_y, font_on, "TEST");
     mods_x = qp_textwidth(font_on, "TEST ") + x;
-    qp_drawtext(surface, mods_x, current_y, font_off, rgb);
+    qp_drawtext(surface, mods_x, current_y, font_off, crgb);
 
     return current_y;
 }
