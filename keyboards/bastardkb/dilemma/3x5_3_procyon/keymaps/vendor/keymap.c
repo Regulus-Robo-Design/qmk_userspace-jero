@@ -248,7 +248,7 @@ void housekeeping_task_user(void) {
 }
 
 void bk_display_layer_name(int x, int y, int layer, painter_font_handle_t font) {
-    hsv_t color = bk_layer_color(layer);
+    hsv_t color = _get_hsv_for_layer_index(layer);
     qp_rect(surface, 0, 0, BKS_LAYER_BAR_W, LCD_HEIGHT, color.h, color.s, color.v, true);
     qp_drawtext(surface, x, y, font, bk_layer_str(layer));
 }
@@ -395,34 +395,4 @@ const char *bk_layer_str(enum dilemma_keymap_layers layer) {
         layer = 0;
     }
     return layer_strings[layer];
-}
-
-const hsv_t bk_layer_color(enum dilemma_keymap_layers layer) {
-    hsv_t color;
-    switch (layer) {
-        case LAYER_FUNCTION:
-            color = (hsv_t){HSV_BLUE};
-            break;
-        case LAYER_NAVIGATION:
-            color = (hsv_t){HSV_ORANGE};
-            break;
-        case LAYER_MEDIA:
-            color = (hsv_t){HSV_AZURE};
-            break;
-        case LAYER_POINTER:
-            color = (hsv_t){HSV_GREEN};
-            break;
-        case LAYER_NUMERAL:
-            color = (hsv_t){HSV_TEAL};
-            break;
-        case LAYER_SYMBOLS:
-            color = (hsv_t){HSV_PURPLE};
-            break;
-        case LAYER_BASE:
-        default:
-            color = (hsv_t){HSV_WHITE};
-            break;
-    }
-
-    return color;
 }
