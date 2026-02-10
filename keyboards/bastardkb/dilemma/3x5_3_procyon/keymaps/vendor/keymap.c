@@ -263,6 +263,7 @@ int bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, b
             current_y = bk_display_info_base(x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
             break;
         case LAYER_MEDIA:
+            current_y = bk_display_info_media(x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
             break;
         case LAYER_POINTER:
             current_y = bk_display_info_pointer(x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
