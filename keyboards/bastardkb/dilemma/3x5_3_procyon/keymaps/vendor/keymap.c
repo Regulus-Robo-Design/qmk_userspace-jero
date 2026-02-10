@@ -228,7 +228,7 @@ void housekeeping_task_user(void) {
     if (is_keyboard_left()) {
         if (timer_elapsed32(anim_timer) > 200) {
             const uint8_t layer = get_highest_layer(layer_state);
-            const uint8_t mods  = get_mods();
+            // const uint8_t mods  = get_mods();
             anim_timer          = timer_read32();
             // if (prev_layer != layer) {
                 qp_clear(surface);
