@@ -283,15 +283,20 @@ int bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, b
 }
 
 int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
-    int current_y = y;
-    uint8_t rgb = rgb_matrix_is_enabled();
-    int mods_x = 0;
-    
-    char crgb[50];
-    sprintf(crgb, "%u", rgb);
-    qp_drawtext(surface, x, current_y, font_on, "TEST");
-    mods_x = qp_textwidth(font_on, "TEST ") + x;
-    qp_drawtext(surface, mods_x, current_y, font_off, crgb);
+    int     current_y = y;
+    uint8_t rgb       = rgb_matrix_is_enabled();
+    int     mods_x    = 0;
+
+    qp_drawtext(surface, x, current_y, font_on, "RGB");
+    mods_x = qp_textwidth(font_on, "RGB ") + x;
+
+    if (rgb) {
+        qp_drawtext(surface, mods_x, current_y, font_on, "ON");
+    } else {
+        qp_drawtext(surface, mods_x, current_y, font_off, "OFF");
+    }
+
+    current_y += font_on->line_height + 5;
 
     return current_y;
 }
