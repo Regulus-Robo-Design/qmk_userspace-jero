@@ -216,7 +216,7 @@ void keyboard_post_init_user(void) {
     qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
     qp_flush(lcd);
 
-    // prev_layer = 99;
+    prev_layer = 99;
     // last_mods  = UINT8_MAX;
     // bk_display_layer_number();
     // keyboard_post_init_user();
@@ -226,23 +226,21 @@ void keyboard_post_init_user(void) {
 void housekeeping_task_user(void) {
     static uint32_t anim_timer = 0;
     if (is_keyboard_left()) {
-        if (timer_elapsed32(anim_timer) > 66) {
+        if (timer_elapsed32(anim_timer) > 200) {
             const uint8_t layer = get_highest_layer(layer_state);
-            // const uint8_t mods  = get_mods();
+            const uint8_t mods  = get_mods();
             anim_timer          = timer_read32();
-            if (prev_layer != layer) {
+            // if (prev_layer != layer) {
                 qp_clear(surface);
                 bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
                 bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 5, layer, bk_font_menu, TRUE);
                 qp_surface_draw(surface, lcd, 0, 0, false); 
-                // qp_rect(lcd, BKS_LAYER_X, y, 300, 300, HSV_BLACK, 1);
-            } else {
-                bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 5, layer, bk_font_menu, TRUE);
-                qp_surface_draw(surface, lcd, 0, 0, false); 
-            }
+            // } else {
+            //     bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 5, layer, bk_font_menu, TRUE);
+            //     qp_surface_draw(surface, lcd, 0, 0, false); 
+            // }
 
-            // last_mods  = mods; // TODO get rid of this?
-            // prev_layer = layer;
+            prev_layer = layer;
         }
     }
 }
@@ -291,7 +289,7 @@ int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on,
     mods_x = qp_textwidth(font_on, "RGB ") + x;
 
     if (rgb) {
-        qp_drawtext(surface, mods_x, current_y, font_on, "ON");
+        qp_drawtext(surface, mods_x, current_y, font_on, "ON ");
     } else {
         qp_drawtext(surface, mods_x, current_y, font_off, "OFF");
     }
