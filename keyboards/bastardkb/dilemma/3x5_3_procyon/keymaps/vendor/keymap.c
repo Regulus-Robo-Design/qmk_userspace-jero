@@ -234,11 +234,11 @@ void housekeeping_task_user(void) {
                 qp_clear(surface);
                 bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
                 bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 5, layer, bk_font_menu, TRUE);
-                qp_surface_draw(surface, lcd, 0, 0, true); // TODO change true to fallse
+                qp_surface_draw(surface, lcd, 0, 0, false); // TODO change true to fallse
                 // qp_rect(lcd, BKS_LAYER_X, y, 300, 300, HSV_BLACK, 1);
             } else {
                 bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 5, layer, bk_font_menu, TRUE);
-                qp_surface_draw(surface, lcd, 0, 0, true); // TODO change true to fallse
+                qp_surface_draw(surface, lcd, 0, 0, false); // TODO change true to fallse
             }
 
             last_mods  = mods; // TODO get rid of this?
