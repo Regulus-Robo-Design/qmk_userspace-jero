@@ -283,6 +283,7 @@ int bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, b
 
 int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
     int current_y = y;
+
     return current_y;
 }
 
