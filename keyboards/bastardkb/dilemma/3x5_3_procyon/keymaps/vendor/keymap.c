@@ -231,7 +231,7 @@ void housekeeping_task_user(void) {
             const uint8_t mods  = get_mods();
             anim_timer          = timer_read32();
             if (prev_layer != layer) {
-                qp_clear(surface);
+                // qp_clear(surface);
                 bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
                 bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 5, layer, bk_font_menu, TRUE);
                 qp_surface_draw(surface, lcd, 0, 0, false); // TODO change true to fallse
