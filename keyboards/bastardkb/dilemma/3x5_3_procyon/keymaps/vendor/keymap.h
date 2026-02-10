@@ -1,8 +1,8 @@
 painter_font_handle_t bk_font_layer;
 painter_font_handle_t bk_font_menu;
 painter_font_handle_t bk_font_menu_off;
-static uint8_t        prev_layer;
-static uint8_t        last_mods;
+// static uint8_t        prev_layer;
+// static uint8_t        last_mods;
 
 #undef RP_I2C_USE_I2C0
 #define RP_I2C_USE_I2C0 FALSE
