@@ -11,7 +11,7 @@ SRC += gfx/regular20.qff.c
 SRC += gfx/regular20grey.qff.c
 SRC += gfx/regular36.qff.c
 SRC += gfx/semibold36.qff.c
-SRC += gfx/anim.qff.c
+SRC += gfx/anim.qgf.c
 
 BACKLIGHT_ENABLE = yes
 BACKLIGHT_DRIVER = pwm
