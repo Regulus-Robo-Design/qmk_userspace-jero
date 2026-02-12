@@ -57,7 +57,7 @@ enum dilemma_keymap_layers {
 #include "gfx/regular20grey.qff.h"
 #include "gfx/regular36.qff.h"
 #include "gfx/semibold36.qff.h"
-// #include "gfx/anim.qgf.h"
+#include "gfx/mods.qgf.h"
 #include "qp_surface.h"
 #include "keymap.h"
 #include "color.h"
@@ -213,7 +213,7 @@ void keyboard_post_init_user(void) {
     bk_font_menu_off = qp_load_font_mem(font_regular20grey);
     
     // load bk logo animation
-    // anim = qp_load_image_mem(gfx_anim);
+    mods = qp_load_image_mem(gfx_mods);
     // my_anim = qp_animate(lcd, 0, 100, anim);
 
     // Power on display, fill with black
@@ -346,6 +346,7 @@ int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, 
     int mods_x      = qp_textwidth(font_on, "MODS ") + x;
     mod_column_size = qp_textwidth(font_on, "XXXXX");
 
+    qp_drawimage(surface, mods_x-3, current_y-3, mods);
     qp_drawtext(surface, mods_x, current_y, (mods & MOD_MASK_GUI) ? font_on : font_off, "GUI");
     qp_drawtext(surface, mods_x + mod_column_size, current_y, (mods & MOD_MASK_ALT) ? font_on : font_off, "ALT");
     qp_drawtext(surface, mods_x, current_y + font_on->line_height + 5, (mods & MOD_MASK_CTRL) ? font_on : font_off, "CTRL");
