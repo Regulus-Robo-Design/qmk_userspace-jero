@@ -57,7 +57,7 @@ enum dilemma_keymap_layers {
 #include "gfx/regular20grey.qff.h"
 #include "gfx/regular36.qff.h"
 #include "gfx/semibold36.qff.h"
-#include "gfx/amin.qff.h"
+#include "gfx/anim.qff.h"
 #include "qp_surface.h"
 #include "keymap.h"
 #include "color.h"
@@ -211,6 +211,10 @@ void keyboard_post_init_user(void) {
     bk_font_layer    = qp_load_font_mem(font_semibold36);
     bk_font_menu     = qp_load_font_mem(font_regular20);
     bk_font_menu_off = qp_load_font_mem(font_regular20grey);
+    
+    // load bk logo animation
+    anim = qp_load_image_mem(gfx_anim);
+    my_anim = qp_animate(lcd, 0, 100, anim);
 
     // Power on display, fill with black
     qp_power(lcd, 1);
