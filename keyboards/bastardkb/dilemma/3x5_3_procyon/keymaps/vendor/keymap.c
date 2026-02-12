@@ -308,11 +308,11 @@ int bk_display_info_pointer(uint16_t x, uint16_t y, painter_font_handle_t font_o
     int current_y = y;
 
     // Mods
-    qp_drawtext(surface, x, current_y, font_on, "MODS");
+    qp_drawtext(surface, x, current_y, font_on, "Mods");
     int mods_x = qp_textwidth(font_on, "MODS ") + x;
 
-    qp_drawtext(surface, mods_x, current_y, (dilemma_get_pointer_sniping_enabled()) ? font_on : font_off, "SNIPE");
-    qp_drawtext(surface, mods_x, current_y + font_on->line_height + 5, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "SCROLL");
+    qp_drawtext(surface, mods_x, current_y, (dilemma_get_pointer_sniping_enabled()) ? font_on : font_off, "Snipe");
+    qp_drawtext(surface, mods_x, current_y + font_on->line_height + 5, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "Scroll");
     current_y += font_on->line_height * 2 + 20;
     // End Mods
 
@@ -326,7 +326,7 @@ int bk_display_info_pointer(uint16_t x, uint16_t y, painter_font_handle_t font_o
 
     char s_dpi[50];
     sprintf(s_dpi, "%u", dilemma_get_pointer_sniping_dpi());
-    qp_drawtext(surface, x, current_y, font_on, "SP. DPI");
+    qp_drawtext(surface, x, current_y, font_on, "Sp. DPI");
     mods_x = qp_textwidth(font_on, "SP. DPI ") + x;
     qp_drawtext(surface, mods_x, current_y, font_off, s_dpi);
     current_y += font_on->line_height + 5;
@@ -342,26 +342,26 @@ int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, 
     uint8_t mods            = get_mods();
 
     // Mods info
-    qp_drawtext(surface, x, current_y, font_on, "MODS");
+    qp_drawtext(surface, x, current_y, font_on, "Mods");
     int mods_x      = qp_textwidth(font_on, "MODS ") + x;
     mod_column_size = qp_textwidth(font_on, "XXXXX");
 
-    qp_drawtext(surface, mods_x, current_y, (mods & MOD_MASK_GUI) ? font_on : font_off, "GUI");
-    qp_drawtext(surface, mods_x + mod_column_size, current_y, (mods & MOD_MASK_ALT) ? font_on : font_off, "ALT");
-    qp_drawtext(surface, mods_x, current_y + font_on->line_height + 5, (mods & MOD_MASK_CTRL) ? font_on : font_off, "CTRL");
-    qp_drawtext(surface, mods_x + mod_column_size, current_y + font_on->line_height + 5, (mods & MOD_MASK_SHIFT) ? font_on : font_off, "SHFT");
+    qp_drawtext(surface, mods_x, current_y, (mods & MOD_MASK_GUI) ? font_on : font_off, "Gui");
+    qp_drawtext(surface, mods_x + mod_column_size, current_y, (mods & MOD_MASK_ALT) ? font_on : font_off, "Alt");
+    qp_drawtext(surface, mods_x, current_y + font_on->line_height + 5, (mods & MOD_MASK_CTRL) ? font_on : font_off, "Ctrl");
+    qp_drawtext(surface, mods_x + mod_column_size, current_y + font_on->line_height + 5, (mods & MOD_MASK_SHIFT) ? font_on : font_off, "Shft");
 
     current_y += font_on->line_height * 2 + 20;
     // End Mods section
 
     // Lock info
-    qp_drawtext(surface, x, current_y, font_on, "LOCK");
+    qp_drawtext(surface, x, current_y, font_on, "Lock");
 
     mods_x          = qp_textwidth(font_on, "LOCK ") + x;
     mod_column_size = qp_textwidth(font_on, "XXXXX");
 
-    qp_drawtext(surface, mods_x, current_y, (host_keyboard_led_state().caps_lock) ? font_on : font_off, "CAPS");
-    qp_drawtext(surface, mods_x + mod_column_size, current_y, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "SCRL");
+    qp_drawtext(surface, mods_x, current_y, (host_keyboard_led_state().caps_lock) ? font_on : font_off, "Caps");
+    qp_drawtext(surface, mods_x + mod_column_size, current_y, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "Scrl");
 
     current_y += font_on->line_height;
 
