@@ -57,6 +57,7 @@ enum dilemma_keymap_layers {
 #include "gfx/regular20grey.qff.h"
 #include "gfx/regular36.qff.h"
 #include "gfx/semibold36.qff.h"
+#include "gfx/amin.qff.h"
 #include "qp_surface.h"
 #include "keymap.h"
 #include "color.h"

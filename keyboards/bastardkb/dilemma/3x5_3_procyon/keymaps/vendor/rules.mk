@@ -6,15 +6,12 @@ QUANTUM_PAINTER_ENABLE = yes
 QUANTUM_PAINTER_DRIVERS += st7789_spi
 QUANTUM_PAINTER_DRIVERS += surface
 ST7789 = true
-SRC += gfx/POC.qgf.c
-SRC += gfx/bar_blue.qgf.c
-SRC += gfx/bar_green.qgf.c
-SRC += gfx/bar_gray.qgf.c
 SRC += gfx/fonts.qff.c
 SRC += gfx/regular20.qff.c
 SRC += gfx/regular20grey.qff.c
 SRC += gfx/regular36.qff.c
 SRC += gfx/semibold36.qff.c
+SRC += gfx/anim.qff.c
 
 BACKLIGHT_ENABLE = yes
 BACKLIGHT_DRIVER = pwm
