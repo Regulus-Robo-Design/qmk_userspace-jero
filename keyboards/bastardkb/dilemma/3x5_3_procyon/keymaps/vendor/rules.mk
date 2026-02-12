@@ -11,6 +11,10 @@ SRC += gfx/bar_blue.qgf.c
 SRC += gfx/bar_green.qgf.c
 SRC += gfx/bar_gray.qgf.c
 SRC += gfx/fonts.qff.c
+SRC += gfx/regular20.qff.c
+SRC += gfx/regular20grey.qff.c
+SRC += gfx/regular36.qff.c
+SRC += gfx/semibold36.qff.c
 
 BACKLIGHT_ENABLE = yes
 BACKLIGHT_DRIVER = pwm
