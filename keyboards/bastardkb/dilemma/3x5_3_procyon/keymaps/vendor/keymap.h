@@ -1,8 +1,6 @@
 painter_font_handle_t bk_font_layer;
 painter_font_handle_t bk_font_menu;
 painter_font_handle_t bk_font_menu_off;
-painter_image_handle_t anim;
-static deferred_token my_anim;
 static uint8_t        prev_layer;
 // static uint8_t        last_mods;
 
