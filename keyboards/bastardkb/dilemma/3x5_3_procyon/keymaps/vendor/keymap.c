@@ -213,8 +213,8 @@ void keyboard_post_init_user(void) {
     bk_font_menu_off = qp_load_font_mem(font_regular20grey);
     
     // load bk logo animation
-    anim = qp_load_image_mem(gfx_anim);
-    my_anim = qp_animate(lcd, 0, 100, anim);
+    // anim = qp_load_image_mem(gfx_anim);
+    // my_anim = qp_animate(lcd, 0, 100, anim);
 
     // Power on display, fill with black
     qp_power(lcd, 1);
@@ -238,10 +238,10 @@ void housekeeping_task_user(void) {
             if (prev_layer != layer) {
                 qp_clear(surface);
                 bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
-                bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 5, layer, bk_font_menu, TRUE);
+                bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 10, layer, bk_font_menu, TRUE);
                 qp_surface_draw(surface, lcd, 0, 0, false);
             } else {
-                bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 5, layer, bk_font_menu, TRUE);
+                bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 10, layer, bk_font_menu, TRUE);
                 qp_surface_draw(surface, lcd, 0, 0, false);
             }
 
