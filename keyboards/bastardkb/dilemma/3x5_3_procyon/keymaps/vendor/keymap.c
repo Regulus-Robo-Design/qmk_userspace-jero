@@ -312,7 +312,7 @@ int bk_display_info_pointer(uint16_t x, uint16_t y, painter_font_handle_t font_o
 
     qp_drawtext(surface, mods_x, current_y, (dilemma_get_pointer_sniping_enabled()) ? font_on : font_off, "SNIPE");
     qp_drawtext(surface, mods_x, current_y + font_on->line_height + 5, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "SCROLL");
-    current_y += font_on->line_height * 2 + 10;
+    current_y += font_on->line_height * 2 + 20;
     // End Mods
 
     // DPI info
@@ -361,7 +361,7 @@ int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, 
         qp_drawtext(surface, mods_x + mod_column_size, current_y + font_on->line_height + 5, (mods & MOD_MASK_SHIFT) ? font_on : font_off, "SHFT");
     // }
 
-    current_y += font_on->line_height * 2 + 5;
+    current_y += font_on->line_height * 2 + 20;
     // End Mods section
 
     // Lock info
