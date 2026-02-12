@@ -54,6 +54,6 @@
 #define QUANTUM_PAINTER_TASK_THROTTLE 16 // 60 FPS ish
 
 // Custom display stuff
-#define BKS_LAYER_X 30
+#define BKS_LAYER_X 25
 #define BKS_LAYER_Y 10
 #define BKS_LAYER_BAR_W 12
