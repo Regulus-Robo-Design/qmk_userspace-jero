@@ -57,6 +57,10 @@ enum dilemma_keymap_layers {
 #include "gfx/bar_gray.qgf.h"
 #include "gfx/bar_green.qgf.h"
 #include "gfx/fonts.qff.h"
+#include "gfx/regular20.qff.h"
+#include "gfx/regular20grey.qff.h"
+#include "gfx/regular36.qff.h"
+#include "gfx/semibold36.qff.h"
 #include "qp_surface.h"
 #include "keymap.h"
 #include "color.h"
@@ -207,9 +211,9 @@ void keyboard_post_init_user(void) {
     qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
 
     // load fonts
-    bk_font_layer    = qp_load_font_mem(font_gridlitepbslayer);
-    bk_font_menu     = qp_load_font_mem(font_gridlitepbsmenu);
-    bk_font_menu_off = qp_load_font_mem(font_gridlitepbsmenuoff);
+    bk_font_layer    = qp_load_font_mem(font_semibold36);
+    bk_font_menu     = qp_load_font_mem(font_regular20);
+    bk_font_menu_off = qp_load_font_mem(font_regular20grey);
 
     // Power on display, fill with black
     qp_power(lcd, 1);
