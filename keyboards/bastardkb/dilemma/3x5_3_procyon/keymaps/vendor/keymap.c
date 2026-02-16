@@ -60,6 +60,7 @@ enum dilemma_keymap_layers {
 #include "gfx/jostmedium20.qff.h"
 #include "gfx/jostbold36.qff.h"
 #include "gfx/jostlight20.qff.h"
+#include "gfx/jostlight22.qff.h"
 #include "gfx/jostlight24.qff.h"
 #include "gfx/jostlight20grey.qff.h"
 #include "gfx/mods.qgf.h"
@@ -214,7 +215,7 @@ void keyboard_post_init_user(void) {
 
     // load fonts
     bk_font_layer    = qp_load_font_mem(font_jostbold36);
-    bk_font_menu     = qp_load_font_mem(font_jostlight24);
+    bk_font_menu     = qp_load_font_mem(font_jostlight22);
     bk_font_menu_off = qp_load_font_mem(font_jostlight20grey);
 
     // load bk logo animation
@@ -262,6 +263,10 @@ void bk_display_layer_name(int x, int y, int layer, painter_font_handle_t font) 
     qp_drawtext_recolor(surface, x, y, font, bk_layer_str(layer), color.h, color.s, color.v, 0, 0, 0);
 }
 
+void bk_drawtext_off(x, y, painter_font_handle_t font, const char *str) {
+    qp_drawtext_recolor(surface, x, y, font, str, 210, 0, 45, 0, 0, 0);
+}
+
 int bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, bool rewrite_all) {
     int current_y = y;
     switch (layer) {
@@ -304,7 +309,7 @@ int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on,
     if (rgb) {
         qp_drawtext(surface, mods_x, current_y, font_on, "On ");
     } else {
-        qp_drawtext(surface, mods_x, current_y, font_off, "Off");
+        bk_drawtext_off(mods_x, current_y, font, "Off");
     }
     current_y += font_on->line_height + 5;
 
@@ -314,10 +319,11 @@ int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on,
     char valc[50];
     sprintf(valc, "%u", rgb_matrix_get_val());
     qp_drawtext(surface, mods_x, current_y, font_off, valc);
+    bk_drawtext_off(mods_x, current_y, font, valc);
     current_y += font_on->line_height + 5;
 
     // effect name
-    qp_drawtext(surface, x, current_y, font_off, effect_name);
+    bk_drawtext_off(x, current_y, font, effect_name);
     current_y += font_on->line_height + 5;
 
     return current_y;
