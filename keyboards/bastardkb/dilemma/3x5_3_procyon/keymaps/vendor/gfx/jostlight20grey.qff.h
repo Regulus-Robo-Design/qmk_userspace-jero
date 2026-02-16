@@ -12,4 +12,4 @@
 #include <qp.h>
 
 extern const uint32_t font_jostlight20grey_length;
-extern const uint8_t  font_jostlight20grey[16992];
+extern const uint8_t  font_jostlight20grey[7159];
