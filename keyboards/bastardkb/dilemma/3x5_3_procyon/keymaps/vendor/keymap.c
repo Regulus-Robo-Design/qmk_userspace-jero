@@ -235,15 +235,15 @@ void housekeeping_task_user(void) {
             const uint8_t layer = get_highest_layer(layer_state);
             // const uint8_t mods  = get_mods();
             anim_timer = timer_read32();
-            if (prev_layer != layer) {
+            // if (prev_layer != layer) {
                 qp_clear(surface);
                 bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
                 bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 10, layer, bk_font_menu, TRUE);
                 qp_surface_draw(surface, lcd, 0, 0, false);
-            } else {
-                bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 10, layer, bk_font_menu, TRUE);
-                qp_surface_draw(surface, lcd, 0, 0, false);
-            }
+            // } else {
+            //     bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 10, layer, bk_font_menu, TRUE);
+            //     qp_surface_draw(surface, lcd, 0, 0, false);
+            // }
 
             prev_layer = layer;
         }
@@ -346,9 +346,11 @@ int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, 
     int mods_x      = qp_textwidth(font_on, "MODS ") + x;
     mod_column_size = qp_textwidth(font_on, "XXXXX");
 
-    qp_drawimage(surface, mods_x-5, current_y-5, rect_mods);
+    // qp_drawimage(surface, mods_x, current_y, rect_mods);
     qp_drawtext(surface, mods_x, current_y, (mods & MOD_MASK_GUI) ? font_on : font_off, "GUI");
-    qp_drawtext(surface, mods_x + mod_column_size, current_y, (mods & MOD_MASK_ALT) ? font_on : font_off, "ALT");
+
+    qp_drawimage(surface, mods_x + mod_column_size, current_y, rect_mods);
+    qp_drawtext(surface, mods_x + mod_column_size + 5, current_y + 5, (mods & MOD_MASK_ALT) ? font_on : font_off, "ALT");
     qp_drawtext(surface, mods_x, current_y + font_on->line_height + 5, (mods & MOD_MASK_CTRL) ? font_on : font_off, "CTRL");
     qp_drawtext(surface, mods_x + mod_column_size, current_y + font_on->line_height + 5, (mods & MOD_MASK_SHIFT) ? font_on : font_off, "SHFT");
 
