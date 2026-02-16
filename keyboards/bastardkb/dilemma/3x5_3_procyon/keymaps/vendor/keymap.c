@@ -312,7 +312,7 @@ int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on,
     current_y += font_on->line_height + 5;
 
     // effect name
-    qp_drawtext(surface, mods_x, current_y, font_on, effect_name);
+    qp_drawtext(surface, x, current_y, font_on, effect_name);
     current_y += font_on->line_height + 5;
 
 

@@ -20,13 +20,13 @@ int bk_display_info_pointer(uint16_t x, uint16_t y, painter_font_handle_t font_o
 int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all);
 
 static const char *layer_strings[] = {
-    "00 BASE",
-    "01 FUNCT",
-    "02 NAV",
-    "03 MED/RGB",
-    "04 POINT",
-    "05 NUM",
-    "06 SYM"
+    "BASE",
+    "FUNCTION",
+    "NAV",
+    "MED/RGB",
+    "POINTER",
+    "NUM",
+    "SYM"
 };
 
 // static const hsv_t colors[] = {
