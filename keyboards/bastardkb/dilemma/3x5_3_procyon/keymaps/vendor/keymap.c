@@ -309,18 +309,11 @@ int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on,
     char valc[50];
     sprintf(valc, "%u", rgb_matrix_get_val());
     qp_drawtext(surface, mods_x, current_y, font_on, valc);
-    const int barsize = (int)(rgb_matrix_get_val()*100/RGB_MATRIX_MAXIMUM_BRIGHTNESS);
-    qp_rect(lcd, mods_x*2, current_y, barsize, 20, HSV_WHITE, 1);
-    current_y += font_on->line_height + 5;
-    char vald[50];
-    sprintf(vald, "%u", barsize);
-    qp_drawtext(surface, mods_x, current_y, font_on, vald);
     current_y += font_on->line_height + 5;
 
     // effect name
     qp_drawtext(surface, x, current_y, font_on, effect_name);
     current_y += font_on->line_height + 5;
-
 
     return current_y;
 }
