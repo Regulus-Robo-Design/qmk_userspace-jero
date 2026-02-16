@@ -303,16 +303,15 @@ int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on,
     current_y += font_on->line_height + 5;
 
     // brightness level
-    qp_drawtext(surface, x, current_y, font_on, "LUX");
-    qp_drawtext(surface, mods_x, current_y, font_on, "ON ");
+    qp_drawtext(surface, x, current_y, font_on, "LUX     ");
     mods_x = qp_textwidth(font_on, "LUX ") + x;
     char valc[50];
     sprintf(valc, "%u", rgb_matrix_get_val());
-    qp_drawtext(surface, mods_x, current_y, font_on, valc);
+    qp_drawtext(surface, mods_x, current_y, font_off, valc);
     current_y += font_on->line_height + 5;
 
     // effect name
-    qp_drawtext(surface, x, current_y, font_on, effect_name);
+    qp_drawtext(surface, x, current_y, font_off, effect_name);
     current_y += font_on->line_height + 5;
 
     return current_y;
