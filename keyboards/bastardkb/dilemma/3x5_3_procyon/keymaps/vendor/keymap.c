@@ -59,6 +59,8 @@ enum dilemma_keymap_layers {
 #include "gfx/semibold36.qff.h"
 #include "gfx/jostmedium20.qff.h"
 #include "gfx/jostbold36.qff.h"
+#include "gfx/jostlight20.qff.h"
+#include "gfx/jostlight20grey.qff.h"
 #include "gfx/mods.qgf.h"
 #include "qp_surface.h"
 #include "keymap.h"
@@ -211,8 +213,8 @@ void keyboard_post_init_user(void) {
 
     // load fonts
     bk_font_layer    = qp_load_font_mem(font_jostbold36);
-    bk_font_menu     = qp_load_font_mem(font_jostmedium20);
-    bk_font_menu_off = qp_load_font_mem(font_jostmedium20);
+    bk_font_menu     = qp_load_font_mem(font_jostlight20);
+    bk_font_menu_off = qp_load_font_mem(font_jostlight20grey);
 
     // load bk logo animation
     rect_mods = qp_load_image_mem(gfx_mods);
@@ -362,10 +364,10 @@ int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, 
     mod_column_size = qp_textwidth(font_on, "XXXXX");
 
     // qp_drawimage(surface, mods_x, current_y, rect_mods);
-    qp_drawtext(surface, mods_x, current_y, (mods & MOD_MASK_GUI) ? font_on : font_off, "GUI");
-    qp_drawtext(surface, mods_x + mod_column_size, current_y, (mods & MOD_MASK_ALT) ? font_on : font_off, "ALT");
-    qp_drawtext(surface, mods_x, current_y + font_on->line_height + 5, (mods & MOD_MASK_CTRL) ? font_on : font_off, "CTRL");
-    qp_drawtext(surface, mods_x + mod_column_size, current_y + font_on->line_height + 5, (mods & MOD_MASK_SHIFT) ? font_on : font_off, "SHFT");
+    qp_drawtext(surface, mods_x, current_y, (mods & MOD_MASK_GUI) ? font_on : font_off, "Gui");
+    qp_drawtext(surface, mods_x + mod_column_size, current_y, (mods & MOD_MASK_ALT) ? font_on : font_off, "Alt");
+    qp_drawtext(surface, mods_x, current_y + font_on->line_height + 5, (mods & MOD_MASK_CTRL) ? font_on : font_off, "Ctrl");
+    qp_drawtext(surface, mods_x + mod_column_size, current_y + font_on->line_height + 5, (mods & MOD_MASK_SHIFT) ? font_on : font_off, "Shft");
 
     current_y += font_on->line_height * 2 + 20;
     // End Mods section
