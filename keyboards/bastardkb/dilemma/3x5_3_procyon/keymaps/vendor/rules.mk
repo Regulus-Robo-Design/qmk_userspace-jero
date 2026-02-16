@@ -14,6 +14,7 @@ SRC += gfx/semibold36.qff.c
 SRC += gfx/jostmedium20.qff.c
 SRC += gfx/jostlight20.qff.c
 SRC += gfx/jostlight20grey.qff.c
+SRC += gfx/jostlight24.qff.c
 SRC += gfx/jostbold36.qff.c
 SRC += gfx/mods.qgf.c
 

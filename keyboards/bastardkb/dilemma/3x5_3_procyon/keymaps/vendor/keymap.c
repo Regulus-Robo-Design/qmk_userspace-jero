@@ -60,6 +60,7 @@ enum dilemma_keymap_layers {
 #include "gfx/jostmedium20.qff.h"
 #include "gfx/jostbold36.qff.h"
 #include "gfx/jostlight20.qff.h"
+#include "gfx/jostlight24.qff.h"
 #include "gfx/jostlight20grey.qff.h"
 #include "gfx/mods.qgf.h"
 #include "qp_surface.h"
@@ -213,7 +214,7 @@ void keyboard_post_init_user(void) {
 
     // load fonts
     bk_font_layer    = qp_load_font_mem(font_jostbold36);
-    bk_font_menu     = qp_load_font_mem(font_jostlight20);
+    bk_font_menu     = qp_load_font_mem(font_jostlight24);
     bk_font_menu_off = qp_load_font_mem(font_jostlight20grey);
 
     // load bk logo animation
