@@ -256,8 +256,9 @@ void housekeeping_task_user(void) {
 
 void bk_display_layer_name(int x, int y, int layer, painter_font_handle_t font) {
     hsv_t color = _get_hsv_for_layer_index(layer);
-    qp_rect(surface, 0, 0, BKS_LAYER_BAR_W, LCD_HEIGHT, color.h, color.s, color.v, true);
-    qp_drawtext(surface, x, y, font, bk_layer_str(layer));
+    // qp_rect(surface, 0, 0, BKS_LAYER_BAR_W, LCD_HEIGHT, color.h, color.s, color.v, true);
+    // qp_drawtext(surface, x, y, font, bk_layer_str(layer));
+    qp_drawtext_recolor(surface, x, y, font, bk_layer_str(layer), color.h, color.s, color.v, 0, 0, 0);
 }
 
 int bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, bool rewrite_all) {
