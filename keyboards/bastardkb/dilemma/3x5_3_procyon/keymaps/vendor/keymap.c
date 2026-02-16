@@ -417,7 +417,7 @@ int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, 
         bk_drawtext_off(mods_x, current_y, font_on, "Caps");
     }
 
-    if ((dilemma_get_pointer_dragscroll_enabled().caps_lock)) {
+    if ((dilemma_get_pointer_dragscroll_enabled())) {
         qp_drawtext(surface, mods_x + mod_column_size, current_y, font_on, "Scrl");
     } else {
         bk_drawtext_off(mods_x + mod_column_size, current_y, font_on, "Scrl");
