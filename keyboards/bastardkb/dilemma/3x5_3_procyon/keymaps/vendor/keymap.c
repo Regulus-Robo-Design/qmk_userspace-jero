@@ -369,13 +369,13 @@ int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, 
     // End Mods section
 
     // Lock info
-    qp_drawtext(surface, x, current_y, font_on, "LOCK");
+    qp_drawtext(surface, x, current_y, font_on, "Lock");
 
     mods_x          = qp_textwidth(font_on, "LOCK ") + x;
     mod_column_size = qp_textwidth(font_on, "XXXXX");
 
-    qp_drawtext(surface, mods_x, current_y, (host_keyboard_led_state().caps_lock) ? font_on : font_off, "CAPS");
-    qp_drawtext(surface, mods_x + mod_column_size, current_y, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "SCRL");
+    qp_drawtext(surface, mods_x, current_y, (host_keyboard_led_state().caps_lock) ? font_on : font_off, "Caps");
+    qp_drawtext(surface, mods_x + mod_column_size, current_y, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "Scrl");
 
     current_y += font_on->line_height;
 
