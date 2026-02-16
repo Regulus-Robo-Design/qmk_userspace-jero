@@ -309,7 +309,7 @@ int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on,
     if (rgb) {
         qp_drawtext(surface, mods_x, current_y, font_on, "On ");
     } else {
-        bk_drawtext_off(mods_x, current_y, font, "Off");
+        bk_drawtext_off(mods_x, current_y, font_on, "Off");
     }
     current_y += font_on->line_height + 5;
 
@@ -319,11 +319,11 @@ int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on,
     char valc[50];
     sprintf(valc, "%u", rgb_matrix_get_val());
     qp_drawtext(surface, mods_x, current_y, font_off, valc);
-    bk_drawtext_off(mods_x, current_y, font, valc);
+    bk_drawtext_off(mods_x, current_y, font_on, valc);
     current_y += font_on->line_height + 5;
 
     // effect name
-    bk_drawtext_off(x, current_y, font, effect_name);
+    bk_drawtext_off(x, current_y, font_on, effect_name);
     current_y += font_on->line_height + 5;
 
     return current_y;
