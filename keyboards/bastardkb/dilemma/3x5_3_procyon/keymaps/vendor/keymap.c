@@ -309,6 +309,8 @@ int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on,
     char valc[50];
     sprintf(valc, "%u", rgb_matrix_get_val());
     qp_drawtext(surface, mods_x, current_y, font_on, valc);
+    const int barsize = (int)(rgb_matrix_get_val()/RGB_MATRIX_MAXIMUM_BRIGHTNESS*100)
+    qp_rect(lcd, mods_x*2, current_y, barsize, 20, HSV_WHITE, 1);
     current_y += font_on->line_height + 5;
 
     // effect name
@@ -363,9 +365,7 @@ int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, 
 
     // qp_drawimage(surface, mods_x, current_y, rect_mods);
     qp_drawtext(surface, mods_x, current_y, (mods & MOD_MASK_GUI) ? font_on : font_off, "GUI");
-
-    qp_drawimage(surface, mods_x + mod_column_size, current_y, rect_mods);
-    qp_drawtext(surface, mods_x + mod_column_size + 5, current_y + 5, (mods & MOD_MASK_ALT) ? font_on : font_off, "ALT");
+    qp_drawtext(surface, mods_x + mod_column_size, current_y, (mods & MOD_MASK_ALT) ? font_on : font_off, "ALT");
     qp_drawtext(surface, mods_x, current_y + font_on->line_height + 5, (mods & MOD_MASK_CTRL) ? font_on : font_off, "CTRL");
     qp_drawtext(surface, mods_x + mod_column_size, current_y + font_on->line_height + 5, (mods & MOD_MASK_SHIFT) ? font_on : font_off, "SHFT");
 
