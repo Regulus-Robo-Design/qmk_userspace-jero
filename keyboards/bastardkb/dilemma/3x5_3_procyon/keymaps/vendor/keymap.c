@@ -264,7 +264,7 @@ void bk_display_layer_name(int x, int y, int layer, painter_font_handle_t font) 
 }
 
 void bk_drawtext_off(int x, int y, painter_font_handle_t font, const char *str) {
-    qp_drawtext_recolor(surface, x, y, font, str, 210, 0, 45, 0, 0, 0);
+    qp_drawtext_recolor(surface, x, y, font, str, 210, 0, 70, 0, 0, 0);
 }
 
 int bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, bool rewrite_all) {
@@ -318,7 +318,6 @@ int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on,
     mods_x = qp_textwidth(font_on, "Lux ") + x;
     char valc[50];
     sprintf(valc, "%u", rgb_matrix_get_val());
-    qp_drawtext(surface, mods_x, current_y, font_off, valc);
     bk_drawtext_off(mods_x, current_y, font_on, valc);
     current_y += font_on->line_height + 5;
 
@@ -336,8 +335,16 @@ int bk_display_info_pointer(uint16_t x, uint16_t y, painter_font_handle_t font_o
     qp_drawtext(surface, x, current_y, font_on, "Mods");
     int mods_x = qp_textwidth(font_on, "Mods ") + x;
 
-    qp_drawtext(surface, mods_x, current_y, (dilemma_get_pointer_sniping_enabled()) ? font_on : font_off, "Snipe");
-    qp_drawtext(surface, mods_x, current_y + font_on->line_height + 5, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "Scroll");
+    if (dilemma_get_pointer_sniping_enabled()) {
+        qp_drawtext(surface, mods_x, current_y, font_on, "Snipe");
+    } else {
+        bk_drawtext_off(mods_x, current_y, font_on, "Snipe");
+    }
+    if (dilemma_get_pointer_dragscroll_enabled()) {
+        qp_drawtext(surface, mods_x, current_y, font_on, "Scroll");
+    } else {
+        bk_drawtext_off(mods_x, current_y, font_on, "Scroll");
+    }
     current_y += font_on->line_height * 2 + 20;
     // End Mods
 

@@ -55,6 +55,6 @@
 #define RGB_MATRIX_MODE_NAME_ENABLE
 
 // Custom display stuff
-#define BKS_LAYER_X 25
-#define BKS_LAYER_Y 5
+#define BKS_LAYER_X 10
+#define BKS_LAYER_Y 20
 #define BKS_LAYER_BAR_W 12
