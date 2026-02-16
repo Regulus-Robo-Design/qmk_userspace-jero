@@ -388,7 +388,7 @@ int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, 
     if ((mods & MOD_MASK_ALT)) {
         qp_drawtext(surface, mods_x + mod_column_size, current_y, font_on, "Alt");
     } else {
-        bk_drawtext_off(mods_x, current_y, font_on, "Alt");
+        bk_drawtext_off(mods_x+ mod_column_size, current_y, font_on, "Alt");
     }
     current_y += font_on->line_height + 10;
     if ((mods & MOD_MASK_CTRL)) {
@@ -397,7 +397,7 @@ int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, 
         bk_drawtext_off(mods_x, current_y, font_on, "Ctrl");
     }
     if ((mods & MOD_MASK_SHIFT)) {
-        qp_drawtext(surface, mods_x, current_y, font_on, "Shft");
+        qp_drawtext(surface, mods_x+ mod_column_size, current_y, font_on, "Shft");
     } else {
         bk_drawtext_off(mods_x + mod_column_size, current_y, font_on, "Shft");
     }
