@@ -263,7 +263,7 @@ void bk_display_layer_name(int x, int y, int layer, painter_font_handle_t font) 
     qp_drawtext_recolor(surface, x, y, font, bk_layer_str(layer), color.h, color.s, color.v, 0, 0, 0);
 }
 
-void bk_drawtext_off(x, y, painter_font_handle_t font, const char *str) {
+void bk_drawtext_off(int x, int y, painter_font_handle_t font, const char *str) {
     qp_drawtext_recolor(surface, x, y, font, str, 210, 0, 45, 0, 0, 0);
 }
 

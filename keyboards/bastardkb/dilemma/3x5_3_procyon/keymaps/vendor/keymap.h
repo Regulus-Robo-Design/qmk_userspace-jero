@@ -18,7 +18,7 @@ int         bk_display_layer_info(int x, int y, int layer, painter_font_handle_t
 int  bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all);
 int  bk_display_info_pointer(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all);
 int  bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all);
-void bk_drawtext_off(x, y, painter_font_handle_t font, const char *str);
+void bk_drawtext_off(int x, int y, painter_font_handle_t font, const char *str);
 
 static const char *layer_strings[] = {"BASE", "FUNCTION", "NAV", "MED/RGB", "POINTER", "NUM", "SYM"};
 
