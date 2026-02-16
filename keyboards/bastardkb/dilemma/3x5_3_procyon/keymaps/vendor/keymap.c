@@ -300,15 +300,15 @@ int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on,
     mods_x = qp_textwidth(font_on, "RGB ") + x;
 
     if (rgb) {
-        qp_drawtext(surface, mods_x, current_y, font_on, "ON ");
+        qp_drawtext(surface, mods_x, current_y, font_on, "On ");
     } else {
-        qp_drawtext(surface, mods_x, current_y, font_off, "OFF");
+        qp_drawtext(surface, mods_x, current_y, font_off, "Off");
     }
     current_y += font_on->line_height + 5;
 
     // brightness level
-    qp_drawtext(surface, x, current_y, font_on, "LUX     ");
-    mods_x = qp_textwidth(font_on, "LUX ") + x;
+    qp_drawtext(surface, x, current_y, font_on, "Lux     ");
+    mods_x = qp_textwidth(font_on, "Lux ") + x;
     char valc[50];
     sprintf(valc, "%u", rgb_matrix_get_val());
     qp_drawtext(surface, mods_x, current_y, font_off, valc);
@@ -325,11 +325,11 @@ int bk_display_info_pointer(uint16_t x, uint16_t y, painter_font_handle_t font_o
     int current_y = y;
 
     // Mods
-    qp_drawtext(surface, x, current_y, font_on, "MODS");
-    int mods_x = qp_textwidth(font_on, "MODS ") + x;
+    qp_drawtext(surface, x, current_y, font_on, "Mods");
+    int mods_x = qp_textwidth(font_on, "Mods ") + x;
 
-    qp_drawtext(surface, mods_x, current_y, (dilemma_get_pointer_sniping_enabled()) ? font_on : font_off, "SNIPE");
-    qp_drawtext(surface, mods_x, current_y + font_on->line_height + 5, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "SCROLL");
+    qp_drawtext(surface, mods_x, current_y, (dilemma_get_pointer_sniping_enabled()) ? font_on : font_off, "Snipe");
+    qp_drawtext(surface, mods_x, current_y + font_on->line_height + 5, (dilemma_get_pointer_dragscroll_enabled()) ? font_on : font_off, "Scroll");
     current_y += font_on->line_height * 2 + 20;
     // End Mods
 
