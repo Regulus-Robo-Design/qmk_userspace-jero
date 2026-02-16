@@ -309,7 +309,7 @@ int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on,
     char valc[50];
     sprintf(valc, "%u", rgb_matrix_get_val());
     qp_drawtext(surface, mods_x, current_y, font_on, valc);
-    const int barsize = (int)(rgb_matrix_get_val()/RGB_MATRIX_MAXIMUM_BRIGHTNESS*100)
+    const int barsize = (int)(rgb_matrix_get_val()/RGB_MATRIX_MAXIMUM_BRIGHTNESS*100);
     qp_rect(lcd, mods_x*2, current_y, barsize, 20, HSV_WHITE, 1);
     current_y += font_on->line_height + 5;
 
