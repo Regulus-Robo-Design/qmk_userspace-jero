@@ -211,7 +211,7 @@ void keyboard_post_init_user(void) {
     bk_font_layer    = qp_load_font_mem(font_semibold36);
     bk_font_menu     = qp_load_font_mem(font_regular20);
     bk_font_menu_off = qp_load_font_mem(font_regular20grey);
-    
+
     // load bk logo animation
     rect_mods = qp_load_image_mem(gfx_mods);
     // my_anim = qp_animate(lcd, 0, 100, anim);
@@ -286,10 +286,12 @@ int bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, b
 }
 
 int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
-    int     current_y = y;
-    uint8_t rgb       = rgb_matrix_is_enabled();
-    int     mods_x    = 0;
+    int         current_y   = y;
+    uint8_t     rgb         = rgb_matrix_is_enabled();
+    int         mods_x      = 0;
+    const char *effect_name = rgb_matrix_get_mode_name(rgb_matrix_get_mode());
 
+    // on/off status
     qp_drawtext(surface, x, current_y, font_on, "RGB");
     mods_x = qp_textwidth(font_on, "RGB ") + x;
 
@@ -298,8 +300,21 @@ int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on,
     } else {
         qp_drawtext(surface, mods_x, current_y, font_off, "OFF");
     }
-
     current_y += font_on->line_height + 5;
+
+    // brightness level
+    qp_drawtext(surface, x, current_y, font_on, "LUX");
+    qp_drawtext(surface, mods_x, current_y, font_on, "ON ");
+    mods_x = qp_textwidth(font_on, "LUX ") + x;
+    char valc[50];
+    sprintf(valc, "%u", rgb_matrix_get_val());
+    qp_drawtext(surface, mods_x, current_y, font_on, valc);
+    current_y += font_on->line_height + 5;
+
+    // effect name
+    qp_drawtext(surface, mods_x, current_y, font_on, effect_name);
+    current_y += font_on->line_height + 5;
+
 
     return current_y;
 }
