@@ -11,6 +11,8 @@ SRC += gfx/regular20.qff.c
 SRC += gfx/regular20grey.qff.c
 SRC += gfx/regular36.qff.c
 SRC += gfx/semibold36.qff.c
+SRC += gfx/jostmedium20.qff.c
+SRC += gfx/jostbold36.qff.c
 SRC += gfx/mods.qgf.c
 
 BACKLIGHT_ENABLE = yes
