@@ -235,7 +235,7 @@ void keyboard_post_init_user(void) {
     // bk_display_layer_number();
     // keyboard_post_init_user();
     // }
-    mbox1 = lv_msgbox_create(surface, "Test", "ACTIVE", NULL, false); // test
+    lv_obj_t* mbox1 = lv_msgbox_create(surface, "Test", "ACTIVE", NULL, false); // test
     
 }
 
