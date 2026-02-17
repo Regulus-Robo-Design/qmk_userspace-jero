@@ -213,6 +213,8 @@ void keyboard_post_init_user(void) {
     // Display offset
     qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
 
+    qp_lvgl_attach(surface);
+
     // load fonts
     bk_font_layer    = qp_load_font_mem(font_jostbold36);
     bk_font_menu     = qp_load_font_mem(font_jostlight22);
