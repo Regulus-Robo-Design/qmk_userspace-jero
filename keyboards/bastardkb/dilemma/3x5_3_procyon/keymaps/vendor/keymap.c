@@ -215,7 +215,7 @@ void keyboard_post_init_user(void) {
     // Display offset
     qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
 
-    qp_lvgl_attach(surface);
+    qp_lvgl_attach(lcd);
 
     // load fonts
     bk_font_layer    = qp_load_font_mem(font_jostbold36);
@@ -240,7 +240,9 @@ void keyboard_post_init_user(void) {
     lv_obj_t *label = lv_label_create(ui_Screen);
     lv_label_set_text(label, "Hello world");
     lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
-    qp_surface_draw(surface, lcd, 0, 0, false);
+    lv_disp_load_scr(ui_Screen);
+
+    // qp_surface_draw(surface, lcd, 0, 0, false);
 }
 
 void housekeeping_task_user(void) {
