@@ -22,17 +22,17 @@ void display_init(void) {
 
     // init layer indication
     ui_label_layer_name = lv_label_create(ui_screen);
-    lv_label_set_text(ui_label_layer_name, "Hello world");
-    lv_obj_align(ui_label_layer_name, LV_ALIGN_CENTER, 0, 0);
+    lv_label_set_text(ui_label_layer_name, "Base");
     lv_obj_add_event_cb(ui_label_layer_name, ui_layer_change, EVENT_LAYER_CHANGE, NULL);
     lv_obj_set_width(ui_label_layer_name, LV_SIZE_CONTENT);  /// 81
     lv_obj_set_height(ui_label_layer_name, LV_SIZE_CONTENT); /// 55
     lv_obj_set_x(ui_label_layer_name, 25);
     lv_obj_set_y(ui_label_layer_name, -10);
-    lv_obj_set_align(ui_label_layer_name, LV_ALIGN_LEFT_MID);
-    lv_obj_add_flag(ui_label_layer_name, LV_OBJ_FLAG_ADV_HITTEST); /// Flags
-    lv_obj_clear_flag(ui_label_layer_name, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_set_align(ui_label_layer_name, LV_ALIGN_LEFT_CENTER);
     lv_event_send(ui_label_layer_name, EVENT_LAYER_CHANGE, NULL);
+
+    // Change the screen's background color
+    lv_obj_set_style_bg_color(ui_screen, lv_color_hex(000000), LV_PART_MAIN);
 
     lv_disp_load_scr(ui_screen);
     // end screen stuff
