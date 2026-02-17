@@ -36,7 +36,8 @@ void display_init(void) {
 void ui_layer_change(lv_event_t *e) {
     lv_event_code_t event_code = lv_event_get_code(e);
     if (event_code == (uint8_t)EVENT_LAYER_CHANGE) {
-        lv_label_set_text(ui_layer_indicator, "Test");
+        int layer = get_highest_layer(layer_state);
+        lv_label_set_text(ui_layer_indicator, layer_strings[layer]);
     }
 }
 
