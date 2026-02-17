@@ -75,7 +75,7 @@ void ui_init_mod_indicator(lv_obj_t *label, const char* indicator_name, int x, i
 
     // styles
     lv_obj_remove_style_all(label);
-    lv_obj_add_style(btn, &style_btn, 0);
+    lv_obj_add_style(label, &style_btn, 0);
 }
 
 void ui_screen_base_update_mods(void){
