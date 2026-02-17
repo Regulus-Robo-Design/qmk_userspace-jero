@@ -74,7 +74,7 @@ void housekeeping_task_screen() {
    
 }
 
-bool process_record_display(uint16_t keycode, keyrecord_t *record){
+bool process_records_display(uint16_t keycode, keyrecord_t *record){
     switch (keycode) {
         case KC_Q: // test
         ui_screen_base_update_mods();

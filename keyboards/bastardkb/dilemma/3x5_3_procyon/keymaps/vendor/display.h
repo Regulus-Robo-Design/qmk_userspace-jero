@@ -12,6 +12,6 @@ void housekeeping_task_screen(void);
 void ui_init_mod_indicator(lv_obj_t *label, const char* indicator_name, int x, int y);
 void ui_screen_base_update_mods(void);
 
-bool process_record_display(uint16_t keycode, keyrecord_t *record);
+bool process_records_display(uint16_t keycode, keyrecord_t *record);
 
 static uint8_t prev_layer;
