@@ -1,7 +1,7 @@
 #include "display.h"
 #include "quantum.h"
 
-lv_obj_t *ui_screen;
+lv_obj_t *ui_screen_base;
 lv_obj_t *ui_label_layer_name;
 
 enum ui_user_events {
@@ -12,20 +12,11 @@ enum ui_user_events {
 const char *ui_layer_strings[] = {"BASE", "FUNCTION", "NAV", "MED/RGB", "POINTER", "NUM", "SYM"};
 
 void display_init(void) {
-    // Screen stuff
-    ui_screen = lv_obj_create(NULL);
-
-    // // lv_obj_t *label = lv_label_create(ui_screen);
-    // lv_label_set_text(label, "Hello world");
-    // lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
-
     /*
         Base layer screen
     */
-    // create base layer screen
-    ui_label_layer_name = lv_label_create(ui_screen);
-    // display base layer screen upon init
-    lv_disp_load_scr(ui_screen);
+    ui_screen_base = lv_obj_create(NULL);
+    ui_label_layer_name = lv_label_create(ui_screen_base);
 
     lv_label_set_text(ui_label_layer_name, "Base");
     lv_obj_add_event_cb(ui_label_layer_name, ui_layer_change, EVENT_LAYER_CHANGE, NULL);
@@ -35,15 +26,17 @@ void display_init(void) {
     lv_obj_set_y(ui_label_layer_name, -10);
     lv_obj_set_align(ui_label_layer_name, LV_ALIGN_LEFT_MID);
     lv_event_send(ui_label_layer_name, EVENT_LAYER_CHANGE, NULL);
-
-    // Change the screen's background color
-    // lv_obj_set_style_bg_color(ui_screen, lv_color_hex(000000), LV_PART_MAIN);
-
-    // set theme
+    
+    // display base layer screen upon init
+    lv_disp_load_scr(ui_screen_base);
+    // end base layer screen
+    
+    /*
+        Theme
+    */
     lv_disp_t * dispp = lv_disp_get_default();
     lv_theme_t * theme = lv_theme_default_init(dispp, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED), true, LV_FONT_DEFAULT);
     lv_disp_set_theme(dispp, theme);
-    // end screen stuff
 
     prev_layer = 99;
 }
