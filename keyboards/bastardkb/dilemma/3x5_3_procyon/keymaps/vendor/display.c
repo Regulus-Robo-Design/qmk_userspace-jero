@@ -66,16 +66,18 @@ void ui_init_layer_name(lv_obj_t *label, const char* layer_name){
 
 void ui_init_mod_indicator(lv_obj_t *label, const char* indicator_name, int x, int y){
     lv_label_set_text(label, indicator_name);
-    lv_obj_set_width(label, 50);
-    lv_obj_set_height(label, 20);
-    lv_obj_set_x(label, x);
-    lv_obj_set_y(label, y);
     // lv_obj_set_align(label, LV_ALIGN_CENTER);
     // lv_obj_add_event_cb(label, ui_event_base_mods, EVENT_MOD_CHANGE, NULL);
 
     // styles
     lv_obj_remove_style_all(label);
     lv_obj_add_style(label, &style_btn, 0);
+
+    // position and width
+    lv_obj_set_width(label, 50);
+    lv_obj_set_height(label, 20);
+    lv_obj_set_x(label, x);
+    lv_obj_set_y(label, y);
 }
 
 void ui_screen_base_update_mods(void){
