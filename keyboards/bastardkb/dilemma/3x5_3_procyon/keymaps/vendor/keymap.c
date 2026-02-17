@@ -67,13 +67,12 @@ enum dilemma_keymap_layers {
 #include "qp_surface.h"
 #include "keymap.h"
 #include "color.h"
-#include "lvgl.h"
+#include "display.h"
 
 painter_device_t        lcd;
 static painter_device_t surface;
 // Buffer required for a 240x280 16bpp surface:
 static uint8_t surface_buffer[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(LCD_WIDTH, LCD_HEIGHT, 16)];
-lv_obj_t * ui_Screen;
 // end QP stuff
 
 // clang-format off
@@ -215,7 +214,9 @@ void keyboard_post_init_user(void) {
     // Display offset
     qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
 
-    qp_lvgl_attach(lcd);
+    if(qp_lvgl_attach(lcd)){
+        display_init();
+    }
 
     // load fonts
     bk_font_layer    = qp_load_font_mem(font_jostbold36);
@@ -232,39 +233,10 @@ void keyboard_post_init_user(void) {
     qp_flush(lcd);
 
     prev_layer = 99;
-    // last_mods  = UINT8_MAX;
-    // bk_display_layer_number();
-    // keyboard_post_init_user();
-    // }
-    ui_Screen      = lv_obj_create(NULL);
-    lv_obj_t *label = lv_label_create(ui_Screen);
-    lv_label_set_text(label, "Hello world");
-    lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
-    lv_disp_load_scr(ui_Screen);
-
-    // qp_surface_draw(surface, lcd, 0, 0, false);
 }
 
 void housekeeping_task_user(void) {
-    // static uint32_t anim_timer = 0;
-    // if (is_keyboard_left()) {
-    //     if (timer_elapsed32(anim_timer) > 200) {
-    //         const uint8_t layer = get_highest_layer(layer_state);
-    //         // const uint8_t mods  = get_mods();
-    //         anim_timer = timer_read32();
-    //         if (prev_layer != layer) {
-    //             qp_clear(surface);
-    //             bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
-    //             bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 10, layer, bk_font_menu, TRUE);
-    //             qp_surface_draw(surface, lcd, 0, 0, false);
-    //         } else {
-    //             bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 10, layer, bk_font_menu, TRUE);
-    //             qp_surface_draw(surface, lcd, 0, 0, false);
-    //         }
-
-    //         prev_layer = layer;
-    //     }
-    // }
+    housekeeping_task_screen();
 }
 
 void bk_display_layer_name(int x, int y, int layer, painter_font_handle_t font) {

@@ -20,6 +20,7 @@ SRC += gfx/jostlight20grey.qff.c
 SRC += gfx/jostlight24.qff.c
 SRC += gfx/jostbold36.qff.c
 SRC += gfx/mods.qgf.c
+SRC += display.c
 
 BACKLIGHT_ENABLE = yes
 BACKLIGHT_DRIVER = pwm
