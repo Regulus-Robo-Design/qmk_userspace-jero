@@ -5,8 +5,8 @@ lv_obj_t *ui_screen;
 lv_obj_t *ui_layer_indicator;
 
 enum ui_user_events {
-    LAYER_CHANGE = 0,
-    LAST_EVENT,
+    EVENT_LAYER_CHANGE = 0,
+    EVENT_LAST_EVENT,
 };
 
 void display_init(void) {
@@ -28,14 +28,14 @@ void display_init(void) {
     lv_obj_set_align(ui_layer_indicator, LV_ALIGN_LEFT_MID);
     lv_obj_add_flag(ui_layer_indicator, LV_OBJ_FLAG_ADV_HITTEST); /// Flags
     lv_obj_clear_flag(ui_layer_indicator, LV_OBJ_FLAG_SCROLLABLE);
-    lv_event_send(ui_layer_indicator, LAYER_CHANGE, NULL);
+    lv_event_send(ui_layer_indicator, EVENT_LAYER_CHANGE, NULL);
 
     lv_disp_load_scr(ui_screen);
 }
 
 void ui_layer_change(lv_event_t *e) {
     lv_event_code_t event_code = lv_event_get_code(e);
-    if (event_code == LAYER_CHANGE) {
+    if (event_code == EVENT_LAYER_CHANGE) {
         lv_label_set_text(ui_layer_indicator, bk_layer_str(get_highest_layer(layer_state)));
     }
 }
