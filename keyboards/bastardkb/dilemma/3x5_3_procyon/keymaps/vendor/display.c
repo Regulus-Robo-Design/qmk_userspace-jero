@@ -4,6 +4,7 @@
 lv_obj_t *ui_screen_base;
 lv_obj_t *ui_label_layer_name;
 lv_obj_t *ui_label_mod_gui;
+lv_style_t style_btn;
 
 // enum ui_user_events {
 //     EVENT_LAYER_CHANGE = 0,
@@ -18,10 +19,12 @@ void display_init(void) {
         Base layer screen
     */
     ui_screen_base = lv_obj_create(NULL);
+    style_init_mod_indicator();
     ui_label_layer_name = lv_label_create(ui_screen_base);
     ui_init_layer_name(ui_label_layer_name, "Base");
     ui_label_mod_gui = lv_label_create(ui_screen_base);
     ui_init_mod_indicator(ui_label_mod_gui, "Gui", 20, 20);
+
     // display base layer screen upon init
     lv_disp_load_scr(ui_screen_base);
     
@@ -33,6 +36,23 @@ void display_init(void) {
     lv_disp_set_theme(dispp, theme);
 
     prev_layer = 99;
+}
+
+
+void style_init_mod_indicator(void){
+    /*Create a simple button style*/
+    lv_style_init(&style_btn);
+    lv_style_set_radius(&style_btn, 10);
+    lv_style_set_bg_opa(&style_btn, LV_OPA_COVER);
+    lv_style_set_bg_color(&style_btn, lv_palette_lighten(LV_PALETTE_GREY, 3));
+    lv_style_set_bg_grad_color(&style_btn, lv_palette_main(LV_PALETTE_GREY));
+    lv_style_set_bg_grad_dir(&style_btn, LV_GRAD_DIR_VER);
+
+    lv_style_set_border_color(&style_btn, lv_color_black());
+    lv_style_set_border_opa(&style_btn, LV_OPA_20);
+    lv_style_set_border_width(&style_btn, 2);
+
+    lv_style_set_text_color(&style_btn, lv_color_black());
 }
 
 void ui_init_layer_name(lv_obj_t *label, const char* layer_name){
@@ -52,6 +72,10 @@ void ui_init_mod_indicator(lv_obj_t *label, const char* indicator_name, int x, i
     lv_obj_set_y(label, y);
     lv_obj_set_align(label, LV_ALIGN_LEFT_MID);
     // lv_obj_add_event_cb(label, ui_event_base_mods, EVENT_MOD_CHANGE, NULL);
+
+    // styles
+    lv_obj_remove_style_all(label);
+    lv_obj_add_style(label, &style_btn, 0);
 }
 
 void ui_screen_base_update_mods(void){
