@@ -22,12 +22,5 @@ void bk_drawtext_off(int x, int y, painter_font_handle_t font, const char *str);
 
 static const char *layer_strings[] = {"BASE", "FUNCTION", "NAV", "MED/RGB", "POINTER", "NUM", "SYM"};
 
-// static const hsv_t colors[] = {
-//     [LAYER_BASE]       = {HSV_WHITE},
-//     [LAYER_FUNCTION]   = {HSV_BLUE},
-//     [LAYER_NAVIGATION] = {HSV_AZURE},
-//     [LAYER_MEDIA]      = {HSV_ORANGE},
-//     [LAYER_POINTER]    = {HSV_GREEN},
-//     [LAYER_NUMERAL]    = {HSV_TEAL},
-//     [LAYER_SYMBOLS]    = {HSV_PURPLE}
-// };
+// LVGL stuff
+static void btn_event_cb(lv_event_t * e);
