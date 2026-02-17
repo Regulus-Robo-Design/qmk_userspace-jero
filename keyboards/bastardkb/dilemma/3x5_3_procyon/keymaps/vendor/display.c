@@ -9,6 +9,8 @@ enum ui_user_events {
     EVENT_LAST_EVENT,
 };
 
+const char *ui_layer_strings[] = {"BASE", "FUNCTION", "NAV", "MED/RGB", "POINTER", "NUM", "SYM"};
+
 void display_init(void) {
     ui_screen = lv_obj_create(NULL);
 
