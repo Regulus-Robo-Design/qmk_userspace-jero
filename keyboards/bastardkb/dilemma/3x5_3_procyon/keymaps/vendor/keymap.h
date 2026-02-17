@@ -22,5 +22,7 @@ void bk_drawtext_off(int x, int y, painter_font_handle_t font, const char *str);
 
 static const char *layer_strings[] = {"BASE", "FUNCTION", "NAV", "MED/RGB", "POINTER", "NUM", "SYM"};
 
+extern lv_obj_t * ui_Screen;
+
 // LVGL stuff
 static void btn_event_cb(lv_event_t * e);
