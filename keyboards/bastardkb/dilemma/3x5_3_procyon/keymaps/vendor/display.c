@@ -4,11 +4,11 @@
 lv_obj_t *ui_screen_base;
 lv_obj_t *ui_label_layer_name;
 
-enum ui_user_events {
-    EVENT_LAYER_CHANGE = 0,
-    EVENT_MOD_CHANGE,
-    EVENT_LAST_EVENT,
-};
+// enum ui_user_events {
+//     EVENT_LAYER_CHANGE = 0,
+//     EVENT_MOD_CHANGE,
+//     EVENT_LAST_EVENT,
+// };
 
 const char *ui_layer_strings[] = {"BASE", "FUNCTION", "NAV", "MED/RGB", "POINTER", "NUM", "SYM"};
 
@@ -50,19 +50,16 @@ void ui_init_mod_indicator(lv_obj_t *label, const char* indicator_name, int x, i
     lv_obj_set_x(label, x);
     lv_obj_set_y(label, y);
     lv_obj_set_align(label, LV_ALIGN_LEFT_MID);
-    lv_obj_add_event_cb(label, ui_event_base_mods, EVENT_MOD_CHANGE, NULL);
+    // lv_obj_add_event_cb(label, ui_event_base_mods, EVENT_MOD_CHANGE, NULL);
 }
 
-void ui_event_base_mods(lv_event_t *e){
+void ui_screen_base_update_mods(){
     // todo implement new / old event storage
     // todo test if new screen, then re-draw everything...
-    lv_event_code_t event_code = lv_event_get_code(e);
-    if(layer_state == 0){ // todo replace with enum from keymap.c
-        if(event_code == (int)EVENT_MOD_CHANGE){
+    // if(layer_state == 0){ // todo replace with enum from keymap.c
             // TODO test if GUI is different... for now trigger a test re-draw
-                lv_label_set_text(label_mod_gui, "TEST 2");
-        }
-    }
+                lv_label_set_text(ui_label_mod_gui, "TEST 2");
+    // }
 }
 
 // void ui_layer_change(lv_event_t *e) {
@@ -77,10 +74,10 @@ void housekeeping_task_screen() {
    
 }
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record){
+bool process_record_user(uint16_t keycode, keyrecord_t *record){
     switch (keycode) {
         case KC_Q: // test
-        lv_event_send(ui_label_mod_gui, EVENT_MOD_CHANGE, NULL);
+        ui_screen_base_update_mods();
         break;
 
     }
