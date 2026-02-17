@@ -80,4 +80,5 @@ bool process_record_display(uint16_t keycode, keyrecord_t *record){
         ui_screen_base_update_mods();
         break;
     }
+    return true;
 }
