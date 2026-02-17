@@ -236,22 +236,9 @@ void keyboard_post_init_user(void) {
     // keyboard_post_init_user();
     // }
     ui_Screen1      = lv_obj_create(NULL);
-    lv_obj_t *label = lv_label_create(ui_Screen1);
+    lv_obj_t *label = lv_label_create(ui_Screen);
     lv_label_set_text(label, "Hello world");
     lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
-}
-
-static void btn_event_cb(lv_event_t *e) {
-    lv_event_code_t code = lv_event_get_code(e);
-    lv_obj_t       *btn  = lv_event_get_target_obj(e);
-    if (code == LV_EVENT_CLICKED) {
-        static uint8_t cnt = 0;
-        cnt++;
-
-        /*Get the first child of the button which is the label and change its text*/
-        lv_obj_t *label = lv_obj_get_child(btn, 0);
-        lv_label_set_text_fmt(label, "Button: %d", cnt);
-    }
 }
 
 void housekeeping_task_user(void) {
