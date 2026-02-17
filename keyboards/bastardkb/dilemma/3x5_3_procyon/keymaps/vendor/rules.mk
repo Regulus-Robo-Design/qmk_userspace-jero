@@ -5,7 +5,9 @@ MAXTOUCH_DEBUG = no
 QUANTUM_PAINTER_ENABLE = yes
 QUANTUM_PAINTER_DRIVERS += st7789_spi
 QUANTUM_PAINTER_DRIVERS += surface
+QUANTUM_PAINTER_LVGL_INTEGRATION = yes
 ST7789 = true
+
 SRC += gfx/fonts.qff.c
 SRC += gfx/regular20.qff.c
 SRC += gfx/regular20grey.qff.c
