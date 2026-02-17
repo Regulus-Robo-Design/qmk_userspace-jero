@@ -3,6 +3,7 @@
 
 lv_obj_t *ui_screen_base;
 lv_obj_t *ui_label_layer_name;
+lv_obj_t *ui_label_mod_gui;
 
 // enum ui_user_events {
 //     EVENT_LAYER_CHANGE = 0,
