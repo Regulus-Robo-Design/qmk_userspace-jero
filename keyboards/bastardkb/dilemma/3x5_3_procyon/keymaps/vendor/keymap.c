@@ -240,28 +240,29 @@ void keyboard_post_init_user(void) {
     lv_obj_t *label = lv_label_create(ui_Screen);
     lv_label_set_text(label, "Hello world");
     lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
+    qp_surface_draw(surface, lcd, 0, 0, false);
 }
 
 void housekeeping_task_user(void) {
-    static uint32_t anim_timer = 0;
-    if (is_keyboard_left()) {
-        if (timer_elapsed32(anim_timer) > 200) {
-            const uint8_t layer = get_highest_layer(layer_state);
-            // const uint8_t mods  = get_mods();
-            anim_timer = timer_read32();
-            if (prev_layer != layer) {
-                qp_clear(surface);
-                bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
-                bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 10, layer, bk_font_menu, TRUE);
-                qp_surface_draw(surface, lcd, 0, 0, false);
-            } else {
-                bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 10, layer, bk_font_menu, TRUE);
-                qp_surface_draw(surface, lcd, 0, 0, false);
-            }
+    // static uint32_t anim_timer = 0;
+    // if (is_keyboard_left()) {
+    //     if (timer_elapsed32(anim_timer) > 200) {
+    //         const uint8_t layer = get_highest_layer(layer_state);
+    //         // const uint8_t mods  = get_mods();
+    //         anim_timer = timer_read32();
+    //         if (prev_layer != layer) {
+    //             qp_clear(surface);
+    //             bk_display_layer_name(BKS_LAYER_X, BKS_LAYER_Y, layer, bk_font_layer);
+    //             bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 10, layer, bk_font_menu, TRUE);
+    //             qp_surface_draw(surface, lcd, 0, 0, false);
+    //         } else {
+    //             bk_display_layer_info(BKS_LAYER_X, BKS_LAYER_Y + bk_font_layer->line_height + 10, layer, bk_font_menu, TRUE);
+    //             qp_surface_draw(surface, lcd, 0, 0, false);
+    //         }
 
-            prev_layer = layer;
-        }
-    }
+    //         prev_layer = layer;
+    //     }
+    // }
 }
 
 void bk_display_layer_name(int x, int y, int layer, painter_font_handle_t font) {
