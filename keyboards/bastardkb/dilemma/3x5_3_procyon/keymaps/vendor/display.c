@@ -20,7 +20,6 @@ void display_init(void) {
     ui_init_layer_name(ui_label_layer_name, "Base");    
     // display base layer screen upon init
     lv_disp_load_scr(ui_screen_base);
-    // end base layer screen
     
     /*
         Theme
@@ -34,13 +33,20 @@ void display_init(void) {
 
 void ui_init_layer_name(lv_obj_t *label, const char* layer_name){
     lv_label_set_text(label, layer_name);
-    // lv_obj_add_event_cb(label, ui_layer_change, EVENT_LAYER_CHANGE, NULL);
-    lv_obj_set_width(label, LV_SIZE_CONTENT);  /// 81
-    lv_obj_set_height(label, LV_SIZE_CONTENT); /// 55
-    lv_obj_set_x(label, 25);
-    lv_obj_set_y(label, -10);
-    lv_obj_set_align(label, LV_ALIGN_LEFT_MID);
-    // lv_event_send(label, EVENT_LAYER_CHANGE, NULL);
+    // lv_obj_set_width(label, LV_SIZE_CONTENT);
+    // lv_obj_set_height(label, 30);
+    lv_obj_set_x(label, 0);
+    lv_obj_set_y(label, 0);
+    lv_obj_set_align(label, LV_ALIGN_CENTER_MID);
+}
+
+void ui_init_mod_indicator(lv_obj_t *label, const char* indicator_name, int x, int y){
+    lv_label_set_text(label, indicator_name);
+    lv_obj_set_width(label, LV_SIZE_CONTENT);
+    lv_obj_set_height(label, 30);
+    lv_obj_set_x(label, x);
+    lv_obj_set_y(label, y);
+    lv_obj_set_align(label, LV_ALIGN_CENTER_MID);
 }
 
 // void ui_layer_change(lv_event_t *e) {
