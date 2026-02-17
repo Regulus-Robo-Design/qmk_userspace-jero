@@ -37,16 +37,16 @@ void ui_init_layer_name(lv_obj_t *label, const char* layer_name){
     // lv_obj_set_height(label, 30);
     lv_obj_set_x(label, 0);
     lv_obj_set_y(label, 0);
-    lv_obj_set_align(label, LV_ALIGN_CENTER_MID);
+    lv_obj_set_align(label, LV_ALIGN_CENTER);
 }
 
 void ui_init_mod_indicator(lv_obj_t *label, const char* indicator_name, int x, int y){
     lv_label_set_text(label, indicator_name);
-    lv_obj_set_width(label, LV_SIZE_CONTENT);
-    lv_obj_set_height(label, 30);
+    // lv_obj_set_width(label, LV_SIZE_CONTENT);
+    // lv_obj_set_height(label, 30);
     lv_obj_set_x(label, x);
     lv_obj_set_y(label, y);
-    lv_obj_set_align(label, LV_ALIGN_CENTER_MID);
+    lv_obj_set_align(label, LV_ALIGN_LEFT_MID);
 }
 
 // void ui_layer_change(lv_event_t *e) {
