@@ -23,7 +23,7 @@ void display_init(void) {
     ui_label_layer_name = lv_label_create(ui_screen_base);
     ui_init_layer_name(ui_label_layer_name, "Base");
     ui_label_mod_gui = lv_label_create(ui_screen_base);
-    ui_init_mod_indicator(ui_label_mod_gui, "Gui", 0, 0);
+    ui_init_mod_indicator(ui_label_mod_gui, "Gui", 80, 80);
 
     // display base layer screen upon init
     lv_disp_load_scr(ui_screen_base);
@@ -66,8 +66,8 @@ void ui_init_layer_name(lv_obj_t *label, const char* layer_name){
 
 void ui_init_mod_indicator(lv_obj_t *label, const char* indicator_name, int x, int y){
     lv_label_set_text(label, indicator_name);
-    // lv_obj_set_width(label, LV_SIZE_CONTENT);
-    // lv_obj_set_height(label, 30);
+    lv_obj_set_width(label, 50);
+    lv_obj_set_height(label, 20);
     lv_obj_set_x(label, x);
     lv_obj_set_y(label, y);
     lv_obj_set_align(label, LV_ALIGN_LEFT_MID);
