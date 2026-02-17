@@ -73,6 +73,7 @@ painter_device_t        lcd;
 static painter_device_t surface;
 // Buffer required for a 240x280 16bpp surface:
 static uint8_t surface_buffer[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(LCD_WIDTH, LCD_HEIGHT, 16)];
+lv_obj_t * ui_Screen;
 // end QP stuff
 
 // clang-format off
@@ -235,7 +236,7 @@ void keyboard_post_init_user(void) {
     // bk_display_layer_number();
     // keyboard_post_init_user();
     // }
-    ui_Screen1      = lv_obj_create(NULL);
+    ui_Screen      = lv_obj_create(NULL);
     lv_obj_t *label = lv_label_create(ui_Screen);
     lv_label_set_text(label, "Hello world");
     lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
