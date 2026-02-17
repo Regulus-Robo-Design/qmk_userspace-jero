@@ -31,7 +31,7 @@ void display_init(void) {
     lv_event_send(ui_label_layer_name, EVENT_LAYER_CHANGE, NULL);
 
     // Change the screen's background color
-    lv_obj_set_style_bg_color(ui_screen, lv_color_hex(000000), LV_PART_MAIN);
+    // lv_obj_set_style_bg_color(ui_screen, lv_color_hex(000000), LV_PART_MAIN);
 
     // set theme
     lv_disp_t * dispp = lv_disp_get_default();
