@@ -418,3 +418,7 @@ const char *bk_layer_str(enum dilemma_keymap_layers layer) {
     }
     return layer_strings[layer];
 }
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    process_records_display(keycode, record);
+}
