@@ -1,10 +1,10 @@
 #include "display.h"
 #include "quantum.h"
 
-lv_obj_t *ui_screen_base;
-lv_obj_t *ui_label_layer_name;
-lv_obj_t *ui_label_mod_gui;
-lv_obj_t *ui_button_mod_gui;
+lv_obj_t  *ui_screen_base;
+lv_obj_t  *ui_label_layer_name;
+lv_obj_t  *ui_label_mod_gui;
+lv_obj_t  *ui_button_mod_gui;
 lv_style_t style_btn;
 
 enum ui_user_events {
@@ -31,19 +31,18 @@ void display_init(void) {
 
     // display base layer screen upon init
     lv_disp_load_scr(ui_screen_base);
-    
+
     /*
         Theme
     */
-    lv_disp_t * dispp = lv_disp_get_default();
-    lv_theme_t * theme = lv_theme_default_init(dispp, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED), true, LV_FONT_DEFAULT);
+    lv_disp_t  *dispp = lv_disp_get_default();
+    lv_theme_t *theme = lv_theme_default_init(dispp, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED), true, LV_FONT_DEFAULT);
     lv_disp_set_theme(dispp, theme);
 
     prev_layer = 99;
 }
 
-
-void style_init_mod_indicator(void){
+void style_init_mod_indicator(void) {
     /*Create a simple button style*/
     lv_style_init(&style_btn);
     lv_style_set_radius(&style_btn, 5);
@@ -59,18 +58,17 @@ void style_init_mod_indicator(void){
     lv_style_set_text_color(&style_btn, lv_color_white());
 }
 
-void ui_init_layer_name(lv_obj_t *label, const char* layer_name){
+void ui_init_layer_name(lv_obj_t *label, const char *layer_name) {
     lv_obj_remove_style_all(label);
     lv_label_set_text(label, layer_name);
     lv_obj_set_width(label, LV_SIZE_CONTENT);
     lv_obj_set_height(label, 30);
-    lv_obj_set_x(label, 0);
+    q lv_obj_set_x(label, 0);
     lv_obj_set_y(label, 0);
     lv_obj_set_align(label, LV_ALIGN_CENTER);
 }
 
-void ui_init_button_mod_indicator(lv_obj_t *button, int x, int y){
-    
+void ui_init_button_mod_indicator(lv_obj_t *button, int x, int y) {
     // styles
     // lv_obj_remove_style_all(button);
     // lv_obj_add_style(button, &style_btn, 0);
@@ -89,14 +87,14 @@ void ui_init_button_mod_indicator(lv_obj_t *button, int x, int y){
     lv_obj_set_y(button, y);
 }
 
-void event_screen_base_update_mods(lv_event_t * e){
+void event_screen_base_update_mods(lv_event_t *e) {
     // todo implement new / old event storage
     // todo test if new screen, then re-draw everything...
     // if(layer_state == 0){ // todo replace with enum from keymap.c
-            // TODO test if GUI is different... for now trigger a test re-draw
-                // lv_obj_t * btn = lv_event_get_target(e); // get target
-                // lv_obj_t * label = lv_obj_get_child(btn, 0); // get first child (the label)
-                // lv_label_set_text(label, "TEST 2");
+    // TODO test if GUI is different... for now trigger a test re-draw
+    // lv_obj_t * btn = lv_event_get_target(e); // get target
+    // lv_obj_t * label = lv_obj_get_child(btn, 0); // get first child (the label)
+    // lv_label_set_text(label, "TEST 2");
     // }
 }
 
@@ -108,20 +106,20 @@ void event_screen_base_update_mods(lv_event_t * e){
 //     }
 // }
 
-void housekeeping_task_screen() {
-   
-}
+void housekeeping_task_screen() {}
 
-bool process_records_display(uint16_t keycode, keyrecord_t *record){
+bool process_records_display(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_Q: // test
-        // ui_screen_base_update_mods();
-        // lv_event_send(ui_button_mod_gui, EVENT_MOD_CHANGE, NULL);
-        // lv_event_send(ui_button_mod_gui, LV_EVENT_CLICKED, NULL);
-        lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSING, NULL);
-        lv_event_send(ui_button_mod_gui, LV_EVENT_CLICKED, NULL);
-        lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSED, NULL);
-        break;
+            // ui_screen_base_update_mods();
+            // lv_event_send(ui_button_mod_gui, EVENT_MOD_CHANGE, NULL);
+            // lv_event_send(ui_button_mod_gui, LV_EVENT_CLICKED, NULL);
+            if (record->event.pressed) {
+                lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSING, NULL);
+            } else {
+                lv_event_send(ui_button_mod_gui, LV_EVENT_RELEASED, NULL);
+            }
+            break;
     }
     return true;
 }
