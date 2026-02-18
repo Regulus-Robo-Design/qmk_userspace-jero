@@ -138,37 +138,36 @@ void event_screen_base_update_mods(lv_event_t *e) {
 void housekeeping_task_display(void) {
     mods = get_mods();
 
-    // if ((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) {
-    if ((mods & MOD_MASK_SHIFT)) {
-        lv_event_send(ui_button_mod_shift, LV_EVENT_PRESSING, NULL);
-    } else {
-        lv_event_send(ui_button_mod_shift, LV_EVENT_RELEASED, NULL);
+    if ((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) {
+        if ((mods & MOD_MASK_SHIFT)) {
+            lv_event_send(ui_button_mod_shift, LV_EVENT_PRESSING, NULL);
+        } else {
+            lv_event_send(ui_button_mod_shift, LV_EVENT_RELEASED, NULL);
+        }
     }
-    // }
-    // if ((mods & MOD_MASK_ALT) != (last_mods & MOD_MASK_ALT)) {
-    if ((mods & MOD_MASK_ALT)) {
-        lv_event_send(ui_button_mod_alt, LV_EVENT_PRESSING, NULL);
-    } else {
-        lv_event_send(ui_button_mod_alt, LV_EVENT_RELEASED, NULL);
+    if ((mods & MOD_MASK_ALT) != (last_mods & MOD_MASK_ALT)) {
+        if ((mods & MOD_MASK_ALT)) {
+            lv_event_send(ui_button_mod_alt, LV_EVENT_PRESSING, NULL);
+        } else {
+            lv_event_send(ui_button_mod_alt, LV_EVENT_RELEASED, NULL);
+        }
     }
-    // }
 
-    // if ((mods & MOD_MASK_CTRL) != (last_mods & MOD_MASK_CTRL)) {
-    if ((mods & MOD_MASK_CTRL)) {
-        lv_event_send(ui_button_mod_control, LV_EVENT_PRESSING, NULL);
-    } else {
-        lv_event_send(ui_button_mod_control, LV_EVENT_RELEASED, NULL);
+    if ((mods & MOD_MASK_CTRL) != (last_mods & MOD_MASK_CTRL)) {
+        if ((mods & MOD_MASK_CTRL)) {
+            lv_event_send(ui_button_mod_control, LV_EVENT_PRESSING, NULL);
+        } else {
+            lv_event_send(ui_button_mod_control, LV_EVENT_RELEASED, NULL);
+        }
     }
-    // }
 
-    // if ((mods & MOD_MASK_GUI) != (last_mods & MOD_MASK_GUI)) {
-    if ((mods & MOD_MASK_GUI)) {
-        lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSING, NULL);
-    } else {
-        lv_event_send(ui_button_mod_gui, LV_EVENT_RELEASED, NULL);
+    if ((mods & MOD_MASK_GUI) != (last_mods & MOD_MASK_GUI)) {
+        if ((mods & MOD_MASK_GUI)) {
+            lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSING, NULL);
+        } else {
+            lv_event_send(ui_button_mod_gui, LV_EVENT_RELEASED, NULL);
+        }
     }
-    // }
-    // }
 
     last_mods = mods;
 }
