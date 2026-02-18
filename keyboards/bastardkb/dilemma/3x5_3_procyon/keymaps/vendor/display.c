@@ -25,7 +25,7 @@ void display_init(void) {
     ui_init_layer_name(ui_label_layer_name, "Base");
     ui_button_mod_gui = lv_btn_create(ui_screen_base);
     ui_init_button_mod_indicator(ui_button_mod_gui, 80, 80);
-    ui_label_mod_gui = lv_label_create(ui_screen_base);
+    ui_label_mod_gui = lv_label_create(ui_button_mod_gui);
     lv_label_set_text(ui_label_mod_gui, "Gui");
     lv_obj_center(ui_label_mod_gui);
 
