@@ -2,7 +2,11 @@
 #include QMK_KEYBOARD_H
 
 extern lv_obj_t *ui_screen_base;
-extern lv_obj_t *ui_label_layer_name;
+extern lv_obj_t *ui_screen_pointer;
+
+extern lv_obj_t *ui_label_layer_name_base;
+extern lv_obj_t *ui_label_layer_name_pointer;
+
 extern lv_obj_t *ui_label_mod_gui;
 extern lv_obj_t *ui_button_mod_gui;
 extern lv_obj_t *ui_label_mod_shift;

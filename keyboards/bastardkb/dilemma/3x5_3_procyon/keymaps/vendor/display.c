@@ -1,8 +1,10 @@
 #include "display.h"
 #include "quantum.h"
 
-lv_obj_t  *ui_screen_base;
-lv_obj_t  *ui_label_layer_name;
+lv_obj_t *ui_screen_base;
+lv_obj_t *ui_screen_pointer;
+
+lv_obj_t  *ui_label_layer_name_base;
 lv_obj_t  *ui_label_mod_gui;
 lv_obj_t  *ui_button_mod_gui;
 lv_obj_t  *ui_label_mod_shift;
@@ -30,8 +32,8 @@ void display_init(void) {
     ui_screen_base = lv_obj_create(NULL);
     style_init_mod_indicator();
 
-    ui_label_layer_name = lv_label_create(ui_screen_base);
-    ui_init_layer_name(ui_label_layer_name, "Base");
+    ui_label_layer_name_base = lv_label_create(ui_screen_base);
+    ui_init_layer_name(ui_label_layer_name_base, "Base");
 
     ui_button_mod_gui = lv_btn_create(ui_screen_base);
     ui_init_button_mod_indicator(ui_button_mod_gui, 80, 80);
@@ -59,6 +61,13 @@ void display_init(void) {
 
     // display base layer screen upon init
     lv_disp_load_scr(ui_screen_base);
+
+    /*
+        Pointer screen
+    */
+    ui_screen_pointer           = lv_obj_create(NULL);
+    ui_label_layer_name_pointer = lv_label_create(ui_screen_base);
+    ui_init_layer_name(ui_label_layer_name_pointer, "Pointer");
 
     /*
         Theme
@@ -131,45 +140,64 @@ void event_screen_base_update_mods(lv_event_t *e) {
 //     lv_event_code_t event_code = lv_event_get_code(e);
 //     if (event_code == (uint8_t)EVENT_LAYER_CHANGE) {
 //         int layer = get_highest_layer(layer_state); // todo test that it's smaller than the max size (compare to size of layer_strings)
-//         lv_label_set_text(ui_label_layer_name, ui_layer_strings[layer]);
+//         lv_label_set_text(ui_label_layer_name_base, ui_layer_strings[layer]);
 //     }
 // }
 
 void housekeeping_task_display(void) {
     mods = get_mods();
 
-    if ((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) {
-        if ((mods & MOD_MASK_SHIFT)) {
-            lv_event_send(ui_button_mod_shift, LV_EVENT_PRESSED, NULL);
-        } else {
-            lv_event_send(ui_button_mod_shift, LV_EVENT_RELEASED, NULL);
-        }
-    }
-    if ((mods & MOD_MASK_ALT) != (last_mods & MOD_MASK_ALT)) {
-        if ((mods & MOD_MASK_ALT)) {
-            lv_event_send(ui_button_mod_alt, LV_EVENT_PRESSING, NULL);
-        } else {
-            lv_event_send(ui_button_mod_alt, LV_EVENT_RELEASED, NULL);
-        }
-    }
-
-    if ((mods & MOD_MASK_CTRL) != (last_mods & MOD_MASK_CTRL)) {
-        if ((mods & MOD_MASK_CTRL)) {
-            lv_event_send(ui_button_mod_control, LV_EVENT_PRESSED, NULL);
-        } else {
-            lv_event_send(ui_button_mod_control, LV_EVENT_RELEASED, NULL);
+    // TODO use enum from keymap.c instead of hard coded layer numbers
+    uint8_t layer = get_highest_layer(state);
+    if (layer != prev_layer) {
+        switch (layer) {
+            case 0:
+            default:
+                lv_disp_load_scr(ui_screen_base);
+                break;
+            case 4:
+                lv_disp_load_scr(ui_screen_pointer);
+                break;
         }
     }
 
-    if ((mods & MOD_MASK_GUI) != (last_mods & MOD_MASK_GUI)) {
-        if ((mods & MOD_MASK_GUI)) {
-            lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSED, NULL);
-        } else {
-            lv_event_send(ui_button_mod_gui, LV_EVENT_RELEASED, NULL);
+    // TODO use enum from keymap.c instead of hard coded layer numbers
+    // TODO move to specific function
+    if (layer == 0) {
+        if ((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) {
+            if ((mods & MOD_MASK_SHIFT)) {
+                lv_event_send(ui_button_mod_shift, LV_EVENT_PRESSED, NULL);
+            } else {
+                lv_event_send(ui_button_mod_shift, LV_EVENT_RELEASED, NULL);
+            }
+        }
+        if ((mods & MOD_MASK_ALT) != (last_mods & MOD_MASK_ALT)) {
+            if ((mods & MOD_MASK_ALT)) {
+                lv_event_send(ui_button_mod_alt, LV_EVENT_PRESSING, NULL);
+            } else {
+                lv_event_send(ui_button_mod_alt, LV_EVENT_RELEASED, NULL);
+            }
+        }
+
+        if ((mods & MOD_MASK_CTRL) != (last_mods & MOD_MASK_CTRL)) {
+            if ((mods & MOD_MASK_CTRL)) {
+                lv_event_send(ui_button_mod_control, LV_EVENT_PRESSED, NULL);
+            } else {
+                lv_event_send(ui_button_mod_control, LV_EVENT_RELEASED, NULL);
+            }
+        }
+
+        if ((mods & MOD_MASK_GUI) != (last_mods & MOD_MASK_GUI)) {
+            if ((mods & MOD_MASK_GUI)) {
+                lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSED, NULL);
+            } else {
+                lv_event_send(ui_button_mod_gui, LV_EVENT_RELEASED, NULL);
+            }
         }
     }
 
-    last_mods = mods;
+    last_mods  = mods;
+    prev_layer = layer;
 }
 
 bool process_records_display(uint16_t keycode, keyrecord_t *record) {
