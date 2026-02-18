@@ -22,7 +22,7 @@ void display_init(void) {
     style_init_mod_indicator();
     ui_label_layer_name = lv_label_create(ui_screen_base);
     ui_init_layer_name(ui_label_layer_name, "Base");
-    ui_button_mod_gui = lv_button_create(ui_screen_base);
+    ui_button_mod_gui = lv_btn_create(ui_screen_base);
     ui_init_button_mod_indicator(ui_button_mod_gui, 80, 80);
     ui_label_mod_gui = lv_label_create(ui_screen_base);
     lv_label_set_text(ui_label_mod_gui, "Gui");
