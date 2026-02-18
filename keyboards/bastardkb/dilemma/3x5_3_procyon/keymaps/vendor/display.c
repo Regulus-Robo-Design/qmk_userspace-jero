@@ -109,17 +109,7 @@ void event_screen_base_update_mods(lv_event_t *e) {
 // }
 
 void housekeeping_task_display(void) {
-    uint8_t mods = get_mods();
-
-    if ((mods & MOD_MASK_GUI) != (last_mods & MOD_MASK_GUI)) {
-        if ((mods & MOD_MASK_GUI)) {
-            lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSING, NULL);
-        } else {
-            lv_event_send(ui_button_mod_gui, LV_EVENT_RELEASED, NULL);
-        }
-    }
-
-    last_mods = mods;
+   
 }
 
 bool process_records_display(uint16_t keycode, keyrecord_t *record) {
@@ -135,5 +125,19 @@ bool process_records_display(uint16_t keycode, keyrecord_t *record) {
     //         }
     //         break;
     // }
+
+     uint8_t mods = get_mods();
+
+    if ((mods & MOD_MASK_GUI) != (last_mods & MOD_MASK_GUI)) {
+        if ((mods & MOD_MASK_GUI)) {
+            lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSING, NULL);
+        } else {
+            lv_event_send(ui_button_mod_gui, LV_EVENT_RELEASED, NULL);
+        }
+    }
+
+    last_mods = mods;
+
+    
     return true;
 }
