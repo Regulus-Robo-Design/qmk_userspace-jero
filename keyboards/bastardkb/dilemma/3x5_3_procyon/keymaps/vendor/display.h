@@ -13,7 +13,7 @@ void style_init_mod_indicator(void);
 
 // void ui_layer_change(lv_event_t *e);
 void ui_init_layer_name(lv_obj_t *label, const char* layer_name);
-void housekeeping_task_screen(void);
+void housekeeping_task_display(void);
 void ui_init_button_mod_indicator(lv_obj_t *label, int x, int y);
 void event_screen_base_update_mods(lv_event_t * e);
 

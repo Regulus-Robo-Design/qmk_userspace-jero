@@ -107,7 +107,7 @@ void event_screen_base_update_mods(lv_event_t *e) {
 //     }
 // }
 
-void housekeeping_task_screen() {
+void housekeeping_task_display(void) {
     uint8_t mods = get_mods();
 
     if ((mods & MOD_MASK_GUI) != (last_mods & MOD_MASK_GUI)) {

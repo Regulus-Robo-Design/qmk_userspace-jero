@@ -236,7 +236,7 @@ void keyboard_post_init_user(void) {
 }
 
 void housekeeping_task_user(void) {
-    housekeeping_task_screen();
+    housekeeping_task_display();
 }
 
 void bk_display_layer_name(int x, int y, int layer, painter_font_handle_t font) {
