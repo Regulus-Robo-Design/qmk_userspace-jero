@@ -223,7 +223,10 @@ void housekeeping_task_screen_base(void) {
 }
 
 void housekeeping_task_screen_pointer(void) {
-    float rel = (float)(dilemma_get_pointer_default_dpi())*100/2400;
+    // TODO dynamically get max DPI
+    static const uint8_t rel_max_dpi = DILEMMA_DEFAULT_DPI_CONFIG_STEP * 16 - DILEMMA_MINIMUM_DEFAULT_DPI;
+    // const uint8_t rel_dpi = 
+    const float rel = (float)((dilemma_get_pointer_default_dpi()-DILEMMA_MINIMUM_DEFAULT_DPI))*100/rel_max_dpi;
     lv_bar_set_value(ui_bar_dpi, (int)rel, LV_ANIM_OFF);
 }
 
