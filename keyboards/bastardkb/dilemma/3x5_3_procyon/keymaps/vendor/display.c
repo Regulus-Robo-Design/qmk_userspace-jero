@@ -64,7 +64,7 @@ void ui_init_layer_name(lv_obj_t *label, const char* layer_name){
     lv_obj_set_align(label, LV_ALIGN_CENTER);
 }
 
-static void ui_init_mod_indicator(lv_obj_t *label, const char* indicator_name, int x, int y){
+void ui_init_mod_indicator(lv_obj_t *label, const char* indicator_name, int x, int y){
     lv_label_set_text(label, indicator_name);
     // lv_obj_set_align(label, LV_ALIGN_CENTER);
     lv_obj_add_event_cb(label, event_screen_base_update_mods, EVENT_MOD_CHANGE, NULL);
@@ -80,7 +80,7 @@ static void ui_init_mod_indicator(lv_obj_t *label, const char* indicator_name, i
     lv_obj_set_y(label, y);
 }
 
-void event_screen_base_update_mods(lv_event_t * e){
+static void event_screen_base_update_mods(lv_event_t * e){
     // todo implement new / old event storage
     // todo test if new screen, then re-draw everything...
     // if(layer_state == 0){ // todo replace with enum from keymap.c
