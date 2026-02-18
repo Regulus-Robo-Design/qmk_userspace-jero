@@ -77,6 +77,7 @@ void display_init(void) {
     ui_bar_dpi = lv_bar_create(ui_screen_pointer);
     lv_obj_set_size(ui_bar_dpi, 200, 20);
     lv_obj_center(ui_bar_dpi);
+    lv_obj_set_y(ui_bar, 20);
     lv_bar_set_value(ui_bar_dpi, 70, LV_ANIM_OFF);
 
     /*
@@ -222,7 +223,8 @@ void housekeeping_task_screen_base(void) {
 }
 
 void housekeeping_task_screen_pointer(void) {
-
+    float rel = (float)(dilemma_get_pointer_default_dpi())*100/2400;
+    lv_bar_set_value(ui_bar_dpi, (int)rel, LV_ANIM_OFF);
 }
 
 bool process_records_display(uint16_t keycode, keyrecord_t *record) {
