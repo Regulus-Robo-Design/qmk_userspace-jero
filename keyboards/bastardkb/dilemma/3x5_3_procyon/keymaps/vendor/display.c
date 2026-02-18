@@ -73,15 +73,14 @@ void display_init(void) {
     ui_init_layer_name(ui_label_layer_name_pointer, "Pointer");
     ui_label_dpi = lv_label_create(ui_screen_pointer);
     // lv_obj_center(ui_label_dpi);
-    lv_obj_set_x(ui_label_dpi, 10);
+    lv_obj_set_x(ui_label_dpi, 15);
     lv_obj_set_y(ui_label_dpi, 50);
     lv_label_set_text(ui_label_dpi, "DPI");
     ui_bar_dpi = lv_bar_create(ui_screen_pointer);
-    lv_obj_set_size(ui_bar_dpi, 200, 30);
+    lv_obj_set_size(ui_bar_dpi, 200, 15);
     // lv_obj_center(ui_bar_dpi);
-    lv_obj_set_x(ui_bar_dpi, 40);
+    lv_obj_set_x(ui_bar_dpi, 15);
     lv_obj_set_y(ui_bar_dpi, 50);
-    lv_bar_set_value(ui_bar_dpi, 70, LV_ANIM_OFF);
 
     /*
         Theme
@@ -233,7 +232,8 @@ void housekeeping_task_screen_pointer(void) {
     lv_bar_set_value(ui_bar_dpi, (uint16_t)rel, LV_ANIM_OFF);
     
     char dpi[50];
-    sprintf(dpi, "%u", dilemma_get_pointer_default_dpi());
+    sprintf(dpi, "DPI: %u", dilemma_get_pointer_default_dpi());
+    lv_label_set_text(ui_label_dpi, dpi);
 }
 
 bool process_records_display(uint16_t keycode, keyrecord_t *record) {
