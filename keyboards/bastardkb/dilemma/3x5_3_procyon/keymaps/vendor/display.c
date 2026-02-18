@@ -154,54 +154,65 @@ void housekeeping_task_display(void) {
         switch (layer) {
             case 0:
             default:
-            lv_scr_load_anim(ui_screen_base, LV_SCR_LOAD_ANIM_OVER_LEFT, 100, 0, true);
-                // lv_disp_load_scr(ui_screen_base);
+                lv_disp_load_scr(ui_screen_base);
                 break;
             case 4:
-                // lv_disp_load_scr(ui_screen_pointer);
-            lv_scr_load_anim(ui_screen_pointer, LV_SCR_LOAD_ANIM_OVER_LEFT, 100, 0, true);
+                lv_disp_load_scr(ui_screen_pointer);
                 break;
         }
     }
 
     // TODO use enum from keymap.c instead of hard coded layer numbers
     // TODO move to specific function
-    if (layer == 0) {
-        if ((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) {
-            if ((mods & MOD_MASK_SHIFT)) {
-                lv_event_send(ui_button_mod_shift, LV_EVENT_PRESSED, NULL);
-            } else {
-                lv_event_send(ui_button_mod_shift, LV_EVENT_RELEASED, NULL);
-            }
-        }
-        if ((mods & MOD_MASK_ALT) != (last_mods & MOD_MASK_ALT)) {
-            if ((mods & MOD_MASK_ALT)) {
-                lv_event_send(ui_button_mod_alt, LV_EVENT_PRESSING, NULL);
-            } else {
-                lv_event_send(ui_button_mod_alt, LV_EVENT_RELEASED, NULL);
-            }
-        }
-
-        if ((mods & MOD_MASK_CTRL) != (last_mods & MOD_MASK_CTRL)) {
-            if ((mods & MOD_MASK_CTRL)) {
-                lv_event_send(ui_button_mod_control, LV_EVENT_PRESSED, NULL);
-            } else {
-                lv_event_send(ui_button_mod_control, LV_EVENT_RELEASED, NULL);
-            }
-        }
-
-        if ((mods & MOD_MASK_GUI) != (last_mods & MOD_MASK_GUI)) {
-            if ((mods & MOD_MASK_GUI)) {
-                lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSED, NULL);
-            } else {
-                lv_event_send(ui_button_mod_gui, LV_EVENT_RELEASED, NULL);
-            }
-        }
+    switch (layer) {
+        case 0:
+        default:
+            housekeeping_task_screen_base();
+            break;
+        case 4:
+            housekeeping_task_screen_pointer();
+            break;
     }
 
     last_mods  = mods;
     prev_layer = layer;
 }
+
+void housekeeping_task_screen_base(void) {
+    mods = get_mods();
+    if ((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) {
+        if ((mods & MOD_MASK_SHIFT)) {
+            lv_event_send(ui_button_mod_shift, LV_EVENT_PRESSED, NULL);
+        } else {
+            lv_event_send(ui_button_mod_shift, LV_EVENT_RELEASED, NULL);
+        }
+    }
+    if ((mods & MOD_MASK_ALT) != (last_mods & MOD_MASK_ALT)) {
+        if ((mods & MOD_MASK_ALT)) {
+            lv_event_send(ui_button_mod_alt, LV_EVENT_PRESSING, NULL);
+        } else {
+            lv_event_send(ui_button_mod_alt, LV_EVENT_RELEASED, NULL);
+        }
+    }
+
+    if ((mods & MOD_MASK_CTRL) != (last_mods & MOD_MASK_CTRL)) {
+        if ((mods & MOD_MASK_CTRL)) {
+            lv_event_send(ui_button_mod_control, LV_EVENT_PRESSED, NULL);
+        } else {
+            lv_event_send(ui_button_mod_control, LV_EVENT_RELEASED, NULL);
+        }
+    }
+
+    if ((mods & MOD_MASK_GUI) != (last_mods & MOD_MASK_GUI)) {
+        if ((mods & MOD_MASK_GUI)) {
+            lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSED, NULL);
+        } else {
+            lv_event_send(ui_button_mod_gui, LV_EVENT_RELEASED, NULL);
+        }
+    }
+}
+
+void housekeeping_task_screen_pointer(void) {}
 
 bool process_records_display(uint16_t keycode, keyrecord_t *record) {
     // switch (keycode) {
