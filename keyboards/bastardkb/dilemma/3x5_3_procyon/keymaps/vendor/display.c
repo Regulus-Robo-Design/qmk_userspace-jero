@@ -119,6 +119,8 @@ bool process_records_display(uint16_t keycode, keyrecord_t *record){
         // lv_event_send(ui_button_mod_gui, EVENT_MOD_CHANGE, NULL);
         // lv_event_send(ui_button_mod_gui, LV_EVENT_CLICKED, NULL);
         lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSING, NULL);
+        lv_event_send(ui_button_mod_gui, LV_EVENT_CLICKED, NULL);
+        lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSED, NULL);
         break;
     }
     return true;
