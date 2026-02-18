@@ -154,10 +154,12 @@ void housekeeping_task_display(void) {
         switch (layer) {
             case 0:
             default:
-                lv_disp_load_scr(ui_screen_base);
+            lv_scr_load_anim(ui_screen_base, LV_SCR_LOAD_ANIM_OVER_LEFT, 100, 0, true);
+                // lv_disp_load_scr(ui_screen_base);
                 break;
             case 4:
-                lv_disp_load_scr(ui_screen_pointer);
+                // lv_disp_load_scr(ui_screen_pointer);
+            lv_scr_load_anim(ui_screen_pointer, LV_SCR_LOAD_ANIM_OVER_LEFT, 100, 0, true);
                 break;
         }
     }
