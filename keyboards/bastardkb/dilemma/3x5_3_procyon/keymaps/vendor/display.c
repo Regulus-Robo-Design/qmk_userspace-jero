@@ -70,14 +70,17 @@ void ui_init_layer_name(lv_obj_t *label, const char* layer_name){
 }
 
 void ui_init_button_mod_indicator(lv_obj_t *button, int x, int y){
+    
+    // styles
+    lv_obj_remove_style_all(button);
+    lv_obj_add_style(button, &style_btn, 0);
+
+    // behaviour
     // lv_label_set_text(label, indicator_name);
     // lv_obj_set_align(label, LV_ALIGN_CENTER);
     lv_obj_add_event_cb(button, event_screen_base_update_mods, EVENT_MOD_CHANGE, NULL);
     lv_obj_add_event_cb(button, event_screen_base_update_mods, LV_EVENT_ALL, NULL);
-
-    // styles
-    lv_obj_remove_style_all(button);
-    lv_obj_add_style(button, &style_btn, 0);
+    lv_obj_add_flag(button, LV_OBJ_FLAG_CHECKABLE);
 
     // position and width
     lv_obj_set_width(button, 50);
