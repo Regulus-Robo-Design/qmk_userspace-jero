@@ -5,6 +5,12 @@ lv_obj_t  *ui_screen_base;
 lv_obj_t  *ui_label_layer_name;
 lv_obj_t  *ui_label_mod_gui;
 lv_obj_t  *ui_button_mod_gui;
+lv_obj_t *ui_label_mod_shift;
+lv_obj_t *ui_button_mod_shift;
+lv_obj_t *ui_label_mod_control;
+lv_obj_t *ui_button_mod_control;
+lv_obj_t *ui_label_mod_alt;
+lv_obj_t *ui_button_mod_alt;
 lv_style_t style_btn;
 uint8_t         last_mods;
 
@@ -22,13 +28,33 @@ void display_init(void) {
     */
     ui_screen_base = lv_obj_create(NULL);
     style_init_mod_indicator();
+
     ui_label_layer_name = lv_label_create(ui_screen_base);
     ui_init_layer_name(ui_label_layer_name, "Base");
+
     ui_button_mod_gui = lv_btn_create(ui_screen_base);
     ui_init_button_mod_indicator(ui_button_mod_gui, 80, 80);
     ui_label_mod_gui = lv_label_create(ui_button_mod_gui);
     lv_label_set_text(ui_label_mod_gui, "Gui");
     lv_obj_center(ui_label_mod_gui);
+    
+    ui_button_mod_control = lv_btn_create(ui_screen_base);
+    ui_init_button_mod_indicator(ui_button_mod_control, 150, 80);
+    ui_label_mod_control = lv_label_create(ui_button_mod_control);
+    lv_label_set_text(ui_label_mod_control, "Ctrl");
+    lv_obj_center(ui_label_mod_control);
+    
+    ui_button_mod_alt = lv_btn_create(ui_screen_base);
+    ui_init_button_mod_indicator(ui_button_mod_alt, 80, 150);
+    ui_label_mod_alt = lv_label_create(ui_button_mod_alt);
+    lv_label_set_text(ui_label_mod_alt, "Alt");
+    lv_obj_center(ui_label_mod_alt);
+    
+    ui_button_mod_shift = lv_btn_create(ui_screen_base);
+    ui_init_button_mod_indicator(ui_button_mod_shift, 150, 150);
+    ui_label_mod_shift = lv_label_create(ui_button_mod_shift);
+    lv_label_set_text(ui_label_mod_shift, "Shft");
+    lv_obj_center(ui_label_mod_shift);
 
     // display base layer screen upon init
     lv_disp_load_scr(ui_screen_base);
@@ -64,9 +90,9 @@ void ui_init_layer_name(lv_obj_t *label, const char *layer_name) {
     lv_obj_remove_style_all(label);
     lv_label_set_text(label, layer_name);
     lv_obj_set_width(label, LV_SIZE_CONTENT);
-    lv_obj_set_height(label, 30);
+    // lv_obj_set_height(label, 30);
     lv_obj_set_x(label, 0);
-    lv_obj_set_y(label, 0);
+    lv_obj_set_y(label, 20);
     lv_obj_set_align(label, LV_ALIGN_TOP_MID);
 }
 
@@ -109,17 +135,7 @@ void event_screen_base_update_mods(lv_event_t *e) {
 // }
 
 void housekeeping_task_display(void) {
-        uint8_t mods = get_mods();
-
-    // if ((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) {
-        if ((mods & MOD_MASK_SHIFT)) {
-            lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSING, NULL);
-        } else {
-            lv_event_send(ui_button_mod_gui, LV_EVENT_RELEASED, NULL);
-        }
-    // }
-
-    last_mods = mods;
+   
 }
 
 bool process_records_display(uint16_t keycode, keyrecord_t *record) {
@@ -136,7 +152,32 @@ bool process_records_display(uint16_t keycode, keyrecord_t *record) {
     //         break;
     // }
 
+     uint8_t mods = get_mods();
 
+    // if ((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) {
+        if ((mods & MOD_MASK_SHIFT)) {
+            lv_event_send(ui_button_mod_shift, LV_EVENT_PRESSING, NULL);
+        } else {
+            lv_event_send(ui_button_mod_shift, LV_EVENT_RELEASED, NULL);
+        }
+        if ((mods & MOD_MASK_ALT)) {
+            lv_event_send(ui_button_mod_alt, LV_EVENT_PRESSING, NULL);
+        } else {
+            lv_event_send(ui_button_mod_alt, LV_EVENT_RELEASED, NULL);
+        }
+        if ((mods & MOD_MASK_CTRL)) {
+            lv_event_send(ui_button_mod_control, LV_EVENT_PRESSING, NULL);
+        } else {
+            lv_event_send(ui_button_mod_control, LV_EVENT_RELEASED, NULL);
+        }
+        if ((mods & MOD_MASK_GUI)) {
+            lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSING, NULL);
+        } else {
+            lv_event_send(ui_button_mod_gui, LV_EVENT_RELEASED, NULL);
+        }
+    // }
+
+    last_mods = mods;
 
 
     return true;

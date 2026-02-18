@@ -5,6 +5,12 @@ extern lv_obj_t *ui_screen_base;
 extern lv_obj_t *ui_label_layer_name;
 extern lv_obj_t *ui_label_mod_gui;
 extern lv_obj_t *ui_button_mod_gui;
+extern lv_obj_t *ui_label_mod_shift;
+extern lv_obj_t *ui_button_mod_shift;
+extern lv_obj_t *ui_label_mod_control;
+extern lv_obj_t *ui_button_mod_control;
+extern lv_obj_t *ui_label_mod_alt;
+extern lv_obj_t *ui_button_mod_alt;
 extern lv_style_t style_btn;
 extern uint8_t         last_mods;
 
