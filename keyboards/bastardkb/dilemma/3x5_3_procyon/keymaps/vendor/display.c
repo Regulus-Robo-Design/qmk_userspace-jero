@@ -140,7 +140,7 @@ void housekeeping_task_display(void) {
 
     if ((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) {
         if ((mods & MOD_MASK_SHIFT)) {
-            lv_event_send(ui_button_mod_shift, LV_EVENT_PRESSING, NULL);
+            lv_event_send(ui_button_mod_shift, LV_EVENT_PRESSED, NULL);
         } else {
             lv_event_send(ui_button_mod_shift, LV_EVENT_RELEASED, NULL);
         }
