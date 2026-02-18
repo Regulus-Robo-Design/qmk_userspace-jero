@@ -128,13 +128,13 @@ bool process_records_display(uint16_t keycode, keyrecord_t *record) {
 
      uint8_t mods = get_mods();
 
-    if ((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) {
+    // if ((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) {
         if ((mods & MOD_MASK_SHIFT)) {
             lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSING, NULL);
         } else {
             lv_event_send(ui_button_mod_gui, LV_EVENT_RELEASED, NULL);
         }
-    }
+    // }
 
     last_mods = mods;
 
