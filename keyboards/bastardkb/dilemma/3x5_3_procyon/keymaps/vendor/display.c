@@ -148,7 +148,7 @@ void housekeeping_task_display(void) {
     mods = get_mods();
 
     // TODO use enum from keymap.c instead of hard coded layer numbers
-    uint8_t layer = get_highest_layer(state);
+    uint8_t layer = get_highest_layer(layer_state);
     if (layer != prev_layer) {
         switch (layer) {
             case 0:
