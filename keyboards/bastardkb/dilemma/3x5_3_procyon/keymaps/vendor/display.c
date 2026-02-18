@@ -107,7 +107,7 @@ void ui_init_button_mod_indicator(lv_obj_t *button, int x, int y) {
     // lv_obj_set_align(label, LV_ALIGN_CENTER);
     // lv_obj_add_event_cb(button, event_screen_base_update_mods, EVENT_MOD_CHANGE, NULL);
     lv_obj_add_event_cb(button, event_screen_base_update_mods, LV_EVENT_ALL, NULL);
-    lv_obj_add_flag(button, LV_OBJ_FLAG_CHECKABLE);
+    // lv_obj_add_flag(button, LV_OBJ_FLAG_CHECKABLE);
 
     // position and width
     lv_obj_set_width(button, 50);
@@ -155,7 +155,7 @@ void housekeeping_task_display(void) {
 
     if ((mods & MOD_MASK_CTRL) != (last_mods & MOD_MASK_CTRL)) {
         if ((mods & MOD_MASK_CTRL)) {
-            lv_event_send(ui_button_mod_control, LV_EVENT_PRESSING, NULL);
+            lv_event_send(ui_button_mod_control, LV_EVENT_PRESSED, NULL);
         } else {
             lv_event_send(ui_button_mod_control, LV_EVENT_RELEASED, NULL);
         }
@@ -163,7 +163,7 @@ void housekeeping_task_display(void) {
 
     if ((mods & MOD_MASK_GUI) != (last_mods & MOD_MASK_GUI)) {
         if ((mods & MOD_MASK_GUI)) {
-            lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSING, NULL);
+            lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSED, NULL);
         } else {
             lv_event_send(ui_button_mod_gui, LV_EVENT_RELEASED, NULL);
         }
