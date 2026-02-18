@@ -5,6 +5,7 @@ lv_obj_t *ui_screen_base;
 lv_obj_t *ui_screen_pointer;
 
 lv_obj_t  *ui_label_layer_name_base;
+lv_obj_t  *ui_label_layer_name_pointer;
 lv_obj_t  *ui_label_mod_gui;
 lv_obj_t  *ui_button_mod_gui;
 lv_obj_t  *ui_label_mod_shift;
