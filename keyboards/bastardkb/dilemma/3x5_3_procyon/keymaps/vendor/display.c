@@ -94,9 +94,9 @@ void event_screen_base_update_mods(lv_event_t * e){
     // todo test if new screen, then re-draw everything...
     // if(layer_state == 0){ // todo replace with enum from keymap.c
             // TODO test if GUI is different... for now trigger a test re-draw
-                // lv_obj_t * btn = lv_event_get_target(e); // get target
-                // lv_obj_t * label = lv_obj_get_child(btn, 0); // get first child (the label)
-                // lv_label_set_text(label, "TEST 2");
+                lv_obj_t * btn = lv_event_get_target(e); // get target
+                lv_obj_t * label = lv_obj_get_child(btn, 0); // get first child (the label)
+                lv_label_set_text(label, "TEST 2");
     // }
 }
 
