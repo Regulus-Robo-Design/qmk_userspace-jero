@@ -79,8 +79,8 @@ void ui_init_button_mod_indicator(lv_obj_t *button, int x, int y){
     lv_obj_add_style(button, &style_btn, 0);
 
     // position and width
-    lv_obj_set_width(button, 30);
-    lv_obj_set_height(button, 15);
+    lv_obj_set_width(button, 50);
+    lv_obj_set_height(button, 35);
     lv_obj_set_x(button, x);
     lv_obj_set_y(button, y);
 }
@@ -113,7 +113,7 @@ bool process_records_display(uint16_t keycode, keyrecord_t *record){
         case KC_Q: // test
         // ui_screen_base_update_mods();
         lv_event_send(ui_button_mod_gui, EVENT_MOD_CHANGE, NULL);
-        // lv_event_send(ui_button_mod_gui, LV_EVENT_CLICKED, NULL);
+        lv_event_send(ui_button_mod_gui, LV_EVENT_CLICKED, NULL);
         break;
     }
     return true;
