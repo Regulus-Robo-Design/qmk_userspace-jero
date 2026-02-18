@@ -80,7 +80,7 @@ void display_init(void) {
     lv_obj_set_size(ui_bar_dpi, 200, 15);
     // lv_obj_center(ui_bar_dpi);
     lv_obj_set_x(ui_bar_dpi, 15);
-    lv_obj_set_y(ui_bar_dpi, 50);
+    lv_obj_set_y(ui_bar_dpi, 65);
 
     /*
         Theme
