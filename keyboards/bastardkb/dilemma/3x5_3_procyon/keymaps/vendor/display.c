@@ -67,7 +67,7 @@ void ui_init_layer_name(lv_obj_t *label, const char *layer_name) {
     lv_obj_set_height(label, 30);
     lv_obj_set_x(label, 0);
     lv_obj_set_y(label, 0);
-    lv_obj_set_align(label, LV_ALIGN_CENTER);
+    // lv_obj_set_align(label, LV_ALIGN_CENTER);
 }
 
 void ui_init_button_mod_indicator(lv_obj_t *button, int x, int y) {
@@ -128,8 +128,8 @@ bool process_records_display(uint16_t keycode, keyrecord_t *record) {
 
      uint8_t mods = get_mods();
 
-    if ((mods & MOD_MASK_GUI) != (last_mods & MOD_MASK_GUI)) {
-        if ((mods & MOD_MASK_GUI)) {
+    if ((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) {
+        if ((mods & MOD_MASK_SHIFT)) {
             lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSING, NULL);
         } else {
             lv_event_send(ui_button_mod_gui, LV_EVENT_RELEASED, NULL);
@@ -138,6 +138,6 @@ bool process_records_display(uint16_t keycode, keyrecord_t *record) {
 
     last_mods = mods;
 
-    
+
     return true;
 }
