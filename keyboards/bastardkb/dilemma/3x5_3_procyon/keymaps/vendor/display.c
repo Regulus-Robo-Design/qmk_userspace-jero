@@ -69,20 +69,20 @@ void ui_init_layer_name(lv_obj_t *label, const char* layer_name){
     lv_obj_set_align(label, LV_ALIGN_CENTER);
 }
 
-void ui_init_button_mod_indicator(lv_obj_t *label, int x, int y){
+void ui_init_button_mod_indicator(lv_obj_t *button, int x, int y){
     // lv_label_set_text(label, indicator_name);
     // lv_obj_set_align(label, LV_ALIGN_CENTER);
-    lv_obj_add_event_cb(label, event_screen_base_update_mods, EVENT_MOD_CHANGE, NULL);
+    lv_obj_add_event_cb(button, event_screen_base_update_mods, EVENT_MOD_CHANGE, NULL);
 
     // styles
-    lv_obj_remove_style_all(label);
-    lv_obj_add_style(label, &style_btn, 0);
+    lv_obj_remove_style_all(button);
+    lv_obj_add_style(button, &style_btn, 0);
 
     // position and width
-    lv_obj_set_width(label, 50);
-    lv_obj_set_height(label, 35);
-    lv_obj_set_x(label, x);
-    lv_obj_set_y(label, y);
+    lv_obj_set_width(button, 30);
+    lv_obj_set_height(button, 15);
+    lv_obj_set_x(button, x);
+    lv_obj_set_y(button, y);
 }
 
 void event_screen_base_update_mods(lv_event_t * e){
@@ -113,6 +113,7 @@ bool process_records_display(uint16_t keycode, keyrecord_t *record){
         case KC_Q: // test
         // ui_screen_base_update_mods();
         lv_event_send(ui_button_mod_gui, EVENT_MOD_CHANGE, NULL);
+        lv_event_send(ui_button_mod_gui, LV_EVENT_CLICKED, NULL);
         break;
     }
     return true;
