@@ -80,7 +80,7 @@ void ui_init_mod_indicator(lv_obj_t *label, const char* indicator_name, int x, i
     lv_obj_set_y(label, y);
 }
 
-void event_screen_base_update_mods(void){
+void event_screen_base_update_mods(lv_event_t * e){
     // todo implement new / old event storage
     // todo test if new screen, then re-draw everything...
     // if(layer_state == 0){ // todo replace with enum from keymap.c
