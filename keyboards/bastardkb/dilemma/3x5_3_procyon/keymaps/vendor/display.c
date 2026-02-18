@@ -4,6 +4,7 @@
 lv_obj_t *ui_screen_base;
 lv_obj_t *ui_label_layer_name;
 lv_obj_t *ui_label_mod_gui;
+lv_obj_t *ui_button_mod_gui;
 lv_style_t style_btn;
 
 enum ui_user_events {
