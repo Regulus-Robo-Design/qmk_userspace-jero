@@ -13,7 +13,7 @@ void style_init_mod_indicator(void);
 void ui_init_layer_name(lv_obj_t *label, const char* layer_name);
 void housekeeping_task_screen(void);
 void ui_init_mod_indicator(lv_obj_t *label, const char* indicator_name, int x, int y);
-void ui_screen_base_update_mods(void);
+void event_screen_base_update_mods(void);
 
 bool process_records_display(uint16_t keycode, keyrecord_t *record);
 
