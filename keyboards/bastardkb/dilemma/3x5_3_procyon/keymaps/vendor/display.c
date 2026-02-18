@@ -61,10 +61,10 @@ void ui_init_layer_name(lv_obj_t *label, const char* layer_name){
     lv_obj_set_height(label, 30);
     lv_obj_set_x(label, 0);
     lv_obj_set_y(label, 0);
-    // lv_obj_set_align(label, LV_ALIGN_CENTER);
+    lv_obj_set_align(label, LV_ALIGN_CENTER);
 }
 
-void ui_init_mod_indicator(lv_obj_t *label, const char* indicator_name, int x, int y){
+static void ui_init_mod_indicator(lv_obj_t *label, const char* indicator_name, int x, int y){
     lv_label_set_text(label, indicator_name);
     // lv_obj_set_align(label, LV_ALIGN_CENTER);
     lv_obj_add_event_cb(label, event_screen_base_update_mods, EVENT_MOD_CHANGE, NULL);
