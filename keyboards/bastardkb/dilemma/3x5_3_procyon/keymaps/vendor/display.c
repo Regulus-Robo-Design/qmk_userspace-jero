@@ -112,7 +112,7 @@ bool process_records_display(uint16_t keycode, keyrecord_t *record){
     switch (keycode) {
         case KC_Q: // test
         // ui_screen_base_update_mods();
-        lv_event_send(ui_label_mod_gui, EVENT_MOD_CHANGE, NULL);
+        lv_event_send(ui_button_mod_gui, EVENT_MOD_CHANGE, NULL);
         break;
     }
     return true;
