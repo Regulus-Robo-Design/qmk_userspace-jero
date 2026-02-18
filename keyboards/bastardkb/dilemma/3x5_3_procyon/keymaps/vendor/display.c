@@ -72,12 +72,15 @@ void display_init(void) {
     ui_label_layer_name_pointer = lv_label_create(ui_screen_pointer);
     ui_init_layer_name(ui_label_layer_name_pointer, "Pointer");
     ui_label_dpi = lv_label_create(ui_screen_pointer);
-    lv_obj_center(ui_label_dpi);
+    // lv_obj_center(ui_label_dpi);
+    lv_obj_set_x(ui_label_dpi, 10);
+    lv_obj_set_y(ui_label_dpi, 50);
     lv_label_set_text(ui_label_dpi, "DPI");
     ui_bar_dpi = lv_bar_create(ui_screen_pointer);
-    lv_obj_set_size(ui_bar_dpi, 200, 20);
-    lv_obj_center(ui_bar_dpi);
-    lv_obj_set_y(ui_bar_dpi, 20);
+    lv_obj_set_size(ui_bar_dpi, 200, 30);
+    // lv_obj_center(ui_bar_dpi);
+    lv_obj_set_x(ui_bar_dpi, 40);
+    lv_obj_set_y(ui_bar_dpi, 50);
     lv_bar_set_value(ui_bar_dpi, 70, LV_ANIM_OFF);
 
     /*
@@ -228,6 +231,9 @@ void housekeeping_task_screen_pointer(void) {
     // const uint8_t rel_dpi = 
     const float rel = (float)((dilemma_get_pointer_default_dpi()-400))*100/rel_max_dpi;
     lv_bar_set_value(ui_bar_dpi, (uint16_t)rel, LV_ANIM_OFF);
+    
+    char dpi[50];
+    sprintf(dpi, "%u", dilemma_get_pointer_default_dpi());
 }
 
 bool process_records_display(uint16_t keycode, keyrecord_t *record) {
