@@ -134,23 +134,8 @@ void event_screen_base_update_mods(lv_event_t *e) {
 //     }
 // }
 
-void housekeeping_task_display(void) {}
-
-bool process_records_display(uint16_t keycode, keyrecord_t *record) {
-    // switch (keycode) {
-    //     case KC_Q: // test
-    //         // ui_screen_base_update_mods();
-    //         // lv_event_send(ui_button_mod_gui, EVENT_MOD_CHANGE, NULL);
-    //         // lv_event_send(ui_button_mod_gui, LV_EVENT_CLICKED, NULL);
-    //         if (record->event.pressed) {
-    //             lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSING, NULL);
-    //         } else {
-    //             lv_event_send(ui_button_mod_gui, LV_EVENT_RELEASED, NULL);
-    //         }
-    //         break;
-    // }
-
-    uint8_t mods = get_mods();
+void housekeeping_task_display(void) {
+       uint8_t mods = get_mods();
 
     if ((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) {
         if ((mods & MOD_MASK_SHIFT)) {
@@ -185,6 +170,22 @@ bool process_records_display(uint16_t keycode, keyrecord_t *record) {
     // }
 
     last_mods = mods;
+}
+
+bool process_records_display(uint16_t keycode, keyrecord_t *record) {
+    // switch (keycode) {
+    //     case KC_Q: // test
+    //         // ui_screen_base_update_mods();
+    //         // lv_event_send(ui_button_mod_gui, EVENT_MOD_CHANGE, NULL);
+    //         // lv_event_send(ui_button_mod_gui, LV_EVENT_CLICKED, NULL);
+    //         if (record->event.pressed) {
+    //             lv_event_send(ui_button_mod_gui, LV_EVENT_PRESSING, NULL);
+    //         } else {
+    //             lv_event_send(ui_button_mod_gui, LV_EVENT_RELEASED, NULL);
+    //         }
+    //         break;
+    // }
+
 
     return true;
 }
