@@ -56,6 +56,7 @@ void style_init_mod_indicator(void){
 }
 
 void ui_init_layer_name(lv_obj_t *label, const char* layer_name){
+    lv_obj_remove_style_all(label);
     lv_label_set_text(label, layer_name);
     lv_obj_set_width(label, LV_SIZE_CONTENT);
     lv_obj_set_height(label, 30);
@@ -105,7 +106,7 @@ bool process_records_display(uint16_t keycode, keyrecord_t *record){
     switch (keycode) {
         case KC_Q: // test
         // ui_screen_base_update_mods();
-        lv_event_send(ui_label_mod_gui, EVENT_LAYER_CHANGE, NULL);
+        lv_event_send(ui_label_mod_gui, EVENT_MOD_CHANGE, NULL);
         break;
     }
     return true;
