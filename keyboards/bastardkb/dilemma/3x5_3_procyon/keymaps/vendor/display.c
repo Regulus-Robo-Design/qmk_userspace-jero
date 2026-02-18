@@ -14,6 +14,7 @@ lv_obj_t  *ui_label_mod_control;
 lv_obj_t  *ui_button_mod_control;
 lv_obj_t  *ui_label_mod_alt;
 lv_obj_t  *ui_button_mod_alt;
+lv_obj_t *ui_label_dpi;
 lv_style_t style_btn;
 uint8_t    last_mods;
 uint8_t    mods;
@@ -69,6 +70,9 @@ void display_init(void) {
     ui_screen_pointer           = lv_obj_create(NULL);
     ui_label_layer_name_pointer = lv_label_create(ui_screen_pointer);
     ui_init_layer_name(ui_label_layer_name_pointer, "Pointer");
+    ui_label_dpi = lv_label_create(ui_screen_pointer);
+    lv_obj_center(ui_label_dpi);
+    lv_label_set_text(ui_label_dpi, "DPI");
 
     /*
         Theme
@@ -212,7 +216,9 @@ void housekeeping_task_screen_base(void) {
     }
 }
 
-void housekeeping_task_screen_pointer(void) {}
+void housekeeping_task_screen_pointer(void) {
+
+}
 
 bool process_records_display(uint16_t keycode, keyrecord_t *record) {
     // switch (keycode) {
