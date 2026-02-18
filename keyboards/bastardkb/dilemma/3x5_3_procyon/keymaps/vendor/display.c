@@ -16,6 +16,7 @@ lv_obj_t  *ui_label_mod_alt;
 lv_obj_t  *ui_button_mod_alt;
 lv_obj_t *ui_label_dpi;
 lv_style_t style_btn;
+lv_obj_t *ui_bar_dpi;
 uint8_t    last_mods;
 uint8_t    mods;
 
@@ -73,6 +74,10 @@ void display_init(void) {
     ui_label_dpi = lv_label_create(ui_screen_pointer);
     lv_obj_center(ui_label_dpi);
     lv_label_set_text(ui_label_dpi, "DPI");
+    ui_bar_dpi = lv_bar_create(ui_screen_pointer);
+    lv_obj_set_size(ui_bar_dpi, 200, 20);
+    lv_obj_center(ui_bar_dpi);
+    lv_bar_set_value(ui_bar_dpi, 70, LV_ANIM_OFF);
 
     /*
         Theme

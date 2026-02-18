@@ -19,6 +19,7 @@ extern lv_obj_t *ui_button_mod_alt;
 
 // pointer layer
 extern lv_obj_t *ui_label_dpi;
+extern lv_obj_t *ui_bar_dpi;
 
 extern lv_style_t style_btn;
 extern uint8_t         last_mods;
