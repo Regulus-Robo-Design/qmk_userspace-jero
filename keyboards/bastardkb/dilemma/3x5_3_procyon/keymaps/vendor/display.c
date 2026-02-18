@@ -63,7 +63,7 @@ void ui_init_layer_name(lv_obj_t *label, const char *layer_name) {
     lv_label_set_text(label, layer_name);
     lv_obj_set_width(label, LV_SIZE_CONTENT);
     lv_obj_set_height(label, 30);
-    q lv_obj_set_x(label, 0);
+    lv_obj_set_x(label, 0);
     lv_obj_set_y(label, 0);
     lv_obj_set_align(label, LV_ALIGN_CENTER);
 }
