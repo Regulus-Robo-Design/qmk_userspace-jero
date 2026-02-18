@@ -67,7 +67,7 @@ void display_init(void) {
         Pointer screen
     */
     ui_screen_pointer           = lv_obj_create(NULL);
-    ui_label_layer_name_pointer = lv_label_create(ui_screen_base);
+    ui_label_layer_name_pointer = lv_label_create(ui_screen_pointer);
     ui_init_layer_name(ui_label_layer_name_pointer, "Pointer");
 
     /*
