@@ -278,7 +278,7 @@ void housekeeping_task_screen_pointer(void) {
 
     const bool sniping = dilemma_get_pointer_sniping_enabled();
     if (sniping != last_sniping) {
-            lv_event_send(ui_switch_sniping, LV_EVENT_PRESSED, NULL);
+            lv_event_send(ui_switch_sniping, LV_EVENT_CLICKED, NULL);
     }
     last_sniping = sniping;
 }
