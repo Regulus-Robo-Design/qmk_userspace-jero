@@ -42,12 +42,13 @@ void display_init(void) {
     style_init_mod_indicator();
     
     lv_obj_t      *cont      = lv_obj_create(ui_screen_base);
-
-    ui_label_layer_name_base = lv_label_create(ui_screen_base);
-    ui_init_layer_name(ui_label_layer_name_base, "Base");
-    lv_obj_set_size(cont, 240, 240); // todo
+    lv_obj_set_size(cont, 240, 280); // todo change to screen height
     lv_obj_center(cont);
     lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW_WRAP);
+
+    ui_label_layer_name_base = lv_label_create(cont);
+    ui_init_layer_name(ui_label_layer_name_base, "Base");
+    lv_obj_set_size(ui_label_layer_name_base, 200, 40);
 
     ui_button_mod_gui = lv_btn_create(cont);
     ui_init_button_mod_indicator(ui_button_mod_gui, 80, 80);
@@ -84,7 +85,7 @@ void display_init(void) {
     ui_init_layer_name(ui_label_layer_name_pointer, "Pointer");
 
     cont      = lv_obj_create(ui_screen_pointer);
-    lv_obj_set_size(cont, 240, 240); // todo
+    lv_obj_set_size(cont, 240, 280); // todo change to screen height
     lv_obj_center(cont);
     lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW_WRAP);
 
@@ -156,7 +157,7 @@ void ui_init_button_mod_indicator(lv_obj_t *button, int x, int y) {
     // lv_obj_add_flag(button, LV_OBJ_FLAG_CHECKABLE);
 
     // position and width
-    lv_obj_set_width(button, 50);
+    lv_obj_set_width(button, 45);
     lv_obj_set_height(button, 30);
     // lv_obj_set_x(button, x);
     // lv_obj_set_y(button, y);
