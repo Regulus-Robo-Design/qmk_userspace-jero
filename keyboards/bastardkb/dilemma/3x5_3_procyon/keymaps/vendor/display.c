@@ -20,6 +20,8 @@ lv_obj_t *ui_label_s_dpi;
 lv_obj_t *ui_bar_s_dpi;
 lv_obj_t *ui_label_sniping;
 lv_obj_t *ui_switch_sniping;
+lv_obj_t *ui_label_scroll;
+lv_obj_t *ui_switch_scroll;
 
 lv_style_t style_btn;
 uint8_t    last_mods;
