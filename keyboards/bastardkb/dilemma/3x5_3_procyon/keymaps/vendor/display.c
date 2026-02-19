@@ -80,7 +80,7 @@ void display_init(void) {
 
     // make a 2-col grid
     static lv_coord_t  col_dsc[] = {80, 240-80, LV_GRID_TEMPLATE_LAST};
-    static lv_coord_t  row_dsc[] = {20, 20, 20, 20 LV_GRID_TEMPLATE_LAST};
+    static lv_coord_t  row_dsc[] = {20, 20, 20, 20, LV_GRID_TEMPLATE_LAST};
     lv_obj_t      *cont      = lv_obj_create(ui_screen_pointer);
     lv_obj_set_grid_dsc_array(cont, col_dsc, row_dsc);
     lv_obj_set_size(cont, 240, 200); // todo
