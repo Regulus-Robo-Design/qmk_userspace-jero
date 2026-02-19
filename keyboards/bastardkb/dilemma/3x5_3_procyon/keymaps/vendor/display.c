@@ -62,7 +62,7 @@ void display_init(void) {
     lv_label_set_text(ui_label_mod_control, "Ctrl");
     lv_obj_center(ui_label_mod_control);
 
-    ui_button_mod_alt = lv_btn_create(cont);D
+    ui_button_mod_alt = lv_btn_create(cont);
     ui_init_button_mod_indicator(ui_button_mod_alt, 80, 150);
     ui_label_mod_alt = lv_label_create(ui_button_mod_alt);
     lv_label_set_text(ui_label_mod_alt, "Alt");
