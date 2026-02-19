@@ -81,29 +81,32 @@ void display_init(void) {
         Pointer screen
     */
     ui_screen_pointer           = lv_obj_create(NULL);
-    ui_label_layer_name_pointer = lv_label_create(ui_screen_pointer);
-    ui_init_layer_name(ui_label_layer_name_pointer, "Pointer");
 
     cont      = lv_obj_create(ui_screen_pointer);
     lv_obj_set_size(cont, 240, 280); // todo change to screen height
     lv_obj_center(cont);
     lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW_WRAP);
+    
+    ui_label_layer_name_pointer = lv_label_create(cont);
+    ui_init_layer_name(ui_label_layer_name_pointer, "Pointer");
+    lv_obj_set_size(ui_label_layer_name_pointer, 200, 40);
 
     ui_label_dpi = lv_label_create(cont);
     lv_label_set_text(ui_label_dpi, "DPI");
     ui_bar_dpi = lv_bar_create(cont);
-    // lv_obj_set_size(ui_bar_dpi, 200, 20);
-    lv_obj_set_height(ui_bar_dpi, 20);
-    lv_obj_set_flex_grow(ui_bar_dpi, 1);
+    lv_obj_set_size(ui_bar_dpi, 100, 20);
+    lv_obj_set_flex_grow(ui_bar_dpi, 1); // take all remaining space in line
 
     ui_label_s_dpi = lv_label_create(cont);
-    lv_label_set_text(ui_label_s_dpi, "Sniper DPI");
+    lv_label_set_text(ui_label_s_dpi, "Snip. DPI");
+    lv_obj_set_size(ui_bar_dpi, 150, 20);
     lv_obj_add_flag(ui_label_s_dpi, LV_OBJ_FLAG_FLEX_IN_NEW_TRACK); // force new line
     ui_bar_s_dpi = lv_bar_create(cont);
-    lv_obj_set_size(ui_bar_s_dpi, 200, 20);
+    lv_obj_set_flex_grow(ui_bar_dpi, 1); // take all remaining space in line
 
     ui_label_sniping = lv_label_create(cont);
     lv_label_set_text(ui_label_sniping, "Sniping");
+    lv_obj_add_flag(ui_label_sniping, LV_OBJ_FLAG_FLEX_IN_NEW_TRACK); // force new line
     lv_obj_set_size(ui_label_sniping, 60, 20);
     ui_switch_sniping = lv_switch_create(cont);
     lv_obj_set_size(ui_switch_sniping, 50, 20);
