@@ -85,7 +85,7 @@ void display_init(void) {
     // lv_obj_set_grid_dsc_array(cont, col_dsc, row_dsc);
     lv_obj_set_size(cont, 240, 200); // todo
     lv_obj_center(cont);
-    lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW);
+    lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW_WRAP);
 
     // Cell to 0;0 and align to to the start (left/top) horizontally and vertically too
     ui_label_dpi = lv_label_create(cont);
