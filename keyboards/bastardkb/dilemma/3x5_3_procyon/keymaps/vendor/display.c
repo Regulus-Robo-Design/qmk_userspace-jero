@@ -80,9 +80,10 @@ void display_init(void) {
     /*
         Pointer screen
     */
+    // todo delete this line
     ui_screen_pointer           = lv_obj_create(NULL);
 
-    cont      = lv_obj_create(ui_screen_pointer);
+    // cont      = lv_obj_create(ui_screen_pointer);
     lv_obj_set_size(cont, 240, 280); // todo change to screen height
     lv_obj_center(cont);
     lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW_WRAP);
@@ -93,6 +94,7 @@ void display_init(void) {
 
     ui_label_dpi = lv_label_create(cont);
     lv_label_set_text(ui_label_dpi, "DPI");
+    lv_obj_add_flag(ui_label_dpi, LV_OBJ_FLAG_FLEX_IN_NEW_TRACK); // force new line
     ui_bar_dpi = lv_bar_create(cont);
     lv_obj_set_height(ui_bar_dpi, 20);
     lv_obj_set_flex_grow(ui_bar_dpi, 1); // take all remaining space in line
@@ -109,7 +111,7 @@ void display_init(void) {
     lv_obj_add_flag(ui_label_sniping, LV_OBJ_FLAG_FLEX_IN_NEW_TRACK); // force new line
     lv_obj_set_size(ui_label_sniping, 60, 20);
     ui_switch_sniping = lv_switch_create(cont);
-    lv_obj_set_size(ui_switch_sniping, 50, 20);
+    lv_obj_set_size(ui_switch_sniping, 40, 20);
     lv_obj_add_event_cb(ui_switch_sniping, event_screen_pointer_sniping_toggle, LV_EVENT_ALL, NULL);
 
     /*
@@ -195,17 +197,17 @@ void housekeeping_task_display(void) {
 
     // TODO use enum from keymap.c instead of hard coded layer numbers
     uint8_t layer = get_highest_layer(layer_state);
-    if (layer != prev_layer) {
-        switch (layer) {
-            case 0:
-            default:
-                lv_disp_load_scr(ui_screen_base);
-                break;
-            case 4:
-                lv_disp_load_scr(ui_screen_pointer);
-                break;
-        }
-    }
+    // if (layer != prev_layer) {
+    //     switch (layer) {
+    //         case 0:
+    //         default:
+    //             lv_disp_load_scr(ui_screen_base);
+    //             break;
+    //         case 4:
+    //             lv_disp_load_scr(ui_screen_pointer);
+    //             break;
+    //     }
+    // }
 
     // TODO use enum from keymap.c instead of hard coded layer numbers
     // TODO move to specific function
