@@ -62,7 +62,7 @@ void display_init(void) {
     lv_label_set_text(ui_label_mod_control, "Ctrl");
     lv_obj_center(ui_label_mod_control);
 
-    ui_button_mod_alt = lv_btn_create(cont);
+    ui_button_mod_alt = lv_btn_create(cont);D
     ui_init_button_mod_indicator(ui_button_mod_alt, 80, 150);
     ui_label_mod_alt = lv_label_create(ui_button_mod_alt);
     lv_label_set_text(ui_label_mod_alt, "Alt");
@@ -92,7 +92,9 @@ void display_init(void) {
     ui_label_dpi = lv_label_create(cont);
     lv_label_set_text(ui_label_dpi, "DPI");
     ui_bar_dpi = lv_bar_create(cont);
-    lv_obj_set_size(ui_bar_dpi, 200, 20);
+    // lv_obj_set_size(ui_bar_dpi, 200, 20);
+    lv_obj_set_height(ui_bar_dpi, 20);
+    lv_obj_set_flex_grow(ui_bar_dpi, 1);
 
     ui_label_s_dpi = lv_label_create(cont);
     lv_label_set_text(ui_label_s_dpi, "Sniper DPI");
