@@ -99,7 +99,7 @@ void display_init(void) {
     ui_label_sniping = lv_label_create(ui_screen_pointer);
     lv_obj_set_x(ui_label_sniping, 15);
     lv_obj_set_y(ui_label_sniping, 120);
-    lv_label_set_text(ui_label_s_dpi, "Sniping");
+    lv_label_set_text(ui_label_sniping, "Sniping");
     ui_switch_sniping = lv_switch_create(ui_screen_pointer);
     lv_obj_set_x(ui_switch_sniping, 55);
     lv_obj_set_y(ui_switch_sniping, 120);
@@ -278,7 +278,12 @@ void housekeeping_task_screen_pointer(void) {
 
     const bool sniping = dilemma_get_pointer_sniping_enabled();
     if (sniping != last_sniping) {
-            lv_event_send(ui_switch_sniping, LV_EVENT_CLICKED, NULL);
+        if(sniping){
+        lv_obj_add_state(ui_switch_sniping, LV_STATE_CHECKED);
+        }
+        else{
+        lv_obj_clear_state(ui_switch_sniping, LV_STATE_CHECKED);
+        }
     }
     last_sniping = sniping;
 }
