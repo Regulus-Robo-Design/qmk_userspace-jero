@@ -114,9 +114,6 @@ void display_init(void) {
     lv_obj_set_size(ui_switch_sniping, 40, 20);
     lv_obj_add_event_cb(ui_switch_sniping, event_screen_pointer_sniping_toggle, LV_EVENT_ALL, NULL);
 
-    // init
-    housekeeping_task_screen_pointer();
-
     /*
         Theme
     */
@@ -241,7 +238,6 @@ void housekeeping_task_display(void) {
 void housekeeping_task_screen_rgb(void) {}
 
 void housekeeping_task_screen_base(void) {
-    lv_label_set_text(label, layer_name);
     mods = get_mods();
     if ((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) {
         if ((mods & MOD_MASK_SHIFT)) {
