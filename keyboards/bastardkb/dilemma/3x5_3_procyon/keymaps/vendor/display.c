@@ -40,29 +40,34 @@ void display_init(void) {
     */
     ui_screen_base = lv_obj_create(NULL);
     style_init_mod_indicator();
+    
+    lv_obj_t      *cont      = lv_obj_create(ui_screen_base);
 
     ui_label_layer_name_base = lv_label_create(ui_screen_base);
     ui_init_layer_name(ui_label_layer_name_base, "Base");
+    lv_obj_set_size(cont, 240, 240); // todo
+    lv_obj_center(cont);
+    lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW_WRAP);
 
-    ui_button_mod_gui = lv_btn_create(ui_screen_base);
+    ui_button_mod_gui = lv_btn_create(cont);
     ui_init_button_mod_indicator(ui_button_mod_gui, 80, 80);
     ui_label_mod_gui = lv_label_create(ui_button_mod_gui);
     lv_label_set_text(ui_label_mod_gui, "Gui");
     lv_obj_center(ui_label_mod_gui);
 
-    ui_button_mod_control = lv_btn_create(ui_screen_base);
+    ui_button_mod_control = lv_btn_create(cont);
     ui_init_button_mod_indicator(ui_button_mod_control, 150, 80);
     ui_label_mod_control = lv_label_create(ui_button_mod_control);
     lv_label_set_text(ui_label_mod_control, "Ctrl");
     lv_obj_center(ui_label_mod_control);
 
-    ui_button_mod_alt = lv_btn_create(ui_screen_base);
+    ui_button_mod_alt = lv_btn_create(cont);
     ui_init_button_mod_indicator(ui_button_mod_alt, 80, 150);
     ui_label_mod_alt = lv_label_create(ui_button_mod_alt);
     lv_label_set_text(ui_label_mod_alt, "Alt");
     lv_obj_center(ui_label_mod_alt);
 
-    ui_button_mod_shift = lv_btn_create(ui_screen_base);
+    ui_button_mod_shift = lv_btn_create(cont);
     ui_init_button_mod_indicator(ui_button_mod_shift, 150, 150);
     ui_label_mod_shift = lv_label_create(ui_button_mod_shift);
     lv_label_set_text(ui_label_mod_shift, "Shft");
@@ -78,7 +83,7 @@ void display_init(void) {
     ui_label_layer_name_pointer = lv_label_create(ui_screen_pointer);
     ui_init_layer_name(ui_label_layer_name_pointer, "Pointer");
 
-    lv_obj_t      *cont      = lv_obj_create(ui_screen_pointer);
+    cont      = lv_obj_create(ui_screen_pointer);
     lv_obj_set_size(cont, 240, 240); // todo
     lv_obj_center(cont);
     lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW_WRAP);
@@ -152,9 +157,9 @@ void ui_init_button_mod_indicator(lv_obj_t *button, int x, int y) {
 
     // position and width
     lv_obj_set_width(button, 50);
-    lv_obj_set_height(button, 35);
-    lv_obj_set_x(button, x);
-    lv_obj_set_y(button, y);
+    lv_obj_set_height(button, 30);
+    // lv_obj_set_x(button, x);
+    // lv_obj_set_y(button, y);
 }
 
 void event_screen_pointer_sniping_toggle(lv_event_t *e) {}
