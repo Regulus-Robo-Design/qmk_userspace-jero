@@ -112,7 +112,7 @@ void display_init(void) {
     ui_label_sniping = lv_label_create(cont);
     lv_label_set_text(ui_label_sniping, "Snip");
     lv_obj_add_flag(ui_label_sniping, LV_OBJ_FLAG_FLEX_IN_NEW_TRACK); // force new line
-    lv_obj_set_size(ui_label_sniping, 60, 20);
+    lv_obj_set_size(ui_label_sniping, 45, 20);
     ui_switch_sniping = lv_switch_create(cont);
     lv_obj_set_size(ui_switch_sniping, 40, 20);
     lv_obj_add_event_cb(ui_switch_sniping, event_screen_pointer_sniping_toggle, LV_EVENT_ALL, NULL);
@@ -314,7 +314,7 @@ void housekeeping_task_screen_pointer(void) {
 
     const bool scrolling = dilemma_get_pointer_dragscroll_enabled();
     if (scrolling != last_scrolling) {
-        if (sniping) {
+        if (scrolling) {
             lv_obj_add_state(ui_switch_scroll, LV_STATE_CHECKED);
         } else {
             lv_obj_clear_state(ui_switch_scroll, LV_STATE_CHECKED);
