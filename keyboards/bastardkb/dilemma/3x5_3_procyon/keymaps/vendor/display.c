@@ -79,25 +79,26 @@ void display_init(void) {
     ui_init_layer_name(ui_label_layer_name_pointer, "Pointer");
 
     // make a 2-col grid
-    static lv_coord_t  col_dsc[] = {80, 240-80, LV_GRID_TEMPLATE_LAST};
-    static lv_coord_t  row_dsc[] = {20, 20, 20, 20, LV_GRID_TEMPLATE_LAST};
+    // static lv_coord_t  col_dsc[] = {80, 240-80, LV_GRID_TEMPLATE_LAST};
+    // static lv_coord_t  row_dsc[] = {20, 20, 20, 20, LV_GRID_TEMPLATE_LAST};
     lv_obj_t      *cont      = lv_obj_create(ui_screen_pointer);
-    lv_obj_set_grid_dsc_array(cont, col_dsc, row_dsc);
+    // lv_obj_set_grid_dsc_array(cont, col_dsc, row_dsc);
     lv_obj_set_size(cont, 240, 200); // todo
     lv_obj_center(cont);
+    lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW);
 
     // Cell to 0;0 and align to to the start (left/top) horizontally and vertically too
     ui_label_dpi = lv_label_create(cont);
-    lv_obj_set_size(ui_label_dpi, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+    lv_obj_set_size(ui_label_dpi, 240, LV_SIZE_CONTENT);
     // lv_obj_set_x(ui_label_dpi, 15);
     // lv_obj_set_y(ui_label_dpi, 50);
-    lv_obj_set_grid_cell(ui_label_dpi, LV_GRID_ALIGN_START, 0, 1, LV_GRID_ALIGN_START, 0, 1);
+    // lv_obj_set_grid_cell(ui_label_dpi, LV_GRID_ALIGN_START, 0, 1, LV_GRID_ALIGN_START, 0, 1);
     lv_label_set_text(ui_label_dpi, "DPI");
 
     // Cell to 0;1 and align to to the start (left/top) horizontally and vertically too
     ui_bar_dpi = lv_bar_create(cont);
-    lv_obj_set_size(ui_bar_dpi, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-    lv_obj_set_grid_cell(ui_bar_dpi, LV_GRID_ALIGN_STRETCH, 0, 2, LV_GRID_ALIGN_STRETCH, 1, 1);
+    lv_obj_set_size(ui_bar_dpi, 240, LV_SIZE_CONTENT);
+    // lv_obj_set_grid_cell(ui_bar_dpi, LV_GRID_ALIGN_STRETCH, 0, 2, LV_GRID_ALIGN_STRETCH, 1, 1);
     // lv_obj_set_size(ui_bar_dpi, 200, 15);
     // lv_obj_set_x(ui_bar_dpi, 15);
     // lv_obj_set_y(ui_bar_dpi, 70);
@@ -106,11 +107,11 @@ void display_init(void) {
     // lv_obj_set_x(ui_label_s_dpi, 15);
     // lv_obj_set_y(ui_label_s_dpi, 90);
     lv_label_set_text(ui_label_s_dpi, "Sniper DPI");
-    lv_obj_set_size(ui_label_s_dpi, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-    lv_obj_set_grid_cell(ui_label_s_dpi, LV_GRID_ALIGN_STRETCH, 0, 1, LV_GRID_ALIGN_STRETCH, 2, 1);
+    lv_obj_set_size(ui_label_s_dpi, 240, LV_SIZE_CONTENT);
+    // lv_obj_set_grid_cell(ui_label_s_dpi, LV_GRID_ALIGN_STRETCH, 0, 1, LV_GRID_ALIGN_STRETCH, 2, 1);
     ui_bar_s_dpi = lv_bar_create(cont);
-    lv_obj_set_size(ui_bar_s_dpi, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-    lv_obj_set_grid_cell(ui_bar_s_dpi, LV_GRID_ALIGN_STRETCH, 0, 2, LV_GRID_ALIGN_STRETCH, 3, 1);
+    lv_obj_set_size(ui_bar_s_dpi, 240, LV_SIZE_CONTENT);
+    // lv_obj_set_grid_cell(ui_bar_s_dpi, LV_GRID_ALIGN_STRETCH, 0, 2, LV_GRID_ALIGN_STRETCH, 3, 1);
     // lv_obj_set_size(ui_bar_s_dpi, 200, 15);
     // lv_obj_set_x(ui_bar_s_dpi, 15);
     // lv_obj_set_y(ui_bar_s_dpi, 105);
