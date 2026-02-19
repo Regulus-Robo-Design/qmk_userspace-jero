@@ -98,6 +98,7 @@ void display_init(void) {
 
     ui_label_s_dpi = lv_label_create(cont);
     lv_label_set_text(ui_label_s_dpi, "Sniper DPI");
+    lv_obj_add_flag(ui_label_s_dpi, LV_OBJ_FLAG_FLEX_IN_NEW_TRACK); // force new line
     ui_bar_s_dpi = lv_bar_create(cont);
     lv_obj_set_size(ui_bar_s_dpi, 200, 20);
 
