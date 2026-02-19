@@ -238,7 +238,7 @@ void housekeeping_task_screen_base(void) {
 void housekeeping_task_screen_pointer(void) {
     // TODO dynamically get max DPI, instead of using hardcoded values
     static const uint16_t rel_max_dpi = 200 * 16 - 400;
-    const float rel = (float)((dilemma_get_pointer_default_dpi()-400))*100/rel_max_dpi;
+    float rel = (float)((dilemma_get_pointer_default_dpi()-400))*100/rel_max_dpi;
     lv_bar_set_value(ui_bar_dpi, (uint16_t)rel, LV_ANIM_OFF);
     
     char dpi[50];
@@ -246,7 +246,7 @@ void housekeeping_task_screen_pointer(void) {
     lv_label_set_text(ui_label_dpi, dpi);
 
     static const uint16_t rel_max_s_dpi = 100 * 4 - 200;
-    const float rel = (float)((dilemma_get_pointer_sniping_dpi()-200))*100/rel_max_s_dpi;
+    rel = (float)((dilemma_get_pointer_sniping_dpi()-200))*100/rel_max_s_dpi;
     lv_bar_set_value(ui_bar_s_dpi, (uint16_t)rel, LV_ANIM_OFF);
     
     char s_dpi[50];
