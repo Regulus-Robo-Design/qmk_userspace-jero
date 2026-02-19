@@ -95,10 +95,10 @@ void display_init(void) {
     lv_obj_set_size(ui_bar_s_dpi, 240, 25);
 
     ui_label_sniping = lv_label_create(cont);
-    lv_obj_set_size(ui_label_sniping, 240, 15);
+    lv_obj_set_size(ui_label_sniping, 50, 15);
     lv_label_set_text(ui_label_sniping, "Sniping");
     ui_switch_sniping = lv_switch_create(cont);
-    lv_obj_set_size(ui_switch_sniping, 240, 15);
+    lv_obj_set_size(ui_switch_sniping, 30, 15);
     lv_obj_add_event_cb(ui_switch_sniping, event_screen_pointer_sniping_toggle, LV_EVENT_ALL, NULL);
 
     /*
