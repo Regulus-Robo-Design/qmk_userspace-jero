@@ -94,15 +94,15 @@ void display_init(void) {
     ui_label_dpi = lv_label_create(cont);
     lv_label_set_text(ui_label_dpi, "DPI");
     ui_bar_dpi = lv_bar_create(cont);
-    lv_obj_set_size(ui_bar_dpi, 100, 20);
+    lv_obj_set_height(ui_bar_dpi, 20);
     lv_obj_set_flex_grow(ui_bar_dpi, 1); // take all remaining space in line
 
     ui_label_s_dpi = lv_label_create(cont);
     lv_label_set_text(ui_label_s_dpi, "Snip. DPI");
-    lv_obj_set_size(ui_bar_dpi, 150, 20);
     lv_obj_add_flag(ui_label_s_dpi, LV_OBJ_FLAG_FLEX_IN_NEW_TRACK); // force new line
     ui_bar_s_dpi = lv_bar_create(cont);
-    lv_obj_set_flex_grow(ui_bar_dpi, 1); // take all remaining space in line
+    lv_obj_set_height(ui_bar_s_dpi, 20);
+    lv_obj_set_flex_grow(ui_bar_s_dpi, 1); // take all remaining space in line
 
     ui_label_sniping = lv_label_create(cont);
     lv_label_set_text(ui_label_sniping, "Sniping");
