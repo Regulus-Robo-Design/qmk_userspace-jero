@@ -15,8 +15,11 @@ lv_obj_t  *ui_button_mod_control;
 lv_obj_t  *ui_label_mod_alt;
 lv_obj_t  *ui_button_mod_alt;
 lv_obj_t *ui_label_dpi;
-lv_style_t style_btn;
 lv_obj_t *ui_bar_dpi;
+lv_obj_t *ui_label_s_dpi;
+lv_obj_t *ui_bar_s_dpi;
+
+lv_style_t style_btn;
 uint8_t    last_mods;
 uint8_t    mods;
 
@@ -71,16 +74,24 @@ void display_init(void) {
     ui_screen_pointer           = lv_obj_create(NULL);
     ui_label_layer_name_pointer = lv_label_create(ui_screen_pointer);
     ui_init_layer_name(ui_label_layer_name_pointer, "Pointer");
+
     ui_label_dpi = lv_label_create(ui_screen_pointer);
-    // lv_obj_center(ui_label_dpi);
     lv_obj_set_x(ui_label_dpi, 15);
     lv_obj_set_y(ui_label_dpi, 50);
     lv_label_set_text(ui_label_dpi, "DPI");
     ui_bar_dpi = lv_bar_create(ui_screen_pointer);
     lv_obj_set_size(ui_bar_dpi, 200, 15);
-    // lv_obj_center(ui_bar_dpi);
     lv_obj_set_x(ui_bar_dpi, 15);
-    lv_obj_set_y(ui_bar_dpi, 65);
+    lv_obj_set_y(ui_bar_dpi, 70);
+    
+    ui_label_s_dpi = lv_label_create(ui_screen_pointer);
+    lv_obj_set_x(ui_label_s_dpi, 15);
+    lv_obj_set_y(ui_label_s_dpi, 90);
+    lv_label_set_text(ui_label_s_dpi, "Sniper DPI");
+    ui_bar_s_dpi = lv_bar_create(ui_screen_pointer);
+    lv_obj_set_size(ui_bar_s_dpi, 200, 15);
+    lv_obj_set_x(ui_bar_s_dpi, 15);
+    lv_obj_set_y(ui_bar_s_dpi, 105);
 
     /*
         Theme
@@ -227,13 +238,20 @@ void housekeeping_task_screen_base(void) {
 void housekeeping_task_screen_pointer(void) {
     // TODO dynamically get max DPI, instead of using hardcoded values
     static const uint16_t rel_max_dpi = 200 * 16 - 400;
-    // const uint8_t rel_dpi = 
     const float rel = (float)((dilemma_get_pointer_default_dpi()-400))*100/rel_max_dpi;
     lv_bar_set_value(ui_bar_dpi, (uint16_t)rel, LV_ANIM_OFF);
     
     char dpi[50];
     sprintf(dpi, "DPI: %u", dilemma_get_pointer_default_dpi());
     lv_label_set_text(ui_label_dpi, dpi);
+
+    static const uint16_t rel_max_s_dpi = 100 * 4 - 200;
+    const float rel = (float)((dilemma_get_pointer_sniping_dpi()-200))*100/rel_max_s_dpi;
+    lv_bar_set_value(ui_bar_s_dpi, (uint16_t)rel, LV_ANIM_OFF);
+    
+    char s_dpi[50];
+    sprintf(s_dpi, "Sniper DPI: %u", dilemma_get_pointer_sniping_dpi());
+    lv_label_set_text(ui_label_s_dpi, dpi);
 }
 
 bool process_records_display(uint16_t keycode, keyrecord_t *record) {
