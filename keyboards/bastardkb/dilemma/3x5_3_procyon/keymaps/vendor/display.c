@@ -25,6 +25,7 @@ lv_style_t style_btn;
 uint8_t    last_mods;
 uint8_t    mods;
 bool       last_sniping;
+bool       last_scrolling;
 
 enum ui_user_events {
     EVENT_LAYER_CHANGE = 0,
@@ -48,7 +49,7 @@ void display_init(void) {
 
     ui_label_layer_name_base = lv_label_create(cont);
     ui_init_layer_name(ui_label_layer_name_base, "Base");
-    lv_obj_set_size(ui_label_layer_name_base, 200, 40);
+    lv_obj_set_size(ui_label_layer_name_base, 200, 30);
 
     ui_button_mod_gui = lv_btn_create(cont);
     ui_init_button_mod_indicator(ui_button_mod_gui, 80, 80);
@@ -107,12 +108,19 @@ void display_init(void) {
     lv_obj_set_flex_grow(ui_bar_s_dpi, 1); // take all remaining space in line
 
     ui_label_sniping = lv_label_create(cont);
-    lv_label_set_text(ui_label_sniping, "Sniping");
+    lv_label_set_text(ui_label_sniping, "Snip");
     lv_obj_add_flag(ui_label_sniping, LV_OBJ_FLAG_FLEX_IN_NEW_TRACK); // force new line
     lv_obj_set_size(ui_label_sniping, 60, 20);
     ui_switch_sniping = lv_switch_create(cont);
     lv_obj_set_size(ui_switch_sniping, 40, 20);
     lv_obj_add_event_cb(ui_switch_sniping, event_screen_pointer_sniping_toggle, LV_EVENT_ALL, NULL);
+
+    ui_label_scroll = lv_label_create(cont);
+    lv_label_set_text(ui_label_scroll, "Scroll");
+    lv_obj_set_size(ui_label_scroll, 60, 20);
+    ui_switch_scroll = lv_switch_create(cont);
+    lv_obj_set_size(ui_switch_scroll, 40, 20);
+    lv_obj_add_event_cb(ui_switch_scroll, event_screen_pointer_scroll_toggle, LV_EVENT_ALL, NULL);
 
     /*
         Theme
@@ -172,6 +180,7 @@ void ui_init_button_mod_indicator(lv_obj_t *button, int x, int y) {
 }
 
 void event_screen_pointer_sniping_toggle(lv_event_t *e) {}
+void event_screen_pointer_scroll_toggle(lv_event_t *e) {}
 
 void event_screen_base_update_mods(lv_event_t *e) {
     // todo implement new / old event storage
@@ -300,6 +309,16 @@ void housekeeping_task_screen_pointer(void) {
         }
     }
     last_sniping = sniping;
+
+    const bool scrolling = dilemma_get_pointer_dragscroll_enabled();
+    if (scrolling != last_scrolling) {
+        if (sniping) {
+            lv_obj_add_state(ui_switch_scroll, LV_STATE_CHECKED);
+        } else {
+            lv_obj_clear_state(ui_switch_scroll, LV_STATE_CHECKED);
+        }
+    }
+    last_scrolling = scrolling;
 }
 
 bool process_records_display(uint16_t keycode, keyrecord_t *record) {

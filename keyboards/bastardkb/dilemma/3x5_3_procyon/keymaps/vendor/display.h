@@ -25,6 +25,8 @@ extern lv_obj_t *ui_label_s_dpi;
 extern lv_obj_t *ui_bar_s_dpi;
 extern lv_obj_t *ui_label_sniping;
 extern lv_obj_t *ui_switch_sniping;
+extern lv_obj_t *ui_label_scroll;
+extern lv_obj_t *ui_switch_scroll;
 
 extern lv_style_t style_btn;
 extern uint8_t    last_mods;
@@ -42,6 +44,7 @@ void ui_init_button_mod_indicator(lv_obj_t *label, int x, int y);
 
 void event_screen_base_update_mods(lv_event_t *e);
 void event_screen_pointer_sniping_toggle(lv_event_t *e);
+void event_screen_pointer_scroll_toggle(lv_event_t *e);
 
 bool process_records_display(uint16_t keycode, keyrecord_t *record);
 
