@@ -86,19 +86,18 @@ void display_init(void) {
     ui_label_dpi = lv_label_create(cont);
     lv_label_set_text(ui_label_dpi, "DPI");
     ui_bar_dpi = lv_bar_create(cont);
-    lv_obj_set_size(ui_bar_dpi, 240, 25);
+    lv_obj_set_size(ui_bar_dpi, 200, 20);
 
     ui_label_s_dpi = lv_label_create(cont);
     lv_label_set_text(ui_label_s_dpi, "Sniper DPI");
-    lv_obj_set_size(ui_label_s_dpi, 240, 25);
     ui_bar_s_dpi = lv_bar_create(cont);
-    lv_obj_set_size(ui_bar_s_dpi, 240, 25);
+    lv_obj_set_size(ui_bar_s_dpi, 200, 20);
 
     ui_label_sniping = lv_label_create(cont);
-    lv_obj_set_size(ui_label_sniping, 50, 15);
     lv_label_set_text(ui_label_sniping, "Sniping");
+    lv_obj_set_size(ui_label_sniping, 60, 20);
     ui_switch_sniping = lv_switch_create(cont);
-    lv_obj_set_size(ui_switch_sniping, 30, 15);
+    lv_obj_set_size(ui_switch_sniping, 50, 20);
     lv_obj_add_event_cb(ui_switch_sniping, event_screen_pointer_sniping_toggle, LV_EVENT_ALL, NULL);
 
     /*
