@@ -5,7 +5,7 @@ lv_obj_t *ui_screen_base;
 lv_obj_t *ui_screen_pointer;
 
 lv_obj_t *ui_label_layer_name_base;
-lv_obj_t *ui_label_layer_name_pointer;
+// lv_obj_t *ui_label_layer_name_pointer;
 lv_obj_t *ui_label_mod_gui;
 lv_obj_t *ui_button_mod_gui;
 lv_obj_t *ui_label_mod_shift;
@@ -40,8 +40,8 @@ void display_init(void) {
     */
     ui_screen_base = lv_obj_create(NULL);
     style_init_mod_indicator();
-    
-    lv_obj_t      *cont      = lv_obj_create(ui_screen_base);
+
+    lv_obj_t *cont = lv_obj_create(ui_screen_base);
     lv_obj_set_size(cont, 240, 280); // todo change to screen height
     lv_obj_center(cont);
     lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW_WRAP);
@@ -81,16 +81,16 @@ void display_init(void) {
         Pointer screen
     */
     // todo delete this line
-    ui_screen_pointer           = lv_obj_create(NULL);
+    ui_screen_pointer = lv_obj_create(NULL);
 
     // cont      = lv_obj_create(ui_screen_pointer);
     lv_obj_set_size(cont, 240, 280); // todo change to screen height
     lv_obj_center(cont);
     lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW_WRAP);
-    
-    ui_label_layer_name_pointer = lv_label_create(cont);
-    ui_init_layer_name(ui_label_layer_name_pointer, "Pointer");
-    lv_obj_set_size(ui_label_layer_name_pointer, 200, 40);
+
+    // ui_label_layer_name_pointer = lv_label_create(cont);
+    // ui_init_layer_name(ui_label_layer_name_pointer, "Pointer");
+    // lv_obj_set_size(ui_label_layer_name_pointer, 200, 40);
 
     ui_label_dpi = lv_label_create(cont);
     lv_label_set_text(ui_label_dpi, "DPI");
@@ -113,6 +113,9 @@ void display_init(void) {
     ui_switch_sniping = lv_switch_create(cont);
     lv_obj_set_size(ui_switch_sniping, 40, 20);
     lv_obj_add_event_cb(ui_switch_sniping, event_screen_pointer_sniping_toggle, LV_EVENT_ALL, NULL);
+
+    // init
+    housekeeping_task_screen_pointer();
 
     /*
         Theme
@@ -211,18 +214,24 @@ void housekeeping_task_display(void) {
 
     // TODO use enum from keymap.c instead of hard coded layer numbers
     // TODO move to specific function
+
+    // TODO maintenance... we are using only one screen at the moment.
     switch (layer) {
         case 0:
         default:
-            housekeeping_task_screen_base();
+            lv_label_set_text(ui_label_layer_name_base, "Layer Base");
             break;
         case 3:
-            housekeeping_task_screen_rgb();
+            lv_label_set_text(ui_label_layer_name_base, "Layer RGB");
             break;
         case 4:
-            housekeeping_task_screen_pointer();
+            lv_label_set_text(ui_label_layer_name_base, "Layer Pointer");
             break;
     }
+
+    housekeeping_task_screen_base();
+    housekeeping_task_screen_rgb();
+    housekeeping_task_screen_pointer();
 
     last_mods  = mods;
     prev_layer = layer;
@@ -232,6 +241,7 @@ void housekeeping_task_display(void) {
 void housekeeping_task_screen_rgb(void) {}
 
 void housekeeping_task_screen_base(void) {
+    lv_label_set_text(label, layer_name);
     mods = get_mods();
     if ((mods & MOD_MASK_SHIFT) != (last_mods & MOD_MASK_SHIFT)) {
         if ((mods & MOD_MASK_SHIFT)) {

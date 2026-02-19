@@ -6,7 +6,7 @@ extern lv_obj_t *ui_screen_base;
 extern lv_obj_t *ui_screen_pointer;
 
 extern lv_obj_t *ui_label_layer_name_base;
-extern lv_obj_t *ui_label_layer_name_pointer;
+// extern lv_obj_t *ui_label_layer_name_pointer;
 
 // base layer
 extern lv_obj_t *ui_label_mod_gui;
