@@ -242,7 +242,7 @@ void housekeeping_task_screen_pointer(void) {
     lv_bar_set_value(ui_bar_dpi, (uint16_t)rel, LV_ANIM_OFF);
     
     char dpi[50];
-    sprintf(dpi, "DPI: %u", (uint16_t)rel);
+    sprintf(dpi, "DPI: %u", (uint16_t)dilemma_get_pointer_default_dpi());
     lv_label_set_text(ui_label_dpi, dpi);
 
     static const uint16_t rel_max_s_dpi = 100 * 4;
@@ -250,7 +250,7 @@ void housekeeping_task_screen_pointer(void) {
     lv_bar_set_value(ui_bar_s_dpi, (uint16_t)rel, LV_ANIM_OFF);
     
     char s_dpi[50];
-    sprintf(s_dpi, "Sniper DPI: %u",  (uint16_t)rel);
+    sprintf(s_dpi, "Sniper DPI: %u",  (uint16_t)dilemma_get_pointer_sniping_dpi());
     lv_label_set_text(ui_label_s_dpi, s_dpi);
 }
 
