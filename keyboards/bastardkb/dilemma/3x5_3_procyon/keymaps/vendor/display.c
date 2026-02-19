@@ -78,31 +78,51 @@ void display_init(void) {
     ui_label_layer_name_pointer = lv_label_create(ui_screen_pointer);
     ui_init_layer_name(ui_label_layer_name_pointer, "Pointer");
 
-    ui_label_dpi = lv_label_create(ui_screen_pointer);
-    lv_obj_set_x(ui_label_dpi, 15);
-    lv_obj_set_y(ui_label_dpi, 50);
-    lv_label_set_text(ui_label_dpi, "DPI");
-    ui_bar_dpi = lv_bar_create(ui_screen_pointer);
-    lv_obj_set_size(ui_bar_dpi, 200, 15);
-    lv_obj_set_x(ui_bar_dpi, 15);
-    lv_obj_set_y(ui_bar_dpi, 70);
+    // make a 2-col grid
+    static int32_t col_dsc[] = {70, 70, LV_GRID_TEMPLATE_LAST};
+    static int32_t row_dsc[] = {50, 50, LV_GRID_TEMPLATE_LAST};
+    lv_obj_t      *cont      = lv_obj_create(ui_screen_pointer);
+    lv_obj_set_grid_dsc_array(cont, col_dsc, row_dsc);
+    lv_obj_set_size(cont, 240, 200); // todo
+    lv_obj_center(cont);
+    lv_obj_t *obj;
 
-    ui_label_s_dpi = lv_label_create(ui_screen_pointer);
-    lv_obj_set_x(ui_label_s_dpi, 15);
-    lv_obj_set_y(ui_label_s_dpi, 90);
+    // Cell to 0;0 and align to to the start (left/top) horizontally and vertically too
+    ui_label_dpi = lv_label_create(cont);
+    lv_obj_set_size(ui_label_dpi, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+    // lv_obj_set_x(ui_label_dpi, 15);
+    // lv_obj_set_y(ui_label_dpi, 50);
+    lv_obj_set_grid_cell(obj, LV_GRID_ALIGN_START, 0, 1, LV_GRID_ALIGN_START, 0, 1);
+    lv_label_set_text(ui_label_dpi, "DPI");
+
+    // Cell to 0;1 and align to to the start (left/top) horizontally and vertically too
+    ui_bar_dpi = lv_bar_create(cont);
+    lv_obj_set_size(ui_bar_dpi, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+    lv_obj_set_grid_cell(obj, LV_GRID_ALIGN_STRETCH, 0, 2, LV_GRID_ALIGN_STRETCH, 1, 1);
+    // lv_obj_set_size(ui_bar_dpi, 200, 15);
+    // lv_obj_set_x(ui_bar_dpi, 15);
+    // lv_obj_set_y(ui_bar_dpi, 70);
+
+    ui_label_s_dpi = lv_label_create(cont);
+    // lv_obj_set_x(ui_label_s_dpi, 15);
+    // lv_obj_set_y(ui_label_s_dpi, 90);
     lv_label_set_text(ui_label_s_dpi, "Sniper DPI");
-    ui_bar_s_dpi = lv_bar_create(ui_screen_pointer);
-    lv_obj_set_size(ui_bar_s_dpi, 200, 15);
-    lv_obj_set_x(ui_bar_s_dpi, 15);
-    lv_obj_set_y(ui_bar_s_dpi, 105);
+    lv_obj_set_size(ui_label_s_dpi, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+    lv_obj_set_grid_cell(obj, LV_GRID_ALIGN_STRETCH, 0, 1, LV_GRID_ALIGN_STRETCH, 2, 1);
+    ui_bar_s_dpi = lv_bar_create(cont);
+    lv_obj_set_size(ui_bar_s_dpi, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+    lv_obj_set_grid_cell(obj, LV_GRID_ALIGN_STRETCH, 0, 2, LV_GRID_ALIGN_STRETCH, 3, 1);
+    // lv_obj_set_size(ui_bar_s_dpi, 200, 15);
+    // lv_obj_set_x(ui_bar_s_dpi, 15);
+    // lv_obj_set_y(ui_bar_s_dpi, 105);
 
     ui_label_sniping = lv_label_create(ui_screen_pointer);
     lv_obj_set_x(ui_label_sniping, 15);
-    lv_obj_set_y(ui_label_sniping, 120);
+    lv_obj_set_y(ui_label_sniping, 200);
     lv_label_set_text(ui_label_sniping, "Sniping");
     ui_switch_sniping = lv_switch_create(ui_screen_pointer);
     lv_obj_set_x(ui_switch_sniping, 55);
-    lv_obj_set_y(ui_switch_sniping, 120);
+    lv_obj_set_y(ui_switch_sniping, 220);
     lv_obj_add_event_cb(ui_switch_sniping, event_screen_pointer_sniping_toggle, LV_EVENT_ALL, NULL);
 
     /*
@@ -278,11 +298,10 @@ void housekeeping_task_screen_pointer(void) {
 
     const bool sniping = dilemma_get_pointer_sniping_enabled();
     if (sniping != last_sniping) {
-        if(sniping){
-        lv_obj_add_state(ui_switch_sniping, LV_STATE_CHECKED);
-        }
-        else{
-        lv_obj_clear_state(ui_switch_sniping, LV_STATE_CHECKED);
+        if (sniping) {
+            lv_obj_add_state(ui_switch_sniping, LV_STATE_CHECKED);
+        } else {
+            lv_obj_clear_state(ui_switch_sniping, LV_STATE_CHECKED);
         }
     }
     last_sniping = sniping;
