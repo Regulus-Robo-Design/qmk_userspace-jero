@@ -4,24 +4,27 @@
 lv_obj_t *ui_screen_base;
 lv_obj_t *ui_screen_pointer;
 
-lv_obj_t  *ui_label_layer_name_base;
-lv_obj_t  *ui_label_layer_name_pointer;
-lv_obj_t  *ui_label_mod_gui;
-lv_obj_t  *ui_button_mod_gui;
-lv_obj_t  *ui_label_mod_shift;
-lv_obj_t  *ui_button_mod_shift;
-lv_obj_t  *ui_label_mod_control;
-lv_obj_t  *ui_button_mod_control;
-lv_obj_t  *ui_label_mod_alt;
-lv_obj_t  *ui_button_mod_alt;
+lv_obj_t *ui_label_layer_name_base;
+lv_obj_t *ui_label_layer_name_pointer;
+lv_obj_t *ui_label_mod_gui;
+lv_obj_t *ui_button_mod_gui;
+lv_obj_t *ui_label_mod_shift;
+lv_obj_t *ui_button_mod_shift;
+lv_obj_t *ui_label_mod_control;
+lv_obj_t *ui_button_mod_control;
+lv_obj_t *ui_label_mod_alt;
+lv_obj_t *ui_button_mod_alt;
 lv_obj_t *ui_label_dpi;
 lv_obj_t *ui_bar_dpi;
 lv_obj_t *ui_label_s_dpi;
 lv_obj_t *ui_bar_s_dpi;
+lv_obj_t *ui_label_sniping;
+lv_obj_t *ui_switch_sniping;
 
 lv_style_t style_btn;
 uint8_t    last_mods;
 uint8_t    mods;
+bool       last_sniping;
 
 enum ui_user_events {
     EVENT_LAYER_CHANGE = 0,
@@ -83,7 +86,7 @@ void display_init(void) {
     lv_obj_set_size(ui_bar_dpi, 200, 15);
     lv_obj_set_x(ui_bar_dpi, 15);
     lv_obj_set_y(ui_bar_dpi, 70);
-    
+
     ui_label_s_dpi = lv_label_create(ui_screen_pointer);
     lv_obj_set_x(ui_label_s_dpi, 15);
     lv_obj_set_y(ui_label_s_dpi, 90);
@@ -93,6 +96,15 @@ void display_init(void) {
     lv_obj_set_x(ui_bar_s_dpi, 15);
     lv_obj_set_y(ui_bar_s_dpi, 105);
 
+    ui_label_sniping = lv_label_create(ui_screen_pointer);
+    lv_obj_set_x(ui_label_sniping, 15);
+    lv_obj_set_y(ui_label_sniping, 120);
+    lv_label_set_text(ui_label_s_dpi, "Sniping");
+    ui_switch_sniping = lv_switch_create(ui_screen_pointer);
+    lv_obj_set_x(ui_switch_sniping, 55);
+    lv_obj_set_y(ui_switch_sniping, 120);
+    lv_obj_add_event_cb(ui_switch_sniping, event_screen_pointer_sniping_toggle, LV_EVENT_ALL, NULL);
+
     /*
         Theme
     */
@@ -100,8 +112,9 @@ void display_init(void) {
     lv_theme_t *theme = lv_theme_default_init(dispp, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED), true, LV_FONT_DEFAULT);
     lv_disp_set_theme(dispp, theme);
 
-    prev_layer = 99;
-    last_mods  = get_mods();
+    prev_layer   = 99;
+    last_mods    = get_mods();
+    last_sniping = false;
 }
 
 void style_init_mod_indicator(void) {
@@ -149,6 +162,8 @@ void ui_init_button_mod_indicator(lv_obj_t *button, int x, int y) {
     lv_obj_set_y(button, y);
 }
 
+void event_screen_pointer_sniping_toggle(lv_event_t *e) {}
+
 void event_screen_base_update_mods(lv_event_t *e) {
     // todo implement new / old event storage
     // todo test if new screen, then re-draw everything...
@@ -192,6 +207,9 @@ void housekeeping_task_display(void) {
         default:
             housekeeping_task_screen_base();
             break;
+        case 3:
+            housekeeping_task_screen_rgb();
+            break;
         case 4:
             housekeeping_task_screen_pointer();
             break;
@@ -200,6 +218,9 @@ void housekeeping_task_display(void) {
     last_mods  = mods;
     prev_layer = layer;
 }
+
+// TODO only redraw if rgb changed
+void housekeeping_task_screen_rgb(void) {}
 
 void housekeeping_task_screen_base(void) {
     mods = get_mods();
@@ -235,23 +256,31 @@ void housekeeping_task_screen_base(void) {
     }
 }
 
+// TODO only redraw if DPI / sniping DPI changed
+// TODO switch to event-based when dpi changed
 void housekeeping_task_screen_pointer(void) {
     // TODO dynamically get max DPI, instead of using hardcoded values
     static const uint16_t rel_max_dpi = 200 * 16;
-    float rel = (float)((dilemma_get_pointer_default_dpi()+200-400))*100/rel_max_dpi;
+    float                 rel         = (float)((dilemma_get_pointer_default_dpi() + 200 - 400)) * 100 / rel_max_dpi;
     lv_bar_set_value(ui_bar_dpi, (uint16_t)rel, LV_ANIM_OFF);
-    
+
     char dpi[50];
     sprintf(dpi, "DPI: %u", (uint16_t)dilemma_get_pointer_default_dpi());
     lv_label_set_text(ui_label_dpi, dpi);
 
     static const uint16_t rel_max_s_dpi = 100 * 4;
-    rel = (float)((dilemma_get_pointer_sniping_dpi()+100-200))*100/rel_max_s_dpi;
+    rel                                 = (float)((dilemma_get_pointer_sniping_dpi() + 100 - 200)) * 100 / rel_max_s_dpi;
     lv_bar_set_value(ui_bar_s_dpi, (uint16_t)rel, LV_ANIM_OFF);
-    
+
     char s_dpi[50];
-    sprintf(s_dpi, "Sniper DPI: %u",  (uint16_t)dilemma_get_pointer_sniping_dpi());
+    sprintf(s_dpi, "Sniper DPI: %u", (uint16_t)dilemma_get_pointer_sniping_dpi());
     lv_label_set_text(ui_label_s_dpi, s_dpi);
+
+    const bool sniping = dilemma_get_pointer_sniping_enabled();
+    if (sniping != last_sniping) {
+            lv_event_send(ui_switch_sniping, LV_EVENT_PRESSED, NULL);
+    }
+    last_sniping = sniping;
 }
 
 bool process_records_display(uint16_t keycode, keyrecord_t *record) {

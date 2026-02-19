@@ -23,20 +23,25 @@ extern lv_obj_t *ui_label_dpi;
 extern lv_obj_t *ui_bar_dpi;
 extern lv_obj_t *ui_label_s_dpi;
 extern lv_obj_t *ui_bar_s_dpi;
+extern lv_obj_t *ui_label_sniping;
+extern lv_obj_t *ui_switch_sniping;
 
 extern lv_style_t style_btn;
-extern uint8_t         last_mods;
+extern uint8_t    last_mods;
 
 void display_init(void);
 void style_init_mod_indicator(void);
 
 // void ui_layer_change(lv_event_t *e);
-void ui_init_layer_name(lv_obj_t *label, const char* layer_name);
+void ui_init_layer_name(lv_obj_t *label, const char *layer_name);
 void housekeeping_task_display(void);
 void housekeeping_task_screen_base(void);
 void housekeeping_task_screen_pointer(void);
+void housekeeping_task_screen_rgb(void);
 void ui_init_button_mod_indicator(lv_obj_t *label, int x, int y);
-void event_screen_base_update_mods(lv_event_t * e);
+
+void event_screen_base_update_mods(lv_event_t *e);
+void event_screen_pointer_sniping_toggle(lv_event_t *e);
 
 bool process_records_display(uint16_t keycode, keyrecord_t *record);
 
