@@ -79,7 +79,7 @@ void display_init(void) {
     ui_init_layer_name(ui_label_layer_name_pointer, "Pointer");
 
     lv_obj_t      *cont      = lv_obj_create(ui_screen_pointer);
-    lv_obj_set_size(cont, 240, 200); // todo
+    lv_obj_set_size(cont, 240, 240); // todo
     lv_obj_center(cont);
     lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW_WRAP);
 
