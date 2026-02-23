@@ -53,7 +53,8 @@ void display_init(void) {
     lv_obj_t *cont = lv_obj_create(ui_screen_base);
     lv_obj_set_size(cont, 240, 280); // todo change to screen height
     lv_obj_center(cont);
-    lv_obj_add_style(cont, &style_flex_container, 0);
+    lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW_WRAP);
+    // lv_obj_add_style(cont, &style_flex_container, 0);
 
     ui_label_layer_name_base = lv_label_create(cont);
     ui_init_layer_name(ui_label_layer_name_base, "Base");
