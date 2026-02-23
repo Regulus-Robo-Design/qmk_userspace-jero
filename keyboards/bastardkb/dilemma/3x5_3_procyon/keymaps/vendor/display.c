@@ -121,7 +121,7 @@ void display_init(void) {
     lv_obj_set_size(ui_label_sniping, 45, 20);
     ui_switch_sniping = lv_switch_create(cont);
     lv_obj_set_size(ui_switch_sniping, 40, 20);
-    lv_obj_add_event_cb(ui_switch_sniping, event_screen_pointer_sniping_toggle, LV_EVENT_ALL, NULL);D
+    lv_obj_add_event_cb(ui_switch_sniping, event_screen_pointer_sniping_toggle, LV_EVENT_ALL, NULL);
 
     ui_label_scroll = lv_label_create(cont);
     lv_label_set_text(ui_label_scroll, "Scroll");
