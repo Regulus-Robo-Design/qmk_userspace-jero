@@ -29,10 +29,12 @@ extern lv_obj_t *ui_label_scroll;
 extern lv_obj_t *ui_switch_scroll;
 
 extern lv_style_t style_btn;
+extern lv_style_t style_btn_pressed;
 extern uint8_t    last_mods;
 
 void display_init(void);
 void style_init_mod_indicator(void);
+void style_pressed_init_mod_indicator(void);
 
 // void ui_layer_change(lv_event_t *e);
 void ui_init_layer_name(lv_obj_t *label, const char *layer_name);

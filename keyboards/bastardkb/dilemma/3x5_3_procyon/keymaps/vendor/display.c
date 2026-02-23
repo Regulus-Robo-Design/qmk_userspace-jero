@@ -43,6 +43,7 @@ void display_init(void) {
     */
     ui_screen_base = lv_obj_create(NULL);
     style_init_mod_indicator();
+    style_pressed_init_mod_indicator();
 
     lv_obj_t *cont = lv_obj_create(ui_screen_base);
     lv_obj_set_size(cont, 240, 280); // todo change to screen height
@@ -101,6 +102,7 @@ void display_init(void) {
     ui_bar_dpi = lv_bar_create(cont);
     lv_obj_set_height(ui_bar_dpi, 20);
     lv_obj_set_flex_grow(ui_bar_dpi, 1); // take all remaining space in line
+    lv_obj_add_style(ui_bar_dpi, &style_btn, 0);
 
     ui_label_s_dpi = lv_label_create(cont);
     lv_label_set_text(ui_label_s_dpi, "Snip. DPI");
@@ -108,6 +110,7 @@ void display_init(void) {
     ui_bar_s_dpi = lv_bar_create(cont);
     lv_obj_set_height(ui_bar_s_dpi, 20);
     lv_obj_set_flex_grow(ui_bar_s_dpi, 1); // take all remaining space in line
+    lv_obj_add_style(ui_bar_s_dpi, &style_btn, 0);
 
     ui_label_sniping = lv_label_create(cont);
     lv_label_set_text(ui_label_sniping, "Snip");
@@ -116,6 +119,7 @@ void display_init(void) {
     ui_switch_sniping = lv_switch_create(cont);
     lv_obj_set_size(ui_switch_sniping, 40, 20);
     lv_obj_add_event_cb(ui_switch_sniping, event_screen_pointer_sniping_toggle, LV_EVENT_ALL, NULL);
+    lv_obj_add_style(ui_switch_sniping, &style_btn, 0);
 
     ui_label_scroll = lv_label_create(cont);
     lv_label_set_text(ui_label_scroll, "Scroll");
@@ -123,6 +127,7 @@ void display_init(void) {
     ui_switch_scroll = lv_switch_create(cont);
     lv_obj_set_size(ui_switch_scroll, 40, 20);
     lv_obj_add_event_cb(ui_switch_scroll, event_screen_pointer_scroll_toggle, LV_EVENT_ALL, NULL);
+    lv_obj_add_style(ui_switch_scroll, &style_btn, 0);
 
     /*
         Theme
@@ -146,13 +151,30 @@ void style_init_mod_indicator(void) {
     lv_style_set_bg_grad_color(&style_btn, lv_palette_darken(LV_PALETTE_TEAL, 1));
     lv_style_set_bg_grad_dir(&style_btn, LV_GRAD_DIR_VER);
     
-    lv_style_set_bg_color(&style_btn, lv_palette_lighten(LV_PALETTE_TEAL, 1), LV_STATE_PRESSED);
+    // lv_style_set_bg_color(&style_btn, lv_palette_lighten(LV_PALETTE_TEAL, 1), LV_STATE_PRESSED);
 
     lv_style_set_border_color(&style_btn, lv_palette_lighten(LV_PALETTE_TEAL, 1));
     lv_style_set_border_opa(&style_btn, LV_OPA_20);
     lv_style_set_border_width(&style_btn, 2);
 
     lv_style_set_text_color(&style_btn, lv_color_white());
+}
+
+void style_pressed_init_mod_indicator(void) {
+    /*Create a simple button style*/
+    lv_style_init(&style_btn_pressed);
+    lv_style_set_radius(&style_btn_pressed, 3);
+    lv_style_set_bg_opa(&style_btn_pressed, LV_OPA_COVER);
+
+    lv_style_set_bg_color(&style_btn_pressed, lv_palette_lighten(LV_PALETTE_TEAL, 5));
+    lv_style_set_bg_grad_color(&style_btn_pressed, lv_palette_lighten(LV_PALETTE_TEAL, 4));
+    lv_style_set_bg_grad_dir(&style_btn_pressed, LV_GRAD_DIR_VER);
+
+    lv_style_set_border_color(&style_btn_pressed, lv_palette_lighten(LV_PALETTE_TEAL, 1));
+    lv_style_set_border_opa(&style_btn_pressed, LV_OPA_20);
+    lv_style_set_border_width(&style_btn_pressed, 2);
+
+    lv_style_set_text_color(&style_btn_pressed, lv_color_white());
 }
 
 void ui_init_layer_name(lv_obj_t *label, const char *layer_name) {
@@ -169,6 +191,7 @@ void ui_init_button_mod_indicator(lv_obj_t *button, int x, int y) {
     // styles
     // lv_obj_remove_style_all(button);
     lv_obj_add_style(button, &style_btn, 0);
+    lv_obj_add_style(button, &style_btn_pressed, LV_STATE_PRESSED);
 
     // behaviour
     // lv_label_set_text(label, indicator_name);
