@@ -199,7 +199,7 @@ void ui_init_layer_name(lv_obj_t *label, const char *layer_name) {
 
 void style_flex_container_init(void){
     lv_style_set_bg_color(&style_flex_container, lv_color_black());
-    lv_obj_set_flex_flow(&style_flex_container, LV_FLEX_FLOW_ROW_WRAP);
+    lv_style_set_flex_flow(&style_flex_container, LV_FLEX_FLOW_ROW_WRAP);
     lv_style_set_bg_color(&style_flex_container, lv_color_black());
     lv_style_set_pad_row(&style_flex_container, 5);
 }
