@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "config.h"
 #include QMK_KEYBOARD_H
 
 enum dilemma_keymap_layers {
@@ -26,6 +27,7 @@ enum dilemma_keymap_layers {
     LAYER_POINTER,
     LAYER_NUMERAL,
     LAYER_SYMBOLS,
+    MAX_LAYERS,
 };
 
 // Automatically enable sniping-mode on the pointer layer.
@@ -46,11 +48,38 @@ enum dilemma_keymap_layers {
 #    define SNIPING KC_NO
 #endif // !POINTING_DEVICE_ENABLE
 
+// QP stuff
+#include "qp.h"
+#include "qp_comms.h"
+#include "qp_st77xx_opcodes.h"
+// #include "gfx/fonts.qff.h"
+#include "gfx/regular20.qff.h"
+#include "gfx/regular20grey.qff.h"
+#include "gfx/regular36.qff.h"
+#include "gfx/semibold36.qff.h"
+#include "gfx/jostmedium20.qff.h"
+#include "gfx/jostbold36.qff.h"
+#include "gfx/jostlight20.qff.h"
+#include "gfx/jostlight22.qff.h"
+#include "gfx/jostlight24.qff.h"
+#include "gfx/jostlight20grey.qff.h"
+#include "gfx/mods.qgf.h"
+#include "qp_surface.h"
+#include "keymap.h"
+#include "color.h"
+#include "display.h"
+
+painter_device_t        lcd;
+static painter_device_t surface;
+// Buffer required for a 240x280 16bpp surface:
+static uint8_t surface_buffer[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(LCD_WIDTH, LCD_HEIGHT, 16)];
+// end QP stuff
+
 // clang-format off
 /** \brief QWERTY layout (3 rows, 10 columns). */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_BASE] = LAYOUT_split_3x5_3(
-       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
+       KC_Q,    KC_W,    KC_E,    KC_CAPS,    DRG_TOG,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
        LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F), KC_G, KC_H, LSFT_T(KC_J), LCTL_T(KC_K), LALT_T(KC_L), LGUI_T(KC_QUOT),
        PT_Z,    RALT_T(KC_X),    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  RALT_T(KC_DOT), PT_SLSH,
                       ESC_MED, TAB_FUN, SPC_NAV, ENT_SYM, BSP_NUM, KC_MUTE
@@ -103,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * symmetrical to accomodate the left- and right-hand trackball.
  */
   [LAYER_MEDIA] = LAYOUT_split_3x5_3(
-    XXXXXXX,RGB_RMOD, RGB_TOG, RGB_MOD, XXXXXXX, XXXXXXX,RGB_RMOD, RGB_TOG, RGB_MOD, XXXXXXX,
+    XXXXXXX, RM_PREV, RM_TOGG, RM_NEXT, XXXXXXX, XXXXXXX, RM_PREV, RM_TOGG, RM_NEXT, XXXXXXX,
     KC_MPRV, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT, KC_MPRV, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                       _______, KC_MPLY, KC_MSTP, KC_MSTP, KC_MPLY, KC_MUTE
@@ -113,8 +142,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_POINTER] = LAYOUT_split_3x5_3(
     QK_BOOT,  EE_CLR, XXXXXXX, DPI_MOD, S_D_MOD, S_D_MOD, DPI_MOD, XXXXXXX,  EE_CLR, QK_BOOT,
     KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX, XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
-    _______, DRGSCRL, SNIPING, KC_BTN3, XXXXXXX, XXXXXXX, KC_BTN3, SNIPING, DRGSCRL, _______,
-                      KC_BTN3, KC_BTN2, KC_BTN1, KC_BTN1, KC_BTN2, KC_BTN3
+    _______, DRGSCRL, SNIPING, MS_BTN3, XXXXXXX, XXXXXXX, MS_BTN3, SNIPING, DRGSCRL, _______,
+                      MS_BTN3, MS_BTN2, MS_BTN1, MS_BTN1, MS_BTN2, MS_BTN3
   ),
 
 /**
@@ -159,13 +188,237 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #ifdef ENCODER_MAP_ENABLE
 // clang-format off
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [LAYER_BASE]       = {ENCODER_CCW_CW(KC_WH_D, KC_WH_U),  ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [LAYER_BASE]       = {ENCODER_CCW_CW(MS_WHLD, MS_WHLU),  ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [LAYER_FUNCTION]   = {ENCODER_CCW_CW(KC_DOWN, KC_UP),    ENCODER_CCW_CW(KC_LEFT, KC_RGHT)},
     [LAYER_NAVIGATION] = {ENCODER_CCW_CW(KC_PGDN, KC_PGUP),  ENCODER_CCW_CW(KC_VOLU, KC_VOLD)},
-    [LAYER_MEDIA] = {ENCODER_CCW_CW(KC_PGDN, KC_PGUP),  ENCODER_CCW_CW(KC_VOLU, KC_VOLD)},
-    [LAYER_POINTER]    = {ENCODER_CCW_CW(RGB_HUD, RGB_HUI),  ENCODER_CCW_CW(RGB_SAD, RGB_SAI)},
-    [LAYER_NUMERAL]    = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI),  ENCODER_CCW_CW(RGB_SPD, RGB_SPI)},
-    [LAYER_SYMBOLS]    = {ENCODER_CCW_CW(RGB_RMOD, RGB_MOD), ENCODER_CCW_CW(KC_LEFT, KC_RGHT)},
+    [LAYER_MEDIA]      = {ENCODER_CCW_CW(KC_PGDN, KC_PGUP),  ENCODER_CCW_CW(KC_VOLU, KC_VOLD)},
+    [LAYER_POINTER]    = {ENCODER_CCW_CW(RM_HUED, RM_HUEU),  ENCODER_CCW_CW(RM_SATD, RM_SATU)},
+    [LAYER_NUMERAL]    = {ENCODER_CCW_CW(RM_VALD, RM_VALU),  ENCODER_CCW_CW(RM_SPDD, RM_SPDU)},
+    [LAYER_SYMBOLS]    = {ENCODER_CCW_CW(RM_PREV, RM_NEXT),  ENCODER_CCW_CW(KC_LEFT, KC_RGHT)},
 };
+
 // clang-format on
 #endif // ENCODER_MAP_ENABLE
+
+void keyboard_post_init_user(void) {
+    // if (is_keyboard_left()) {
+    // Display timeout
+    wait_ms(LCD_WAIT_TIME);
+
+    lcd = qp_st7789_make_spi_device(LCD_WIDTH, LCD_HEIGHT, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, SPI_MODE);
+    qp_init(lcd, LCD_ROTATION);
+
+    surface = qp_make_rgb565_surface(LCD_WIDTH, LCD_HEIGHT, surface_buffer);
+    qp_init(surface, LCD_ROTATION);
+
+    // Display offset
+    qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
+
+    if(qp_lvgl_attach(lcd)){
+        display_init();
+    }
+
+    // load fonts
+    bk_font_layer    = qp_load_font_mem(font_jostbold36);
+    bk_font_menu     = qp_load_font_mem(font_jostlight22);
+    bk_font_menu_off = qp_load_font_mem(font_jostlight20grey);
+
+    // load bk logo animation
+    rect_mods = qp_load_image_mem(gfx_mods);
+    // my_anim = qp_animate(lcd, 0, 100, anim);
+
+    // Power on display, fill with black
+    qp_power(lcd, 1);
+    qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
+    qp_flush(lcd);
+
+    prev_layer = 99;
+}
+
+void housekeeping_task_user(void) {
+    housekeeping_task_display();
+}
+
+void bk_display_layer_name(int x, int y, int layer, painter_font_handle_t font) {
+    hsv_t color = _get_hsv_for_layer_index(layer);
+    // qp_rect(surface, 0, 0, BKS_LAYER_BAR_W, LCD_HEIGHT, color.h, color.s, color.v, true);
+    // qp_drawtext(surface, x, y, font, bk_layer_str(layer));
+    qp_drawtext_recolor(surface, x, y, font, bk_layer_str(layer), color.h, color.s, color.v, 0, 0, 0);
+}
+
+void bk_drawtext_off(int x, int y, painter_font_handle_t font, const char *str) {
+    qp_drawtext_recolor(surface, x, y, font, str, 210, 0, 140, 0, 0, 0);
+}
+
+int bk_display_layer_info(int x, int y, int layer, painter_font_handle_t font, bool rewrite_all) {
+    int current_y = y;
+    switch (layer) {
+        case LAYER_FUNCTION:
+            current_y = bk_display_info_base(x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
+            break;
+        case LAYER_NAVIGATION:
+            current_y = bk_display_info_base(x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
+            break;
+        case LAYER_MEDIA:
+            current_y = bk_display_info_media(x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
+            break;
+        case LAYER_POINTER:
+            current_y = bk_display_info_pointer(x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
+            break;
+        case LAYER_NUMERAL:
+            current_y = bk_display_info_base(x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
+            break;
+        case LAYER_SYMBOLS:
+            current_y = bk_display_info_base(x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
+            break;
+        case LAYER_BASE:
+        default:
+            current_y = bk_display_info_base(x, current_y, bk_font_menu, bk_font_menu_off, rewrite_all);
+            break;
+    }
+    return current_y;
+}
+
+int bk_display_info_media(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
+    int         current_y   = y;
+    uint8_t     rgb         = rgb_matrix_is_enabled();
+    int         mods_x      = 0;
+    const char *effect_name = rgb_matrix_get_mode_name(rgb_matrix_get_mode());
+
+    // on/off status
+    qp_drawtext(surface, x, current_y, font_on, "RGB");
+    mods_x = qp_textwidth(font_on, "RGB ") + x;
+
+    if (rgb) {
+        qp_drawtext(surface, mods_x, current_y, font_on, "On ");
+    } else {
+        bk_drawtext_off(mods_x, current_y, font_on, "Off");
+    }
+    current_y += font_on->line_height + 5;
+
+    // brightness level
+    qp_drawtext(surface, x, current_y, font_on, "Lux     ");
+    mods_x = qp_textwidth(font_on, "Lux ") + x;
+    char valc[50];
+    sprintf(valc, "%u", rgb_matrix_get_val());
+    bk_drawtext_off(mods_x, current_y, font_on, valc);
+    current_y += font_on->line_height + 5;
+
+    // effect name
+    bk_drawtext_off(x, current_y, font_on, effect_name);
+    current_y += font_on->line_height + 5;
+
+    return current_y;
+}
+
+int bk_display_info_pointer(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
+    int current_y = y;
+
+    // Mods
+    qp_drawtext(surface, x, current_y, font_on, "Mods");
+    int mods_x = qp_textwidth(font_on, "Mods ") + x;
+
+    if (dilemma_get_pointer_sniping_enabled()) {
+        qp_drawtext(surface, mods_x, current_y, font_on, "Snipe");
+    } else {
+        bk_drawtext_off(mods_x, current_y, font_on, "Snipe");
+    }
+    current_y += font_on->line_height + 10;
+    if (dilemma_get_pointer_dragscroll_enabled()) {
+        qp_drawtext(surface, mods_x, current_y, font_on, "Scroll");
+    } else {
+        bk_drawtext_off(mods_x, current_y, font_on, "Scroll");
+    }
+    current_y += font_on->line_height + 10;
+    // End Mods
+
+    // DPI info
+    char dpi[50];
+    sprintf(dpi, "%u", dilemma_get_pointer_default_dpi());
+    qp_drawtext(surface, x, current_y, font_on, "DPI");
+    mods_x = qp_textwidth(font_on, "DPI ") + x;
+    bk_drawtext_off(mods_x, current_y, font_on, dpi);
+    current_y += font_on->line_height + 5;
+
+    char s_dpi[50];
+    sprintf(s_dpi, "%u", dilemma_get_pointer_sniping_dpi());
+    qp_drawtext(surface, x, current_y, font_on, "SP. DPI");
+    mods_x = qp_textwidth(font_on, "SP. DPI ") + x;
+    bk_drawtext_off(mods_x, current_y, font_on, s_dpi);
+    current_y += font_on->line_height + 5;
+
+    // End DPI info
+
+    return current_y;
+}
+
+int bk_display_info_base(uint16_t x, uint16_t y, painter_font_handle_t font_on, painter_font_handle_t font_off, bool render_all) {
+    int     current_y       = y;
+    int     mod_column_size = 0;
+    uint8_t mods            = get_mods();
+
+    // Mods info
+    qp_drawtext(surface, x, current_y, font_on, "Mods");
+    int mods_x      = qp_textwidth(font_on, "Mods ") + x;
+    mod_column_size = qp_textwidth(font_on, "XXXXX");
+
+    // qp_drawimage(surface, mods_x, current_y, rect_mods);
+    if ((mods & MOD_MASK_GUI)) {
+        qp_drawtext(surface, mods_x, current_y, font_on, "Gui");
+    } else {
+        bk_drawtext_off(mods_x, current_y, font_on, "Gui");
+    }
+    if ((mods & MOD_MASK_ALT)) {
+        qp_drawtext(surface, mods_x + mod_column_size, current_y, font_on, "Alt");
+    } else {
+        bk_drawtext_off(mods_x + mod_column_size, current_y, font_on, "Alt");
+    }
+    current_y += font_on->line_height + 10;
+    if ((mods & MOD_MASK_CTRL)) {
+        qp_drawtext(surface, mods_x, current_y, font_on, "Ctrl");
+    } else {
+        bk_drawtext_off(mods_x, current_y, font_on, "Ctrl");
+    }
+    if ((mods & MOD_MASK_SHIFT)) {
+        qp_drawtext(surface, mods_x + mod_column_size, current_y, font_on, "Shft");
+    } else {
+        bk_drawtext_off(mods_x + mod_column_size, current_y, font_on, "Shft");
+    }
+
+    current_y += font_on->line_height + 10;
+    // End Mods section
+
+    // Lock info
+    qp_drawtext(surface, x, current_y, font_on, "Lock");
+
+    mods_x          = qp_textwidth(font_on, "Lock ") + x;
+    mod_column_size = qp_textwidth(font_on, "XXXXX");
+
+    if ((host_keyboard_led_state().caps_lock)) {
+        qp_drawtext(surface, mods_x, current_y, font_on, "Caps");
+    } else {
+        bk_drawtext_off(mods_x, current_y, font_on, "Caps");
+    }
+
+    if ((dilemma_get_pointer_dragscroll_enabled())) {
+        qp_drawtext(surface, mods_x + mod_column_size, current_y, font_on, "Scrl");
+    } else {
+        bk_drawtext_off(mods_x + mod_column_size, current_y, font_on, "Scrl");
+    }
+
+    current_y += font_on->line_height;
+
+    return current_y;
+    // End Lock info
+}
+
+const char *bk_layer_str(enum dilemma_keymap_layers layer) {
+    if (layer > MAX_LAYERS) {
+        layer = 0;
+    }
+    return layer_strings[layer];
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    return process_records_display(keycode, record);
+}
