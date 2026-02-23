@@ -24,6 +24,7 @@ lv_obj_t *ui_label_scroll;
 lv_obj_t *ui_switch_scroll;
 
 lv_style_t style_btn;
+lv_style_t style_btn_pressed;
 uint8_t    last_mods;
 uint8_t    mods;
 bool       last_sniping;
@@ -147,7 +148,7 @@ void style_init_mod_indicator(void) {
     lv_style_set_radius(&style_btn, 3);
     lv_style_set_bg_opa(&style_btn, LV_OPA_COVER);
 
-    lv_style_set_bg_color(&style_btn, lv_palette_darken(LV_PALETTE_TEAL, 2));
+    lv_style_set_bg_color(&style_btn, lv_palette_darken(LV_PALETTE_TEAL, 5));
     lv_style_set_bg_grad_color(&style_btn, lv_palette_darken(LV_PALETTE_TEAL, 1));
     lv_style_set_bg_grad_dir(&style_btn, LV_GRAD_DIR_VER);
     
