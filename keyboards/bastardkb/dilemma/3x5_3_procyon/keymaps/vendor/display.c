@@ -148,13 +148,13 @@ void style_init_mod_indicator(void) {
     lv_style_set_radius(&style_btn, 3);
     lv_style_set_bg_opa(&style_btn, LV_OPA_COVER);
 
-    lv_style_set_bg_color(&style_btn, lv_palette_darken(LV_PALETTE_TEAL, 1));
-    lv_style_set_bg_grad_color(&style_btn, lv_palette_darken(LV_PALETTE_TEAL, 3));
+    lv_style_set_bg_color(&style_btn, lv_palette_darken(LV_PALETTE_PINK, 1));
+    lv_style_set_bg_grad_color(&style_btn, lv_palette_darken(LV_PALETTE_PINK, 3));
     lv_style_set_bg_grad_dir(&style_btn, LV_GRAD_DIR_VER);
     
-    // lv_style_set_bg_color(&style_btn, lv_palette_lighten(LV_PALETTE_TEAL, 1), LV_STATE_PRESSED);
+    // lv_style_set_bg_color(&style_btn, lv_palette_lighten(LV_PALETTE_PINK, 1), LV_STATE_PRESSED);
 
-    lv_style_set_border_color(&style_btn, lv_palette_lighten(LV_PALETTE_TEAL, 1));
+    lv_style_set_border_color(&style_btn, lv_palette_lighten(LV_PALETTE_PINK, 1));
     lv_style_set_border_opa(&style_btn, LV_OPA_20);
     lv_style_set_border_width(&style_btn, 2);
 
@@ -167,11 +167,11 @@ void style_pressed_init_mod_indicator(void) {
     lv_style_set_radius(&style_btn_pressed, 3);
     lv_style_set_bg_opa(&style_btn_pressed, LV_OPA_COVER);
 
-    lv_style_set_bg_color(&style_btn_pressed, lv_palette_lighten(LV_PALETTE_TEAL, 3));
-    lv_style_set_bg_grad_color(&style_btn_pressed, lv_palette_lighten(LV_PALETTE_TEAL, 1));
+    lv_style_set_bg_color(&style_btn_pressed, lv_palette_lighten(LV_PALETTE_PINK, 3));
+    lv_style_set_bg_grad_color(&style_btn_pressed, lv_palette_lighten(LV_PALETTE_PINK, 1));
     lv_style_set_bg_grad_dir(&style_btn_pressed, LV_GRAD_DIR_VER);
 
-    lv_style_set_border_color(&style_btn_pressed, lv_palette_lighten(LV_PALETTE_TEAL, 1));
+    lv_style_set_border_color(&style_btn_pressed, lv_palette_lighten(LV_PALETTE_PINK, 1));
     lv_style_set_border_opa(&style_btn_pressed, LV_OPA_20);
     lv_style_set_border_width(&style_btn_pressed, 2);
 
@@ -179,9 +179,10 @@ void style_pressed_init_mod_indicator(void) {
 }
 
 void style_bar_init(void) {
-    lv_style_set_border_color(&style_bar, lv_palette_lighten(LV_PALETTE_TEAL, 1));
+    lv_style_set_border_color(&style_bar, lv_palette_lighten(LV_PALETTE_PINK, 1));
     lv_style_set_radius(&style_bar, 3);
-    lv_style_set_bg_color(&style_bar, lv_palette_darken(LV_PALETTE_TEAL, 3));
+    lv_style_set_radius(&style_bar, 6);
+    lv_style_set_bg_color(&style_bar, lv_palette_darken(LV_PALETTE_PINK, 3));
 }
 
 void ui_init_layer_name(lv_obj_t *label, const char *layer_name) {
