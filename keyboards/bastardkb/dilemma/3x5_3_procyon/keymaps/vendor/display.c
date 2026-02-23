@@ -26,6 +26,7 @@ lv_obj_t *ui_switch_scroll;
 lv_style_t style_btn;
 lv_style_t style_bar;
 lv_style_t style_btn_pressed;
+lv_style_t style_flex_container;
 uint8_t    last_mods;
 uint8_t    mods;
 bool       last_sniping;
@@ -47,11 +48,12 @@ void display_init(void) {
     style_init_mod_indicator();
     style_pressed_init_mod_indicator();
     style_bar_init();
+    style_flex_container_init();
 
     lv_obj_t *cont = lv_obj_create(ui_screen_base);
     lv_obj_set_size(cont, 240, 280); // todo change to screen height
     lv_obj_center(cont);
-    lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW_WRAP);
+    lv_obj_add_style(cont, &style_flex_container, 0);
 
     ui_label_layer_name_base = lv_label_create(cont);
     ui_init_layer_name(ui_label_layer_name_base, "Base");
@@ -92,8 +94,7 @@ void display_init(void) {
 
     // cont      = lv_obj_create(ui_screen_pointer);
     lv_obj_set_size(cont, 240, 280); // todo change to screen height
-    lv_obj_center(cont);
-    lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW_WRAP);
+    lv_obj_add_style(cont, &style_flex_container, 0);
 
     // ui_label_layer_name_pointer = lv_label_create(cont);
     // ui_init_layer_name(ui_label_layer_name_pointer, "Pointer");
@@ -164,7 +165,7 @@ void style_init_mod_indicator(void) {
 void style_pressed_init_mod_indicator(void) {
     /*Create a simple button style*/
     lv_style_init(&style_btn_pressed);
-    lv_style_set_radius(&style_btn_pressed, 3);
+    lv_style_set_radius(&style_btn_pressed, 2;
     lv_style_set_bg_opa(&style_btn_pressed, LV_OPA_COVER);
 
     lv_style_set_bg_color(&style_btn_pressed, lv_palette_lighten(LV_PALETTE_PINK, 3));
@@ -193,6 +194,13 @@ void ui_init_layer_name(lv_obj_t *label, const char *layer_name) {
     lv_obj_set_x(label, 0);
     lv_obj_set_y(label, 20);
     lv_obj_set_align(label, LV_ALIGN_TOP_MID);
+}
+
+
+void style_flex_container_init(void){
+    lv_style_set_bg_color(&style_flex_container, lv_color_black());
+    lv_obj_set_flex_flow(&style_flex_container, LV_FLEX_FLOW_ROW_WRAP);
+    lv_style_set_bg_color(&style_flex_container, lv_color_black());
 }
 
 void ui_init_button_mod_indicator(lv_obj_t *button, int x, int y) {
