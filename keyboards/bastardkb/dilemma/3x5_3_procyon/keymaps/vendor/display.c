@@ -165,7 +165,7 @@ void style_init_mod_indicator(void) {
 void style_pressed_init_mod_indicator(void) {
     /*Create a simple button style*/
     lv_style_init(&style_btn_pressed);
-    lv_style_set_radius(&style_btn_pressed, 2;
+    lv_style_set_radius(&style_btn_pressed, 2);
     lv_style_set_bg_opa(&style_btn_pressed, LV_OPA_COVER);
 
     lv_style_set_bg_color(&style_btn_pressed, lv_palette_lighten(LV_PALETTE_PINK, 3));
@@ -201,6 +201,7 @@ void style_flex_container_init(void){
     lv_style_set_bg_color(&style_flex_container, lv_color_black());
     lv_obj_set_flex_flow(&style_flex_container, LV_FLEX_FLOW_ROW_WRAP);
     lv_style_set_bg_color(&style_flex_container, lv_color_black());
+    lv_style_set_pad_row(&style_flex_container, 5);
 }
 
 void ui_init_button_mod_indicator(lv_obj_t *button, int x, int y) {
