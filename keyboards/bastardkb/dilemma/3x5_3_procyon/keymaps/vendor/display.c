@@ -139,7 +139,7 @@ void display_init(void) {
 void style_init_mod_indicator(void) {
     /*Create a simple button style*/
     lv_style_init(&style_btn);
-    lv_style_set_radius(&style_btn, 5);
+    lv_style_set_radius(&style_btn, 3);
     lv_style_set_bg_opa(&style_btn, LV_OPA_COVER);
     lv_style_set_bg_color(&style_btn, lv_palette_lighten(LV_PALETTE_DEEP_PURPLE, 1));
     lv_style_set_bg_grad_color(&style_btn, lv_palette_main(LV_PALETTE_DEEP_PURPLE));
@@ -164,8 +164,8 @@ void ui_init_layer_name(lv_obj_t *label, const char *layer_name) {
 
 void ui_init_button_mod_indicator(lv_obj_t *button, int x, int y) {
     // styles
-    // lv_obj_remove_style_all(button);
-    // lv_obj_add_style(button, &style_btn, 0);
+    lv_obj_remove_style_all(button);
+    lv_obj_add_style(button, &style_btn, 0);
 
     // behaviour
     // lv_label_set_text(label, indicator_name);
