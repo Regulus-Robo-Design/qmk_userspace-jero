@@ -1,5 +1,6 @@
 #include "logo.h"
-#include "logo_frames.c"
+#include "logo_frames.h"
+#include "lvgl.h"
 
 void logo_show_frame(void)
 {
