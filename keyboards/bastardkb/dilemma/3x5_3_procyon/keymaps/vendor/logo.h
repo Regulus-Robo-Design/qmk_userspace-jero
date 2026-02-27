@@ -3,7 +3,7 @@
 
 #include "lvgl.h"
 
-// Función para mostrar el logo al inicio por unos segundos
+// Función para mostrar el logo
 void logo_show_frame(void);
 
 #endif // LOGO_H

@@ -5,7 +5,7 @@
 void logo_show_frame(void)
 {
     lv_obj_t *img = lv_img_create(lv_scr_act());
-    lv_img_set_src(img, &logo_img);
+    lv_img_set_src(img, &logo_img); // usar logo_img definido en logo_frames.c
     lv_obj_center(img);
 
     lv_timer_handler();
