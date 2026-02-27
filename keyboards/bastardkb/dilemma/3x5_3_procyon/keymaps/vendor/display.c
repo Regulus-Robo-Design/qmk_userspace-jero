@@ -47,8 +47,8 @@ void display_init(void) {
     */
 
 
-    // Mostrar logo al inicio
-    logo_show_frame();  // <<== llamada única aquí
+    
+  
 
 
 
