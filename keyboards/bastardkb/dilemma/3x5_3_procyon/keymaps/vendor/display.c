@@ -45,6 +45,13 @@ void display_init(void) {
     /*
         Base layer screen
     */
+
+
+    // Mostrar logo al inicio
+    logo_show_frame();  // <<== llamada única aquí
+
+
+
     ui_screen_base = lv_obj_create(NULL);
     style_init_mod_indicator();
     style_pressed_init_mod_indicator();
@@ -90,7 +97,8 @@ void display_init(void) {
 
 
 
-    logo_create(ui_screen_base);
+
+
 
 
 
@@ -296,7 +304,7 @@ void housekeeping_task_display(void) {
     last_mods  = mods;
     prev_layer = layer;
 
-    logo_update();
+  
 }
 
 // TODO only redraw if rgb changed

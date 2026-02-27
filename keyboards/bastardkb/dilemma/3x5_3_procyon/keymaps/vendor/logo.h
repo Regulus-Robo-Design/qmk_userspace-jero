@@ -1,5 +1,9 @@
-#pragma once
+#ifndef LOGO_H
+#define LOGO_H
+
 #include "lvgl.h"
 
-void logo_create(lv_obj_t *parent);
-void logo_update(void);
+// Muestra el logo unos segundos y luego lo borra
+void logo_show_frame(void);
+
+#endif // LOGO_H
