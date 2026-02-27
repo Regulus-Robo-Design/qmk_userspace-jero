@@ -22,6 +22,7 @@ SRC += gfx/jostbold36.qff.c
 SRC += gfx/mods.qgf.c
 SRC += display.c
 SRC += logo.c
+SRC += logo_frames.c
 
 BACKLIGHT_ENABLE = yes
 BACKLIGHT_DRIVER = pwm
