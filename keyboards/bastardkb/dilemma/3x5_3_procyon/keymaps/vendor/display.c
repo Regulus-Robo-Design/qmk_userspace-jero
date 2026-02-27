@@ -1,5 +1,6 @@
 #include "display.h"
 #include "quantum.h"
+#include "logo.h"
 
 lv_obj_t *ui_screen_base;
 lv_obj_t *ui_screen_pointer;
@@ -86,6 +87,13 @@ void display_init(void) {
 
     // display base layer screen upon init
     lv_disp_load_scr(ui_screen_base);
+
+
+
+    logo_create(ui_screen_base);
+
+
+
 
     /*
         Pointer screen
@@ -287,6 +295,8 @@ void housekeeping_task_display(void) {
 
     last_mods  = mods;
     prev_layer = layer;
+
+    logo_update();
 }
 
 // TODO only redraw if rgb changed
