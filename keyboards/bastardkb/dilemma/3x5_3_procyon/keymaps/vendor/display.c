@@ -47,7 +47,7 @@ void display_init(void) {
     */
 
 
-    
+    //logo_show_frame();
   
 
 
