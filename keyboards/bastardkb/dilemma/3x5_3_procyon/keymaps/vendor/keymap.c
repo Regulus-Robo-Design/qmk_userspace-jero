@@ -239,7 +239,7 @@ void keyboard_post_init_user(void) {
 
 
 
-logo_show_frame(2000);
+    logo_show_frame(5000);
 
 
     prev_layer = 99;
