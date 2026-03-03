@@ -203,6 +203,10 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 void keyboard_post_init_user(void) {
     // if (is_keyboard_left()) {
     // Display timeout
+
+
+    logo_show_frame(2000);
+
     wait_ms(LCD_WAIT_TIME);
 
     lcd = qp_st7789_make_spi_device(LCD_WIDTH, LCD_HEIGHT, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, SPI_MODE);
