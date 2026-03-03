@@ -530,6 +530,6 @@ const lv_img_dsc_t logo_img1 = {
     .header.w = 240,          // ancho en píxeles
     .header.h = 240,           // alto en píxeles
     .header.cf = LV_IMG_CF_TRUE_COLOR, // tipo de color
-    .data_size = sizeof(m001_map),
-    .data = m001_map,
+    .data_size = sizeof(n001_map),
+    .data = n001_map,
 };
