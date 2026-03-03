@@ -1,7 +1,9 @@
 #ifndef LOGO_H
 #define LOGO_H
 
-// Función para mostrar el logo
-void logo_show_frame(void);
+#include "lvgl.h"
+
+// Muestra el logo durante `ms` milisegundos sin bloquear
+void logo_show_frame(uint32_t ms);
 
 #endif // LOGO_H
