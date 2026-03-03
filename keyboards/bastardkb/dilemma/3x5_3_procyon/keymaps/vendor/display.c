@@ -1,6 +1,5 @@
 #include "display.h"
 #include "quantum.h"
-#include "logo.h"
 
 lv_obj_t *ui_screen_base;
 lv_obj_t *ui_screen_pointer;
@@ -46,12 +45,6 @@ void display_init(void) {
         Base layer screen
     */
 
-
-    //logo_show_frame(2000);
-  
-
-
-
     ui_screen_base = lv_obj_create(NULL);
     style_init_mod_indicator();
     style_pressed_init_mod_indicator();
@@ -94,14 +87,6 @@ void display_init(void) {
 
     // display base layer screen upon init
     lv_disp_load_scr(ui_screen_base);
-
-
-
-
-
-
-
-
 
     /*
         Pointer screen
