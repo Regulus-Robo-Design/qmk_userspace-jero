@@ -221,7 +221,7 @@ void keyboard_post_init_user(void) {
 
     if(qp_lvgl_attach(lcd)){
         display_init();
-        //logo_show_frame(5000);
+        logo_show_frame(5000);
     }
 
     // load fonts
