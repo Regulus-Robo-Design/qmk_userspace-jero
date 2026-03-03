@@ -224,7 +224,7 @@ void keyboard_post_init_user(void) {
         //logo_show_frame(5000);
         //logo_play_animation(5000, 2);
           logo_init();
-          logo_next_frame();
+        
 
     }
 
