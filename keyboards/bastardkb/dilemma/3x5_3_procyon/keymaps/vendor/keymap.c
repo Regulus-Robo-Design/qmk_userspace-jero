@@ -205,7 +205,7 @@ void keyboard_post_init_user(void) {
     // Display timeout
 
 
-    logo_show_frame(2000);
+    
 
     wait_ms(LCD_WAIT_TIME);
 
@@ -235,6 +235,11 @@ void keyboard_post_init_user(void) {
     qp_power(lcd, 1);
     qp_rect(lcd, 0, 0, 300, 300, HSV_BLACK, 1);
     qp_flush(lcd);
+
+
+
+logo_show_frame(2000);
+
 
     prev_layer = 99;
 }
