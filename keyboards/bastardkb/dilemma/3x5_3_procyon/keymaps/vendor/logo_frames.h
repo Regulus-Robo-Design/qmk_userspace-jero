@@ -1,9 +1,9 @@
-#pragma once
+#ifndef LOGO_FRAMES_H
+#define LOGO_FRAMES_H
+
 #include "lvgl.h"
 
-// Declaración de los frames de prueba
-extern const lv_img_dsc_t logo_img;  // imagen base
+extern const lv_img_dsc_t logo_img;
+extern const lv_img_dsc_t logo_img1;
 
-// Array de punteros a frames
-extern const lv_img_dsc_t* logo_frames[];
-extern const uint8_t logo_frame_count;
+#endif
