@@ -68,6 +68,7 @@ enum dilemma_keymap_layers {
 #include "keymap.h"
 #include "color.h"
 #include "display.h"
+#include "logo.h"
 
 painter_device_t        lcd;
 static painter_device_t surface;
