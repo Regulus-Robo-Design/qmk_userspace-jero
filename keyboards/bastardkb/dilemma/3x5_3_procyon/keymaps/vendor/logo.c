@@ -38,5 +38,5 @@ void logo_init(void)
     current_frame = 0;
 
     // Crear timer (200 ms entre frames)
-    logo_timer = lv_timer_create(logo_timer_cb, 5000, NULL);
+    logo_timer = lv_timer_create(logo_timer_cb, 10, NULL);
 }
